@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Tshirts extends Artigo{
     
     private char tamanho; // s - S // m - M // l - L // x - XL
@@ -48,5 +50,21 @@ public class Tshirts extends Artigo{
     public void setPadrao(char padrao){
         this.padrao=padrao;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Tshirts tshirts = (Tshirts) o;
+        return tamanho == tshirts.tamanho && padrao == tshirts.padrao;
+    }
+
+    @Override
+    public String toString() {
+        return "Tshirts{" +
+                "tamanho=" + tamanho +
+                ", padrao=" + padrao +
+                '}';
+    }
 }

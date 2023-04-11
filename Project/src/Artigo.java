@@ -94,4 +94,26 @@ public class Artigo {
     public void setNDonos(int n_donos){
         this.n_donos=n_donos;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Artigo{" +
+                "descricao='" + descricao + '\'' +
+                ", marca='" + marca + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", preco_base=" + preco_base +
+                ", desconto=" + desconto +
+                ", estado=" + estado +
+                ", n_donos=" + n_donos +
+                '}';
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        Artigo artigo = (Artigo) object;
+        return java.lang.Double.compare(artigo.preco_base, preco_base) == 0 && java.lang.Double.compare(artigo.desconto, desconto) == 0 && estado == artigo.estado && n_donos == artigo.n_donos && java.util.Objects.equals(descricao, artigo.descricao) && java.util.Objects.equals(marca, artigo.marca) && java.util.Objects.equals(codigo, artigo.codigo);
+    }
+
 }

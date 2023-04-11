@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 public class Sapatilhas extends Artigo{
     
@@ -129,6 +130,26 @@ public class Sapatilhas extends Artigo{
 
     public void setEPremium(boolean e_premium){
         this.e_premium=e_premium;
+    }
+
+    @Override
+    public String toString() {
+        return "Sapatilhas{" +
+                "n_tamanho=" + n_tamanho +
+                ", tem_atacadores=" + tem_atacadores +
+                ", cor='" + cor + '\'' +
+                ", data_lancamento='" + data_lancamento + '\'' +
+                ", e_premium=" + e_premium +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Sapatilhas that = (Sapatilhas) o;
+        return Double.compare(that.n_tamanho, n_tamanho) == 0 && tem_atacadores == that.tem_atacadores && e_premium == that.e_premium && Objects.equals(cor, that.cor) && Objects.equals(data_lancamento, that.data_lancamento);
     }
 
 }

@@ -5,4 +5,6 @@ public class Utilizadores {
     private String nome;
     private String morada;
     private String nif;
+
+
 }
