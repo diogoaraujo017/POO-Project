@@ -4,7 +4,7 @@ public class Artigo {
     private String marca;
     private String codigo;
     private double preco_base;
-    private double desconto;
+    private double preco_final;
     private char estado; // n - artigo novo // a - artigo usado (como novo) // b - artigo usado (bom estado) // c - artigo usado (estado médio/mau)
     private int n_donos;
 
@@ -13,17 +13,17 @@ public class Artigo {
         this.marca = null;
         this.codigo = null;
         this.preco_base = 0.00;
-        this.desconto = 0.00;
+        this.preco_final = 0.00;
         this.estado = ' ';
         this.n_donos=0;
     }
 
-    public Artigo (String descricao, String marca, String codigo, double preco_base, double desconto, char estado, int n_donos){
+    public Artigo (String descricao, String marca, String codigo, double preco_base, double preco_final, char estado, int n_donos){
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = codigo;
         this.preco_base = preco_base;
-        this.desconto = desconto;
+        this.preco_final = preco_final;
         this.estado = estado;
         this.n_donos = n_donos;
     }
@@ -33,7 +33,7 @@ public class Artigo {
         this.marca = artigo.getMarca();
         this.codigo = artigo.getCodigo();
         this.preco_base = artigo.getPrecoBase();
-        this.desconto = artigo.getDesconto();
+        this.preco_final = artigo.getPrecoFinal();
         this.estado = artigo.getEstado();
         this.n_donos = artigo.getNDonos();
     }
@@ -54,8 +54,8 @@ public class Artigo {
         return this.preco_base;
     }
 
-    public double getDesconto(){
-        return this.desconto;
+    public double getPrecoFinal(){
+        return this.preco_final;
     }
 
     public char getEstado(){
@@ -83,8 +83,8 @@ public class Artigo {
         this.preco_base=preco_base;
     }
 
-    public void setDescricao(double desconto){
-        this.desconto=desconto;
+    public void setPrecoFinal(double preco_final){
+        this.preco_final=preco_final;
     }
 
     public void setEstado(char estado){
@@ -95,25 +95,36 @@ public class Artigo {
         this.n_donos=n_donos;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Artigo{" +
-                "descricao='" + descricao + '\'' +
-                ", marca='" + marca + '\'' +
-                ", codigo='" + codigo + '\'' +
-                ", preco_base=" + preco_base +
-                ", desconto=" + desconto +
-                ", estado=" + estado +
-                ", n_donos=" + n_donos +
-                '}';
+
+    public boolean equals(Object obj){
+
+        if(obj==this) return true;
+
+        if(obj==null || obj.getClass()!=this.getClass()) return false;
+
+        Sapatilhas e = (Sapatilhas) obj;
+        return e.getDescricao().equals(this.descricao) &&
+               e.getMarca().equals(this.marca) &&
+               e.getCodigo().equals(this.codigo) &&
+               e.getPrecoBase()==(this.preco_base) &&
+               e.getPrecoFinal()==(this.preco_final) &&
+               e.getEstado()==(this.estado) &&
+               e.getNDonos()==(this.n_donos);
     }
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        Artigo artigo = (Artigo) object;
-        return java.lang.Double.compare(artigo.preco_base, preco_base) == 0 && java.lang.Double.compare(artigo.desconto, desconto) == 0 && estado == artigo.estado && n_donos == artigo.n_donos && java.util.Objects.equals(descricao, artigo.descricao) && java.util.Objects.equals(marca, artigo.marca) && java.util.Objects.equals(codigo, artigo.codigo);
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Artigo: {");
+        sb.append("Descrição: ").append(this.descricao);
+        sb.append("; Marca: ").append(this.marca);
+        sb.append("; Código: ").append(this.codigo);
+        sb.append("; Preço Base: ").append(this.preco_base);
+        sb.append("; Preço Final: ").append(this.preco_final);
+        sb.append("; Estado: ").append(this.estado);
+        sb.append("; Número de donos: ").append(this.n_donos);
+        sb.append("}");
+
+        return sb.toString();
     }
 
 }

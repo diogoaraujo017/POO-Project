@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Tshirts extends Artigo{
     
     private char tamanho; // s - S // m - M // l - L // x - XL
@@ -23,7 +21,7 @@ public class Tshirts extends Artigo{
         this.padrao=tshirts.getPadrao();
     }
 
-    public double calcula_valor_final_tshirts(Tshirts ts){
+    public void calcula_valor_final_tshirts(Tshirts ts){
         char padrao = ts.getPadrao();
         double preco_final = ts.getPrecoBase();
 
@@ -31,7 +29,7 @@ public class Tshirts extends Artigo{
             preco_final=preco_final*0.50;
         }
 
-        return preco_final;
+        setPrecoFinal(preco_final);
     }
 
     public char getTamanho(){
@@ -51,20 +49,26 @@ public class Tshirts extends Artigo{
         this.padrao=padrao;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Tshirts tshirts = (Tshirts) o;
-        return tamanho == tshirts.tamanho && padrao == tshirts.padrao;
+
+    public boolean equals(Object obj){
+
+        if(obj==this) return true;
+
+        if(obj==null || obj.getClass()!=this.getClass()) return false;
+        if (!super.equals(obj)) return false;
+
+        Tshirts e = (Tshirts) obj;
+        return e.getTamanho()==(this.tamanho) &&
+               e.getPadrao()==(this.padrao);
     }
 
-    @Override
     public String toString() {
-        return "Tshirts{" +
-                "tamanho=" + tamanho +
-                ", padrao=" + padrao +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tshirt: {");
+        sb.append("Tamanho: ").append(this.tamanho);
+        sb.append("; Padrão: ").append(this.padrao);
+        sb.append("}");
+
+        return sb.toString();
     }
 }

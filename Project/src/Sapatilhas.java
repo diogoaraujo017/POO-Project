@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Objects;
 
 public class Sapatilhas extends Artigo{
     
@@ -49,7 +48,7 @@ public class Sapatilhas extends Artigo{
         return diferenca.getYears();
     }
 
-    public double calcula_valor_final_sapatilhas(Sapatilhas sp){
+    public void calcula_valor_final_sapatilhas(Sapatilhas sp){
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
         char estado = sp.getEstado();
@@ -88,7 +87,8 @@ public class Sapatilhas extends Artigo{
                 }
             }
         }
-        return preco_final;
+        if(preco_final<=10) preco_final=10;
+        setPrecoFinal(preco_final);
     }
     
     public double getNTamanho(){
@@ -132,24 +132,37 @@ public class Sapatilhas extends Artigo{
         this.e_premium=e_premium;
     }
 
-    @Override
-    public String toString() {
-        return "Sapatilhas{" +
-                "n_tamanho=" + n_tamanho +
-                ", tem_atacadores=" + tem_atacadores +
-                ", cor='" + cor + '\'' +
-                ", data_lancamento='" + data_lancamento + '\'' +
-                ", e_premium=" + e_premium +
-                '}';
+
+    public boolean equals(Object obj){
+
+        if(obj==this) return true;
+
+        if(obj==null || obj.getClass()!=this.getClass()) return false;
+        if (!super.equals(obj)) return false;
+
+        Sapatilhas e = (Sapatilhas) obj;
+        return e.getNTamanho()==(this.n_tamanho) &&
+               e.getTemAtacadores()==(this.tem_atacadores) && 
+               e.getCor().equals(this.cor) && 
+               e.getDataLancamento().equals(this.data_lancamento) && 
+               e.getEPremium()==(this.e_premium);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Sapatilhas that = (Sapatilhas) o;
-        return Double.compare(that.n_tamanho, n_tamanho) == 0 && tem_atacadores == that.tem_atacadores && e_premium == that.e_premium && Objects.equals(cor, that.cor) && Objects.equals(data_lancamento, that.data_lancamento);
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sapatilhas: {");
+        sb.append("Tamanho: ").append(this.n_tamanho);
+        sb.append("; Atacadores: ");
+        if(this.tem_atacadores)sb.append("Sim");
+        else sb.append("Não");
+        sb.append("; Cor: ").append(this.cor);
+        sb.append("; Data de Lançamento: ").append(this.data_lancamento);
+        sb.append("; Premium: ");
+        if(this.e_premium)sb.append("Sim");
+        else sb.append("Não");
+        sb.append("}");
+
+        return sb.toString();
     }
 
 }
