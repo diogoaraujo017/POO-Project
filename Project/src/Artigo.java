@@ -18,12 +18,12 @@ public class Artigo {
         this.n_donos=0;
     }
 
-    public Artigo (String descricao, String marca, String codigo, double preco_base, double preco_final, char estado, int n_donos){
+    public Artigo (String descricao, String marca, String codigo, double preco_base, char estado, int n_donos){
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = codigo;
         this.preco_base = preco_base;
-        this.preco_final = preco_final;
+        this.preco_final = preco_base;
         this.estado = estado;
         this.n_donos = n_donos;
     }
@@ -93,6 +93,10 @@ public class Artigo {
 
     public void setNDonos(int n_donos){
         this.n_donos=n_donos;
+    }
+
+    public Artigo clone(){
+        return new Artigo(this);
     }
 
 
