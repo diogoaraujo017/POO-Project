@@ -34,10 +34,14 @@ public class Encomenda {
 
     public void adicionarArtigoEncomenda(Artigo art){
         artigos.add(art.clone());
+        int dim = getDimensao();
+        setDimensao(dim++);
     }
 
     public void removerArtigoEncomenda(Artigo art){
         artigos.remove(art);
+        int dim = getDimensao();
+        setDimensao(dim--);
     }
 
     public void devolverEncomenda(Encomenda enc){
@@ -45,6 +49,7 @@ public class Encomenda {
 
         if(enc.estado=='e' && dias_diferenca>=2){ // pode devolver a encomenda
             setArtigos(artigos);
+            setDimensao(0);
         }
     }
 
