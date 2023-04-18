@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Utilizadores {
     
@@ -9,9 +10,9 @@ public class Utilizadores {
     private String nome;
     private String morada;
     private String nif;
-    private List <Artigo> lista_vendeu;
-    private List <Artigo> lista_venda;
-    private List <Artigo> lista_compra;
+    private List <Artigo> produtosVendidos;
+    private List <Artigo> produtosLoja;
+    private List <Artigo> produtosComprou;
 
     Utilizadores(){
         this.codigo=null;
@@ -19,43 +20,37 @@ public class Utilizadores {
         this.nome=null;
         this.morada=null;
         this.nif=null;
-        this.lista_vendeu=new ArrayList<>();
-        this.lista_venda=new ArrayList<>();
-        this.lista_compra=new ArrayList<>();
+        this.produtosVendidos=new ArrayList<>();
+        this.produtosLoja=new ArrayList<>();
+        this.produtosComprou=new ArrayList<>();
     }
 
-    Utilizadores(String email, String nome, String morada, String nif, List <Artigo> lista_vendeu, List <Artigo> lista_venda, List <Artigo> lista_compra){
+    Utilizadores(String email, String nome, String morada, String nif, List <Artigo> produtosVendidos,
+                 List <Artigo> produtosLoja, List <Artigo> produtosComprou){
+
         this.codigo=UUID.randomUUID().toString(); // gera um código hexadecimal com 36 caracteres único para cada um dos utilizadores
         this.email=email;
         this.nome=nome;
         this.morada=morada;
         this.nif=nif;
-        this.lista_vendeu=new ArrayList<>();
-        this.lista_venda=new ArrayList<>();
-        this.lista_compra=new ArrayList<>();
-
-        for(Artigo i : lista_vendeu){
-            this.lista_vendeu.add(i.clone());
-        }
-
-        for(Artigo i : lista_venda){
-            this.lista_venda.add(i.clone());
-        }
-
-        for(Artigo i : lista_compra){
-            this.lista_compra.add(i.clone());
-        }
+        this.produtosVendidos=new ArrayList<>();
+        this.produtosLoja=new ArrayList<>();
+        this.produtosComprou=new ArrayList<>();
+        this.produtosVendidos = produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
+        this.produtosLoja = produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
+        this.produtosComprou = produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     Utilizadores(Utilizadores ut){
-        this.codigo=ut.getCodigo();
-        this.email=ut.getEmail();
-        this.nome=ut.getNome();
-        this.morada=ut.getMorada();
-        this.nif=ut.getNif();
-        this.lista_vendeu=ut.getListaVendeu();
-        this.lista_venda=ut.getListaVenda();
-        this.lista_compra=ut.getListaCompra();
+
+        this.codigo = ut.getCodigo();
+        this.email = ut.getEmail();
+        this.nome = ut.getNome();
+        this.morada = ut.getMorada();
+        this.nif = ut.getNif();
+        this.produtosVendidos = ut.getProdutosVendidos();
+        this.produtosLoja = ut.getProdutosLoja();
+        this.produtosComprou = ut.getProdutosComprou();
     }
 
     public String getCodigo() {
@@ -78,39 +73,17 @@ public class Utilizadores {
         return nif;
     }
 
-    public List<Artigo> getListaVendeu() {
-
-        List <Artigo> lst_vendeu = new ArrayList<>();
-        
-        for(Artigo a : lista_vendeu){
-            lst_vendeu.add(a.clone());
-        }
-
-        return lst_vendeu;
+    public List<Artigo> getProdutosVendidos() {
+        return produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
-    public List<Artigo> getListaVenda() {
-
-        List <Artigo> lst_venda = new ArrayList<>();
-        
-        for(Artigo a : lista_venda){
-            lst_venda.add(a.clone());
-        }
-
-        return lst_venda;
+    public List<Artigo> getProdutosLoja() {
+        return produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
-    public List<Artigo> getListaCompra() {
-
-        List <Artigo> lst_compra = new ArrayList<>();
-        
-        for(Artigo a : lista_compra){
-            lst_compra.add(a.clone());
-        }
-
-        return lst_compra;
+    public List<Artigo> getProdutosComprou() {
+        return produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
     }
-
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -133,15 +106,15 @@ public class Utilizadores {
     }
 
     public void setListaVendeu(List<Artigo> lvendeu) {
-        lista_vendeu.clear();
+        produtosVendidos.clear();
     }
 
     public void setListaVenda(List<Artigo> lvenda) {
-        lista_venda.clear();
+        produtosLoja.clear();
     }
 
     public void setListaCompra(List<Artigo> lcompra) {
-        lista_compra.clear();
+        produtosComprou.clear();
     }
 
 
@@ -157,9 +130,9 @@ public class Utilizadores {
                e.getNome().equals(this.nome) &&
                e.getMorada().equals(this.morada) &&
                e.getNif().equals(this.nif) &&
-               e.getListaVendeu().equals(this.lista_vendeu) &&
-               e.getListaVenda().equals(this.lista_venda) &&
-               e.getListaCompra().equals(this.lista_compra);
+               e.getProdutosVendidos().equals(this.produtosVendidos) &&
+               e.getProdutosLoja().equals(this.produtosLoja) &&
+               e.getProdutosComprou().equals(this.produtosComprou);
     }
 
     public String toString() {
@@ -170,10 +143,14 @@ public class Utilizadores {
         sb.append("; Email: ").append(this.email);
         sb.append("; Morada: ").append(this.morada);
         sb.append("; NIF: ").append(this.nif);
-        sb.append("; Lista de produtos vendidos: ").append(this.lista_vendeu);
-        sb.append("; Lista de produtos à venda: ").append(this.lista_venda);
-        sb.append("; Lista de produtos adquiridos: ").append(this.lista_compra);
+        sb.append("; Lista de produtos vendidos: ").append(this.produtosVendidos);
+        sb.append("; Lista de produtos à venda: ").append(this.produtosLoja);
+        sb.append("; Lista de produtos adquiridos: ").append(this.produtosComprou);
         sb.append("}");
         return sb.toString();
-    }  
+    }
+
+    public Utilizadores clone(){
+        return new Utilizadores(this);
+    }
 }

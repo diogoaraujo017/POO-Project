@@ -5,8 +5,13 @@ public class Artigo {
     private String codigo;
     private double preco_base;
     private double preco_final;
-    private char estado; // n - artigo novo // a - artigo usado (como novo) // b - artigo usado (bom estado) // c - artigo usado (estado médio/mau)
+    private char estado; // n = artigo novo
+                         // a = artigo usado (como novo)
+                         // b = artigo usado (bom estado)
+                         // c = artigo usado (estado médio/mau)
     private int n_donos;
+
+    private String transportadora;
 
     public Artigo (){
         this.descricao = "";
@@ -15,10 +20,12 @@ public class Artigo {
         this.preco_base = 0.00;
         this.preco_final = 0.00;
         this.estado = ' ';
-        this.n_donos=0;
+        this.n_donos = 0;
+        this.transportadora = null;
     }
 
-    public Artigo (String descricao, String marca, String codigo, double preco_base, char estado, int n_donos){
+    public Artigo (String descricao, String marca, String codigo, double preco_base,
+                   char estado, int n_donos, String transportadora){
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = codigo;
@@ -26,6 +33,7 @@ public class Artigo {
         this.preco_final = preco_base;
         this.estado = estado;
         this.n_donos = n_donos;
+        this.transportadora = transportadora;
     }
 
     public Artigo (Artigo artigo){
@@ -36,6 +44,7 @@ public class Artigo {
         this.preco_final = artigo.getPrecoFinal();
         this.estado = artigo.getEstado();
         this.n_donos = artigo.getNDonos();
+        this.transportadora = artigo.getTransportadora();
     }
 
     public String getDescricao(){
@@ -66,33 +75,40 @@ public class Artigo {
         return this.n_donos;
     }
 
-    
+    public String getTransportadora() {
+        return transportadora;
+    }
+
     public void setDescricao(String descricao){
-        this.descricao=descricao;
+        this.descricao = descricao;
     }
 
     public void setMarca(String marca){
-        this.marca=marca;
+        this.marca = marca;
     }
 
     public void setCodigo(String codigo){
-        this.codigo=codigo;
+        this.codigo = codigo;
     }
 
     public void setPrecoBase(double preco_base){
-        this.preco_base=preco_base;
+        this.preco_base = preco_base;
     }
 
     public void setPrecoFinal(double preco_final){
-        this.preco_final=preco_final;
+        this.preco_final = preco_final;
     }
 
     public void setEstado(char estado){
-        this.estado=estado;
+        this.estado = estado;
     }
 
     public void setNDonos(int n_donos){
-        this.n_donos=n_donos;
+        this.n_donos = n_donos;
+    }
+
+    public void setTransportadora(String transportadora) {
+        this.transportadora = transportadora;
     }
 
     public Artigo clone(){
@@ -107,13 +123,14 @@ public class Artigo {
         if(obj==null || obj.getClass()!=this.getClass()) return false;
 
         Sapatilhas e = (Sapatilhas) obj;
-        return e.getDescricao().equals(this.descricao) &&
-               e.getMarca().equals(this.marca) &&
-               e.getCodigo().equals(this.codigo) &&
-               e.getPrecoBase()==(this.preco_base) &&
-               e.getPrecoFinal()==(this.preco_final) &&
-               e.getEstado()==(this.estado) &&
-               e.getNDonos()==(this.n_donos);
+        return  e.getDescricao().equals(this.descricao) &&
+                e.getMarca().equals(this.marca) &&
+                e.getCodigo().equals(this.codigo) &&
+                e.getPrecoBase()==(this.preco_base) &&
+                e.getPrecoFinal()==(this.preco_final) &&
+                e.getEstado()==(this.estado) &&
+                e.getNDonos()==(this.n_donos) &&
+                e.getTransportadora()==(this.transportadora);
     }
 
     public String toString() {
@@ -126,6 +143,7 @@ public class Artigo {
         sb.append("; Preço Final: ").append(this.preco_final);
         sb.append("; Estado: ").append(this.estado);
         sb.append("; Número de donos: ").append(this.n_donos);
+        sb.append("; Transportadora: ").append(this.transportadora);
         sb.append("}");
 
         return sb.toString();

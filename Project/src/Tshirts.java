@@ -1,7 +1,7 @@
 public class Tshirts extends Artigo{
     
-    private char tamanho; // s - S // m - M // l - L // x - XL
-    private char padrao; // l - liso // r - riscas // p - palmeiras
+    private char tamanho; // s=S // m=M // l=L // x=XL
+    private char padrao; // l=liso // r=riscas // p=palmeiras
 
     public Tshirts(){
         super();
@@ -21,7 +21,7 @@ public class Tshirts extends Artigo{
         this.padrao=tshirts.getPadrao();
     }
 
-    public void calcula_valor_final_tshirts(Tshirts ts){
+    public void calculaValorFinalShirts(Tshirts ts){
         char padrao = ts.getPadrao();
         double preco_final = ts.getPrecoBase();
 
