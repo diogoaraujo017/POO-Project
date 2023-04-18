@@ -9,8 +9,10 @@ public class Tshirts extends Artigo{
         this.padrao=' ';
     }
 
-    public Tshirts(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, char tamanho, char padrao){
-        super(descricao, marca, codigo, preco_base, estado, n_donos);
+    public Tshirts(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
+                   String transportadora, char tamanho, char padrao){
+                    
+        super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora);
         this.tamanho=tamanho;
         this.padrao=padrao;
     }

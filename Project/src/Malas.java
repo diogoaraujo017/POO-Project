@@ -20,10 +20,10 @@ public class Malas extends Artigo{
         this.e_premium=true;
     }
 
-    public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
+    public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
                  int comprimento, int largura, int altura, String material, int ano_lancamento, boolean e_premium){
 
-        super(descricao, marca, codigo, preco_base, estado, n_donos);
+        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora);
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
