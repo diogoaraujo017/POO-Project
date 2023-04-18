@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Encomenda {
 
@@ -18,14 +19,10 @@ public class Encomenda {
     }
 
     public Encomenda(List <Artigo> lista_artigos, int dimensao, char estado, LocalDate data){
-        this.artigos=new ArrayList<>();
+        this.artigos=artigos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.dimensao=dimensao;
         this.estado=estado;
         this.data=data;
-
-        for(Artigo a : lista_artigos){
-            this.artigos.add(a.clone());
-        }
     }
 
     public Encomenda(Encomenda enc){
@@ -47,31 +44,24 @@ public class Encomenda {
         long dias_diferenca = ChronoUnit.DAYS.between(enc.getData(), LocalDate.now());
 
         if(enc.estado=='e' && dias_diferenca>=2){ // pode devolver a encomenda
-            
+            setArtigos(artigos);
         }
-
     }
 
-    public double valorFinalEncomenda(List <Artigo> artigos){
-        double taxa = 0;
+    public double valorFinalEncomenda(Encomenda enc){
+        double total = 0;
 
         for(Artigo a : artigos){
-            if(a.getEstado()=='n') taxa+=0.5;
-            else taxa+=0.25;
+            total+=a.getPrecoFinal();
+            if(a.getEstado()=='n') total+=0.5;
+            else total+=0.25;
         }
         
-        return taxa;
+        return total;
     }
 
     public List<Artigo> getArtigos() {
-
-        List <Artigo> lista_artigos = new ArrayList<>();
-
-        for(Artigo a : artigos){
-            lista_artigos.add(a.clone());
-        }
-
-        return lista_artigos;
+        return artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public int getDimensao() {

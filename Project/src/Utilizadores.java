@@ -33,9 +33,6 @@ public class Utilizadores {
         this.nome=nome;
         this.morada=morada;
         this.nif=nif;
-        this.produtosVendidos=new ArrayList<>();
-        this.produtosLoja=new ArrayList<>();
-        this.produtosComprou=new ArrayList<>();
         this.produtosVendidos = produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosLoja = produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosComprou = produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
