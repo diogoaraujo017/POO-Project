@@ -47,7 +47,7 @@ public class Sapatilhas extends Artigo{
 
         return diferenca.getYears();
     }
-
+//
     public void calcula_valor_final_sapatilhas(Sapatilhas sp){
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
