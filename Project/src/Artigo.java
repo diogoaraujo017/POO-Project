@@ -9,9 +9,9 @@ public class Artigo {
     private int n_donos;
 
     public Artigo (){
-        this.descricao = null;
-        this.marca = null;
-        this.codigo = null;
+        this.descricao = "";
+        this.marca = "";
+        this.codigo = "";
         this.preco_base = 0.00;
         this.preco_final = 0.00;
         this.estado = ' ';

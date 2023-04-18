@@ -11,13 +11,13 @@ public class Malas extends Artigo{
     public Malas(){
         super();
         this.dimensao=0;
-        this.material=null;
+        this.material="";
         this.ano_lancamento=0;
         this.e_premium=true;
     }
 
-    public Malas(String descricao, String marca, String codigo, double preco_base, double desconto, char estado, int n_donos, int dimensao, String material, int ano_lancamento, boolean e_premium){
-        super();
+    public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, int dimensao, String material, int ano_lancamento, boolean e_premium){
+        super(descricao, marca, codigo, preco_base, estado, n_donos);
         this.dimensao=dimensao;
         this.material=material;
         this.ano_lancamento=ano_lancamento;
