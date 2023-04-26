@@ -72,7 +72,7 @@ public class Sapatilhas extends Artigo{
 
         else{
             if(estado == 'n' && sp.getNTamanho()>45) preco_final = preco_base - sp.getNTamanho()*0.1; 
-            if(idade>=1){
+            if(estado!='n'){
                 switch(estado){
                     case 'a':
                         preco_final = preco_base - (preco_base*n_donos)*0.1;
