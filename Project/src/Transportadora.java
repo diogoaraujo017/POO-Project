@@ -19,13 +19,12 @@ public class Transportadora {
         this.nome = nome;
         this.lucro=taxa;
         this.e_premium=prem;
-        this.encomendas= encomendas.stream().map(Encomenda::clone).collect(Collectors.toList());
+        this.encomendas= lista_encomendas.stream().map(Encomenda::clone).collect(Collectors.toList());
     }
 
     public String getNome() {
         return nome;
     }
-
 
     public double getLucro() {
         return lucro;
@@ -39,10 +38,10 @@ public class Transportadora {
         return encomendas.stream().map(Encomenda::clone).collect(Collectors.toList());
     }
 
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
     public void setLucro(double lucro) {
         this.lucro = lucro;
@@ -58,17 +57,17 @@ public class Transportadora {
 
 
     public double precoExpedido(Transportadora transporte){
-        Encomenda enc = new Encomenda();
+        List <Encomenda> encomenda = transporte.getEncomendas();
         double valor_bruto=0.00;
         double valor_final=0.00;
         double imposto=0.23;
         double base=0.00;
-        int tam=enc.getDimensao();
-        if(tam==1) base=1.00;
-        if((tam>=2)&&(tam<=5)) base=1.10;
-        if(tam>=6) base=1.20;
-        for(Encomenda a : encomendas){
-            valor_bruto+=enc.valorFinalEncomenda(a);
+        // int tam=encomenda.getDimensao();
+        // if(tam==1) base=1.00;
+        // if((tam>=2)&&(tam<=5)) base=1.10;
+        // if(tam>=6) base=1.20;
+        for(Encomenda enc : encomenda){
+            valor_bruto+=enc.valorFinalEncomenda(enc);
         }
         if(transporte.getEPremium()) {
             valor_final=(valor_bruto * this.lucro * (1.0 + imposto) * 0.9)*1.5*base;

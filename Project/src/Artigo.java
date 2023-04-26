@@ -151,17 +151,3 @@ public class Artigo {
     }
 
 }
-// @Override
-//     public String toString() {
-//         String result = "Artigo{" +
-//                 "titulo='" + titulo + '\'' +
-//                 ", conteudo='" + conteudo + '\'' +
-//                 '}';
-//         if (this instanceof ArtigoCientifico) {
-//             ArtigoCientifico artigoCientifico = (ArtigoCientifico) this;
-//             result += "ArtigoCientifico{" +
-//                       "autor='" + artigoCientifico.getAutor() + '\'' +
-//                       '}';
-//         }
-//         return result;
-//     }

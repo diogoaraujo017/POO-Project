@@ -31,6 +31,7 @@ public class Malas extends Artigo{
         this.material=material;
         this.ano_lancamento=ano_lancamento;
         this.e_premium=e_premium;
+        calculaValorFinalMala(this);
     }
 
     public Malas(Malas malas){
@@ -41,6 +42,7 @@ public class Malas extends Artigo{
         this.material = malas.getMaterial();
         this.ano_lancamento = malas.getAnoLancamento();
         this.e_premium = malas.getEPremium();
+        calculaValorFinalMala(malas);
     }
 
     public void calculaValorFinalMala(Malas ml){
@@ -131,6 +133,14 @@ public class Malas extends Artigo{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Mala: {");
+        sb.append(this.getDescricao());
+        sb.append("; Marca: ").append(this.getMarca());
+        sb.append("; Código: ").append(this.getCodigo());
+        sb.append("; Preço Base: ").append(this.getPrecoBase());
+        sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        sb.append("; Estado: ").append(this.getEstado());
+        sb.append("; Número de donos: ").append(this.getNDonos());
+        sb.append("; Transportadora: ").append(this.getTransportadora());
         sb.append(" Comprimento: ").append(this.comprimento);
         sb.append("; Largura: ").append(this.largura);
         sb.append("; Altura: ").append(this.altura);

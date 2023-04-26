@@ -8,7 +8,7 @@ public class Encomenda {
 
     private List <Artigo> artigos; // coleção do artigo
     private int dimensao; // 1 artigo - encomenda pequena // 2 a 5 artigos - encomenda média // > 5 artigos - encomenda grande
-    private char estado; // p - pendente // f - finalizada // e - expedida
+    private char estado; // p - pendente // f - finalizada // e - expedida // d - devolvida
     private LocalDate data; // data de criação
 
     public Encomenda(){
@@ -50,6 +50,7 @@ public class Encomenda {
         if(enc.estado=='e' && dias_diferenca>=2){ // pode devolver a encomenda
             setArtigos(artigos);
             setDimensao(0);
+            setEstado('d');
         }
     }
 
@@ -119,17 +120,18 @@ public class Encomenda {
         StringBuilder sb = new StringBuilder();
         int cont=1;
         char aux = getEstado();
-        sb.append("Encomenda: {");
+        sb.append("Encomenda: ");
         for (Artigo art : this.artigos){
-            sb.append("\nArtigo" + cont+ " :").append(art);
+            sb.append("\n->Artigo" + cont+ ": ").append(art);
+            sb.append("\n");
             cont++;
         }
         sb.append("\nNúmero de Artigos: ").append(this.dimensao);
         sb.append("; Estado: ");
         if(aux=='p') sb.append("Pendente");
         else if(aux=='f') sb.append("Finalizado");
+        else if(aux=='d') sb.append("Devolvida");
         else sb.append("Expedido");
-        sb.append("}");
 
         return sb.toString();
     }

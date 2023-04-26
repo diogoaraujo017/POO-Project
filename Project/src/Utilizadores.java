@@ -25,7 +25,7 @@ public class Utilizadores {
         this.produtosComprou=new ArrayList<>();
     }
 
-    Utilizadores(String email, String nome, String morada, String nif, List <Artigo> produtosVendidos,
+    Utilizadores(String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
                  List <Artigo> produtosLoja, List <Artigo> produtosComprou){
 
         this.codigo=UUID.randomUUID().toString(); // gera um código hexadecimal com 36 caracteres único para cada um dos utilizadores
@@ -133,6 +133,7 @@ public class Utilizadores {
     }
 
     public String toString() {
+        int cont = 1;
         StringBuilder sb = new StringBuilder();
         sb.append("Utilizador: {");
         sb.append("Nome: ").append(this.nome);
@@ -140,10 +141,36 @@ public class Utilizadores {
         sb.append("; Email: ").append(this.email);
         sb.append("; Morada: ").append(this.morada);
         sb.append("; NIF: ").append(this.nif);
-        sb.append("; Lista de produtos vendidos: ").append(this.produtosVendidos);
-        sb.append("; Lista de produtos à venda: ").append(this.produtosLoja);
-        sb.append("; Lista de produtos adquiridos: ").append(this.produtosComprou);
         sb.append("}");
+
+        sb.append("\n\nLista de produtos vendidos: ");
+        sb.append("\n");
+        for (Artigo art : this.produtosVendidos){
+            sb.append("\n->Artigo" + cont+ ": ").append(art);
+            sb.append("\n");
+            cont++;
+        }
+        cont=1;
+        sb.append("\n");
+
+        sb.append("\n\nLista de produtos à venda: ");
+        sb.append("\n");
+        for (Artigo art : this.produtosLoja){
+            sb.append("\n->Artigo" + cont+ ": ").append(art);
+            sb.append("\n");
+            cont++;
+        }
+        cont=1;
+        sb.append("\n");
+
+        sb.append("\n\nLista de produtos adquiridos: ");
+        sb.append("\n");
+        for (Artigo art : this.produtosComprou){
+            sb.append("\n->Artigo" + cont+ ": ").append(art);
+            sb.append("\n");
+            cont++;
+        }
+        sb.append("\n");
         return sb.toString();
     }
 

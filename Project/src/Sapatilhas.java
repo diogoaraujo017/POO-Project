@@ -28,6 +28,7 @@ public class Sapatilhas extends Artigo{
         this.cor=cor;
         this.data_lancamento=data_lancamento;
         this.e_premium=e_premium;
+        calculaValorFinalSapatilhas(this);
     }
 
     public Sapatilhas(Sapatilhas sapatilhas){
@@ -37,6 +38,7 @@ public class Sapatilhas extends Artigo{
         this.cor=sapatilhas.getCor();
         this.data_lancamento=sapatilhas.getDataLancamento();
         this.e_premium=sapatilhas.getEPremium();
+        calculaValorFinalSapatilhas(sapatilhas);
     }
 
     // Calcula a idade da coleção das sapatilhas em anos.
@@ -155,10 +157,16 @@ public class Sapatilhas extends Artigo{
     }
 
     public String toString() {
-        calculaValorFinalSapatilhas(this);
         StringBuilder sb = new StringBuilder();
         sb.append("Sapatilhas: {");
-        sb.append("Preço: ").append(this.getPrecoFinal());
+        sb.append(this.getDescricao());
+        sb.append("; Marca: ").append(this.getMarca());
+        sb.append("; Código: ").append(this.getCodigo());
+        sb.append("; Preço Base: ").append(this.getPrecoBase());
+        sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        sb.append("; Estado: ").append(this.getEstado());
+        sb.append("; Número de donos: ").append(this.getNDonos());
+        sb.append("; Transportadora: ").append(this.getTransportadora());
         sb.append("; Tamanho: ").append(this.n_tamanho);
         sb.append("; Atacadores: ");
         if(this.tem_atacadores)sb.append("Sim");

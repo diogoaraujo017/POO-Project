@@ -16,12 +16,14 @@ public class Tshirts extends Artigo{
         super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora);
         this.tamanho=tamanho;
         this.padrao=padrao;
+        calculaValorFinalShirts(this);
     }
 
     public Tshirts(Tshirts tshirts){
         super(tshirts);
         this.tamanho=tshirts.getTamanho();
         this.padrao=tshirts.getPadrao();
+        calculaValorFinalShirts(tshirts);
     }
 
     public void calculaValorFinalShirts(Tshirts ts){
@@ -69,6 +71,14 @@ public class Tshirts extends Artigo{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Tshirt: {");
+        sb.append(this.getDescricao());
+        sb.append("; Marca: ").append(this.getMarca());
+        sb.append("; Código: ").append(this.getCodigo());
+        sb.append("; Preço Base: ").append(this.getPrecoBase());
+        sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        sb.append("; Estado: ").append(this.getEstado());
+        sb.append("; Número de donos: ").append(this.getNDonos());
+        sb.append("; Transportadora: ").append(this.getTransportadora());
         sb.append("Tamanho: ").append(this.tamanho);
         sb.append("; Padrão: ").append(this.padrao);
         sb.append("}");
