@@ -19,7 +19,7 @@ public class Encomenda {
     }
 
     public Encomenda(List <Artigo> lista_artigos, int dimensao, char estado, LocalDate data){
-        this.artigos=artigos.stream().map(Artigo::clone).collect(Collectors.toList());
+        this.artigos=lista_artigos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.dimensao=dimensao;
         this.estado=estado;
         this.data=data;
@@ -117,10 +117,14 @@ public class Encomenda {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        int cont=1;
         char aux = getEstado();
         sb.append("Encomenda: {");
-        sb.append("Artigos: ").append(this.artigos);
-        sb.append("; Número de Artigos: ").append(this.dimensao);
+        for (Artigo art : this.artigos){
+            sb.append("\nArtigo" + cont+ " :").append(art);
+            cont++;
+        }
+        sb.append("\nNúmero de Artigos: ").append(this.dimensao);
         sb.append("; Estado: ");
         if(aux=='p') sb.append("Pendente");
         else if(aux=='f') sb.append("Finalizado");

@@ -148,9 +148,11 @@ public class Sapatilhas extends Artigo{
     }
 
     public String toString() {
+        calculaValorFinalSapatilhas(this);
         StringBuilder sb = new StringBuilder();
         sb.append("Sapatilhas: {");
-        sb.append("Tamanho: ").append(this.n_tamanho);
+        sb.append("Preço: ").append(this.getPrecoFinal());
+        sb.append("; Tamanho: ").append(this.n_tamanho);
         sb.append("; Atacadores: ");
         if(this.tem_atacadores)sb.append("Sim");
         else sb.append("Não");

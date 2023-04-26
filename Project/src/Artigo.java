@@ -32,7 +32,8 @@ public class Artigo {
         this.preco_base = preco_base;
         this.preco_final = preco_base;
         this.estado = estado;
-        this.n_donos = n_donos;
+        if(estado == 'n') this.n_donos = 0;
+        else this.n_donos = n_donos;
         this.transportadora = transportadora;
     }
 
@@ -135,8 +136,8 @@ public class Artigo {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Artigo: {");
-        sb.append("Descrição: ").append(this.descricao);
+        sb.append("{");
+        sb.append(this.descricao);
         sb.append("; Marca: ").append(this.marca);
         sb.append("; Código: ").append(this.codigo);
         sb.append("; Preço Base: ").append(this.preco_base);
@@ -150,3 +151,17 @@ public class Artigo {
     }
 
 }
+// @Override
+//     public String toString() {
+//         String result = "Artigo{" +
+//                 "titulo='" + titulo + '\'' +
+//                 ", conteudo='" + conteudo + '\'' +
+//                 '}';
+//         if (this instanceof ArtigoCientifico) {
+//             ArtigoCientifico artigoCientifico = (ArtigoCientifico) this;
+//             result += "ArtigoCientifico{" +
+//                       "autor='" + artigoCientifico.getAutor() + '\'' +
+//                       '}';
+//         }
+//         return result;
+//     }
