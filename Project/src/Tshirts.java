@@ -1,3 +1,4 @@
+
 public class Tshirts extends Artigo{
     
     private char tamanho; // s=S // m=M // l=L // x=XL
@@ -27,10 +28,11 @@ public class Tshirts extends Artigo{
         char padrao = ts.getPadrao();
         double preco_final = ts.getPrecoBase();
 
-        if(ts.getEstado()!='n' && (padrao == 'r' || padrao == 'p')){
-            preco_final=preco_final*0.50;
+        if(ts.getEstado() != 'n' && (padrao == 'r' || padrao == 'p')){
+            preco_final = preco_final * 0.50;
         }
 
+        preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }
 

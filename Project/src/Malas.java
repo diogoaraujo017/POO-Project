@@ -1,3 +1,4 @@
+
 import java.time.Year;
 
 public class Malas extends Artigo{
@@ -43,18 +44,21 @@ public class Malas extends Artigo{
     }
 
     public void calculaValorFinalMala(Malas ml){
-
         double preco_base = ml.getPrecoBase();
         double preco_final = preco_base;
 
-        int idade = Year.now().getValue()-ml.getAnoLancamento();
+        int idade = Year.now().getValue() - ml.getAnoLancamento();
+        int volume = ml.getComprimento() * ml.getLargura() * ml.getAltura();
 
-        int volume = ml.getComprimento()*ml.getLargura()*ml.getAltura();
+        if(ml.getEPremium()){
+            preco_final = preco_base + preco_base * 0.05 * idade;
+        } else {
+            preco_final = preco_base - preco_base * 0.02 * idade - (double) 12000000 / volume;
+        }
 
-        if(ml.getEPremium()){ preco_final = preco_base+preco_base*0.05*idade; }
-        else{ preco_final = preco_base-preco_base*0.02*idade- (double) 12000000 /volume; }
+        if(preco_final <= 15) preco_final = 15;
 
-        if(preco_final<=15) preco_final=15;
+        preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }
 

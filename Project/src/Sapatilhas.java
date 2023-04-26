@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -54,39 +55,45 @@ public class Sapatilhas extends Artigo{
         int idade = idade_sapatilhas(sp.getDataLancamento());
         int n_donos = sp.getNDonos();
 
-        if(n_donos>4) n_donos=4;
-        
+        if(n_donos > 4) {
+            n_donos = 4;
+        }
+
         if(sp.getEPremium()){
             switch(estado){
                 case 'a':
-                    preco_final = preco_base+(preco_base*0.1*idade);
+                    preco_final = preco_base + (preco_base * 0.1 * idade);
                     break;
                 case 'b':
-                    preco_final = preco_base+(preco_base*0.075*idade);
+                    preco_final = preco_base + (preco_base * 0.075 * idade);
                     break;
                 case 'c':
-                    preco_final = preco_base+(preco_base*0.03*idade);
+                    preco_final = preco_base + (preco_base * 0.03 * idade);
                     break;
             }
-        }
-
-        else{
-            if(estado == 'n' && sp.getNTamanho()>45) preco_final = preco_base - sp.getNTamanho()*0.1; 
-            if(estado!='n'){
+        } else {
+            if(estado == 'n' && sp.getNTamanho() > 45) {
+                preco_final = preco_base - sp.getNTamanho() * 0.1;
+            }
+            if(estado != 'n'){
                 switch(estado){
                     case 'a':
-                        preco_final = preco_base - (preco_base*n_donos)*0.1;
+                        preco_final = preco_base - (preco_base * n_donos) * 0.1;
                         break;
                     case 'b':
-                        preco_final = preco_base - (preco_base*n_donos)*0.13;
+                        preco_final = preco_base - (preco_base * n_donos) * 0.13;
                         break;
                     case 'c':
-                        preco_final = preco_base - (preco_base*n_donos)*0.16;
+                        preco_final = preco_base - (preco_base * n_donos) * 0.16;
                         break;
                 }
             }
         }
-        if(preco_final<=10) preco_final=10;
+
+        if(preco_final <= 10) {
+            preco_final = 10;
+        }
+        preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }
     

@@ -77,6 +77,7 @@ public class Transportadora {
         else {
             valor_final=valor_bruto * this.lucro * (1.0 + imposto) * 0.9*base;
         }
+        valor_final = Math.round(valor_final * 100.0) / 100.0;;
         return valor_final;
     }
 
