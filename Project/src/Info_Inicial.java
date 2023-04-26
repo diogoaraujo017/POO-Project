@@ -32,26 +32,26 @@ public class Info_Inicial {
 
     // TSHIRTS
     Artigo t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20;
-    t1 = new Tshirts("T-shirt preta", "Reebok", "RE-30", 72.05, 'N', 4, "FedEx", 'X', 'R');
-    t2 = new Tshirts("T-shirt branca", "Fila", "FI-23", 99.66, 'N', 0, "DHL", 'L', 'P');
-    t3 = new Tshirts("T-shirt rosa", "Adidas", "AD-4", 57.50, 'U', 9, "FedEx", 'X', 'L');
-    t4 = new Tshirts("T-shirt branca", "New Balance", "NE-69", 78.99, 'N', 4, "Correios", 'S', 'L');
-    t5 = new Tshirts("T-shirt verde", "Fila", "FI-62", 7.82, 'U', 9, "Correios", 'X', 'R');
-    t6 = new Tshirts("T-shirt azul", "Converse", "CO-50", 15.36, 'U', 9, "DHL", 'X', 'P');
-    t7 = new Tshirts("T-shirt branca", "Converse", "CO-45", 78.97, 'U', 0, "UPS", 'L', 'L');
-    t8 = new Tshirts("T-shirt amarela", "Converse", "CO-31", 62.97, 'U', 3, "FedEx", 'M', 'P');
-    t9 = new Tshirts("T-shirt roxa", "New Balance", "NE-43", 68.67, 'N', 6, "FedEx", 'X', 'L');
-    t10 = new Tshirts("T-shirt roxa", "Under Armour", "UN-100", 92.52, 'N', 3, "FedEx", 'S', 'P');
-    t11 = new Tshirts("T-shirt amarela", "Reebok", "RE-98", 69.95, 'N', 0, "Correios", 'S', 'P');
-    t12 = new Tshirts("T-shirt preta", "Converse", "CO-99", 76.95, 'U', 4, "USPS", 'M', 'L');
-    t13 = new Tshirts("T-shirt amarela", "Nike", "NI-65", 5.94, 'N', 1, "DHL", 'S', 'L');
-    t14 = new Tshirts("T-shirt laranja", "Reebok", "RE-57", 93.27, 'U', 6, "UPS", 'S', 'P');
-    t15 = new Tshirts("T-shirt amarela", "Converse", "CO-55", 41.76, 'U', 6, "DHL", 'S', 'R');
-    t16 = new Tshirts("T-shirt preta", "New Balance", "NE-78", 96.43, 'N', 4, "Correios", 'M', 'P');
-    t17 = new Tshirts("T-shirt vermelha", "New Balance", "NE-92", 70.28, 'N', 9, "USPS", 'X', 'R');
-    t18 = new Tshirts("T-shirt laranja", "Asics", "AS-61", 34.44, 'U', 1, "DHL", 'S', 'L');
-    t19 = new Tshirts("T-shirt preta", "Asics", "AS-16", 35.75, 'U', 1, "USPS", 'X', 'R');
-    t20 = new Tshirts("T-shirt azul", "Nike", "NI-96", 99.19, 'U', 8, "USPS", 'L', 'P');
+    t1 = new Tshirts("T-shirt preta", "Reebok", "RE30", 72.05, 'n', 4, "FedEx", 'X', 'R');
+    t2 = new Tshirts("T-shirt branca", "Fila", "FI23", 99.66, 'a', 0, "DHL", 'L', 'P');
+    t3 = new Tshirts("T-shirt rosa", "Adidas", "AD4", 57.50, 'b', 9, "FedEx", 'X', 'L');
+    t4 = new Tshirts("T-shirt branca", "New Balance", "NE69", 78.99, 'c', 4, "Correios", 'S', 'L');
+    t5 = new Tshirts("T-shirt verde", "Fila", "FI62", 7.82, 'c', 9, "Correios", 'X', 'R');
+    t6 = new Tshirts("T-shirt azul", "Converse", "CO50", 15.36, 'a', 9, "DHL", 'X', 'P');
+    t7 = new Tshirts("T-shirt branca", "Converse", "CO45", 78.97, 'n', 0, "UPS", 'L', 'L');
+    t8 = new Tshirts("T-shirt amarela", "Converse", "CO31", 62.97, 'n', 3, "FedEx", 'M', 'P');
+    t9 = new Tshirts("T-shirt roxa", "New Balance", "NE43", 68.67, 'n', 6, "FedEx", 'X', 'L');
+    t10 = new Tshirts("T-shirt roxa", "Under Armour", "UN100", 92.52, 'n', 3, "FedEx", 'S', 'P');
+    t11 = new Tshirts("T-shirt amarela", "Reebok", "RE98", 69.95, 'a', 0, "Correios", 'S', 'P');
+    t12 = new Tshirts("T-shirt preta", "Converse", "CO99", 76.95, 'a', 4, "USPS", 'M', 'L');
+    t13 = new Tshirts("T-shirt amarela", "Nike", "NI65", 5.94, 'b', 1, "DHL", 'S', 'L');
+    t14 = new Tshirts("T-shirt laranja", "Reebok", "RE57", 93.27, 'b', 6, "UPS", 'S', 'P');
+    t15 = new Tshirts("T-shirt amarela", "Converse", "CO55", 41.76, 'b', 6, "DHL", 'S', 'R');
+    t16 = new Tshirts("T-shirt preta", "New Balance", "NE78", 96.43, 'c', 4, "Correios", 'M', 'P');
+    t17 = new Tshirts("T-shirt vermelha", "New Balance", "NE92", 70.28, 'c', 9, "USPS", 'X', 'R');
+    t18 = new Tshirts("T-shirt laranja", "Asics", "AS61", 34.44, 'b', 1, "DHL", 'S', 'L');
+    t19 = new Tshirts("T-shirt preta", "Asics", "AS16", 35.75, 'n', 1, "USPS", 'X', 'R');
+    t20 = new Tshirts("T-shirt azul", "Nike", "NI96", 99.19, 'a', 8, "USPS", 'L', 'P');
 
 
 
