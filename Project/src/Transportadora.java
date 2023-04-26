@@ -79,4 +79,18 @@ public class Transportadora {
         }
         return valor_final;
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Transportadora: {");
+        sb.append("Nome: ").append(this.nome);
+        sb.append("; Margem de Lucro: ").append(this.lucro);
+        sb.append("; Premium: ").append(this.e_premium);
+        sb.append("; Lista de produtos transportados: ").append(this.encomendas);
+        sb.append("}");
+
+        return sb.toString();
+    }
 }
+
+
