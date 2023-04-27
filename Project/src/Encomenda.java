@@ -46,11 +46,15 @@ public class Encomenda {
 
     public void devolverEncomenda(Encomenda enc){
         long dias_diferenca = ChronoUnit.DAYS.between(enc.getData(), LocalDate.now());
-
+        List <Artigo> list = enc.getArtigos();
         if(enc.estado=='e' && dias_diferenca>=2){ // pode devolver a encomenda
-            setArtigos(artigos);
+            clearArtigos();
             setDimensao(0);
             setEstado('d');
+
+            for(Artigo art : list){
+                art.setEstado('d');
+            }
         }
     }
 
@@ -82,6 +86,9 @@ public class Encomenda {
         return data;
     }
 
+    public void clearArtigos() {
+        artigos.clear();
+    }
 
     public void setArtigos(List<Artigo> lista_artigos) {
         artigos.clear();
@@ -98,6 +105,7 @@ public class Encomenda {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
 
     public Encomenda clone(){
         return new Encomenda(this);
@@ -121,12 +129,12 @@ public class Encomenda {
         int cont=1;
         char aux = getEstado();
         sb.append("Encomenda: ");
-        for (Artigo art : this.artigos){
+        for (Artigo art : this.getArtigos()){
             sb.append("\n->Artigo" + cont+ ": ").append(art);
             sb.append("\n");
             cont++;
         }
-        sb.append("\nNúmero de Artigos: ").append(this.dimensao);
+        sb.append("\nNúmero de Artigos: ").append(this.getDimensao());
         sb.append("; Estado: ");
         if(aux=='p') sb.append("Pendente");
         else if(aux=='f') sb.append("Finalizado");

@@ -141,13 +141,13 @@ public class Malas extends Artigo{
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
-        sb.append(" Comprimento: ").append(this.comprimento);
-        sb.append("; Largura: ").append(this.largura);
-        sb.append("; Altura: ").append(this.altura);
-        sb.append("; Material: ").append(this.material);
-        sb.append("; Ano de Lançamento: ").append(this.ano_lancamento);
+        sb.append(" Comprimento: ").append(this.getComprimento());
+        sb.append("; Largura: ").append(this.getLargura());
+        sb.append("; Altura: ").append(this.getAltura());
+        sb.append("; Material: ").append(this.getMaterial());
+        sb.append("; Ano de Lançamento: ").append(this.getAnoLancamento());
         sb.append("; Premium: ");
-        if(this.e_premium)sb.append("Sim");
+        if(this.getEPremium())sb.append("Sim");
         else sb.append("Não");
         sb.append(" }");
 

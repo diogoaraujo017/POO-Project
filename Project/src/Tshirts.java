@@ -79,8 +79,8 @@ public class Tshirts extends Artigo{
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
-        sb.append("Tamanho: ").append(this.tamanho);
-        sb.append("; Padrão: ").append(this.padrao);
+        sb.append("Tamanho: ").append(this.getTamanho());
+        sb.append("; Padrão: ").append(this.getPadrao());
         sb.append("}");
 
         return sb.toString();

@@ -100,7 +100,7 @@ public class Info_Inicial {
     List<Artigo> conj_artigos3 = new ArrayList<>();
     conj_artigos3.add(art8);
 
-    enc1 = new Encomenda(conj_artigos1,2,'p',LocalDate.of(2023,4,2));
+    enc1 = new Encomenda(conj_artigos1,2,'e',LocalDate.of(2022,4,2));
     enc2 = new Encomenda(conj_artigos2,5,'f',LocalDate.of(2023,5,22));
     enc3 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1));
     
@@ -114,15 +114,18 @@ public class Info_Inicial {
     user3 = new Utilizadores("Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
 
-
-
-    System.out.println();
-    System.out.println(art1.toString());
+    // art1.setMarca("JJDSADASDS");
+    // System.out.println();
+    // System.out.println(art1.toString());
     
-    enc3.devolverEncomenda(enc3);
-    System.out.println();
-    System.out.println(enc3.toString());
+    // enc3.devolverEncomenda(enc3);
+    // System.out.println();
+    // System.out.println(enc1.toString());
 
+    //     System.out.println();
+    // System.out.println(art1.toString());
+
+    //enc1.devolverEncomenda(enc1);
     System.out.println();
     System.out.println(user1.toString());
 

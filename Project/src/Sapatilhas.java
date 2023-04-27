@@ -167,14 +167,14 @@ public class Sapatilhas extends Artigo{
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
-        sb.append("; Tamanho: ").append(this.n_tamanho);
+        sb.append("; Tamanho: ").append(this.getNTamanho());
         sb.append("; Atacadores: ");
-        if(this.tem_atacadores)sb.append("Sim");
+        if(this.getTemAtacadores())sb.append("Sim");
         else sb.append("Não");
-        sb.append("; Cor: ").append(this.cor);
-        sb.append("; Data de Lançamento: ").append(this.data_lancamento);
+        sb.append("; Cor: ").append(this.getCor());
+        sb.append("; Data de Lançamento: ").append(this.getDataLancamento());
         sb.append("; Premium: ");
-        if(this.e_premium)sb.append("Sim");
+        if(this.getEPremium())sb.append("Sim");
         else sb.append("Não");
         sb.append("}");
 

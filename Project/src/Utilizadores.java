@@ -162,17 +162,19 @@ public class Utilizadores {
         int cont = 1;
         StringBuilder sb = new StringBuilder();
         sb.append("Utilizador: {");
-        sb.append("Nome: ").append(this.nome);
-        sb.append("; Código: ").append(this.codigo);
-        sb.append("; Email: ").append(this.email);
-        sb.append("; Morada: ").append(this.morada);
-        sb.append("; NIF: ").append(this.nif);
+        sb.append("Nome: ").append(this.getNome());
+        sb.append("; Código: ").append(this.getCodigo());
+        sb.append("; Email: ").append(this.getEmail());
+        sb.append("; Morada: ").append(this.getMorada());
+        sb.append("; NIF: ").append(this.getNif());
         sb.append("}");
 
         sb.append("\n\nLista de produtos vendidos: ");
         sb.append("\n");
-        for (Artigo art : this.produtosVendidos){
-            sb.append("\n->Artigo" + cont+ ": ").append(art);
+        for (Artigo art : this.getProdutosVendidos()){
+            sb.append("\n->Artigo" + cont+ ": ");
+            if(art.getEstado()=='d') sb.append("*DEVOLVIDO* ");
+            sb.append(art);
             sb.append("\n");
             cont++;
         }
@@ -181,7 +183,7 @@ public class Utilizadores {
 
         sb.append("\n\nLista de produtos à venda: ");
         sb.append("\n");
-        for (Artigo art : this.produtosLoja){
+        for (Artigo art : this.getProdutosLoja()){
             sb.append("\n->Artigo" + cont+ ": ").append(art);
             sb.append("\n");
             cont++;
@@ -191,14 +193,14 @@ public class Utilizadores {
 
         sb.append("\n\nLista de produtos adquiridos: ");
         sb.append("\n");
-        for (Artigo art : this.produtosComprou){
+        for (Artigo art : this.getProdutosComprou()){
             sb.append("\n->Artigo" + cont+ ": ").append(art);
             sb.append("\n");
             cont++;
         }
         sb.append("\n");
 
-        sb.append("Valor total das vendas: ").append(this.valorTotalVendas);
+        sb.append("Valor total das vendas: ").append(this.getValorTotalVendas());
         sb.append("\n");
         return sb.toString();
     }

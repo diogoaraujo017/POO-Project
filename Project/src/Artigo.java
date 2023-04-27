@@ -9,6 +9,7 @@ public class Artigo {
                          // a = artigo usado (como novo)
                          // b = artigo usado (bom estado)
                          // c = artigo usado (estado médio/mau)
+                         // d = devolvido
     private int n_donos;
 
     private String transportadora;
@@ -137,14 +138,14 @@ public class Artigo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append(this.descricao);
-        sb.append("; Marca: ").append(this.marca);
-        sb.append("; Código: ").append(this.codigo);
-        sb.append("; Preço Base: ").append(this.preco_base);
-        sb.append("; Preço Final: ").append(this.preco_final);
-        sb.append("; Estado: ").append(this.estado);
-        sb.append("; Número de donos: ").append(this.n_donos);
-        sb.append("; Transportadora: ").append(this.transportadora);
+        sb.append(this.getDescricao());
+        sb.append("; Marca: ").append(this.getMarca());
+        sb.append("; Código: ").append(this.getCodigo());
+        sb.append("; Preço Base: ").append(this.getPrecoBase());
+        sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        sb.append("; Estado: ").append(this.getEstado());
+        sb.append("; Número de donos: ").append(this.getNDonos());
+        sb.append("; Transportadora: ").append(this.getTransportadora());
         sb.append("}");
 
         return sb.toString();
