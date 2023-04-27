@@ -135,9 +135,4 @@ public class Encomenda {
 
         return sb.toString();
     }
-
-    
-
-
-
 }

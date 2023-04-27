@@ -13,6 +13,7 @@ public class Utilizadores {
     private List <Artigo> produtosVendidos;
     private List <Artigo> produtosLoja;
     private List <Artigo> produtosComprou;
+    private double valorTotalVendas;
 
     Utilizadores(){
         this.codigo=null;
@@ -23,6 +24,7 @@ public class Utilizadores {
         this.produtosVendidos=new ArrayList<>();
         this.produtosLoja=new ArrayList<>();
         this.produtosComprou=new ArrayList<>();
+        this.valorTotalVendas=0;
     }
 
     Utilizadores(String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
@@ -36,6 +38,7 @@ public class Utilizadores {
         this.produtosVendidos = produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosLoja = produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosComprou = produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
+        valorTotalVendas(produtosVendidos);
     }
 
     Utilizadores(Utilizadores ut){
@@ -48,6 +51,15 @@ public class Utilizadores {
         this.produtosVendidos = ut.getProdutosVendidos();
         this.produtosLoja = ut.getProdutosLoja();
         this.produtosComprou = ut.getProdutosComprou();
+        valorTotalVendas(getProdutosVendidos());
+    }
+
+    public void valorTotalVendas(List <Artigo> list){
+        double valortotal=0;
+        for(Artigo art : list){
+            valortotal+=art.getPrecoFinal();
+        }
+        setValorTotalVendas(valortotal);
     }
 
     public String getCodigo() {
@@ -68,6 +80,10 @@ public class Utilizadores {
 
     public String getNif() {
         return nif;
+    }
+
+    public double getValorTotalVendas() {
+        return valorTotalVendas;
     }
 
     public List<Artigo> getProdutosVendidos() {
@@ -112,6 +128,10 @@ public class Utilizadores {
 
     public void setListaCompra(List<Artigo> lcompra) {
         produtosComprou.clear();
+    }
+
+    public void setValorTotalVendas(double total) {
+        this.valorTotalVendas = total;
     }
 
 
@@ -170,6 +190,9 @@ public class Utilizadores {
             sb.append("\n");
             cont++;
         }
+        sb.append("\n");
+
+        sb.append("Valor total das vendas: ").append(this.valorTotalVendas);
         sb.append("\n");
         return sb.toString();
     }
