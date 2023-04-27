@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Random;
 
 public class Conta {
 
@@ -84,4 +85,15 @@ public class Conta {
     //public boolean verificaPassword (String password){
     //    return this.password.equals(password);
     //}
+
+    public String geraCodigo(){
+        String charSet = "qwertyuiopasdfghjklzxcvbnm0123456789";
+        Random rand = new Random();
+        int codigoLength = 8;
+        codigo="";
+        for (int j = 0; j < codigoLength; j++) {
+            this.codigo += charSet.charAt(rand.nextInt(charSet.length())); // adiciona um caractere aleatório da string charSet
+        }
+        return codigo;
+    }
 }

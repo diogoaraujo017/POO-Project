@@ -3,6 +3,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.hash;
+
 public class ContaMap {
     private Map<Integer,Conta> contas;
 
@@ -54,12 +56,37 @@ public class ContaMap {
     }
 
     public void addConta(Conta c){
-        this.contas.put(c.hashCode(), c.clone());
+        this.contas.put(hash(c.getEmail()), c.clone());
     }
 
-    public void loginCorreto(String email,String password){
-        int key = c.ashCode();
+    public void removeConta(Conta c){
+        this.contas.remove(hash(c.getEmail()));
     }
 
+    public boolean loginCorreto(String email,String password){
+        int key = hash(email);
+
+        if(contas.containsKey(key)){
+            Conta conta = contas.get(key);
+            if(conta.getEmail().equals(email) && conta.getPassword().equals(password)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public String getCodigoUtilizadores(String email){
+        int key = hash(email);
+        String codigo = null;
+
+        if(contas.containsKey(key)){
+            Conta conta = contas.get(key);
+            codigo = conta.geraCodigo();
+        }
+
+        return codigo;
+    }
 }
 

@@ -28,9 +28,9 @@ public class Utilizadores {
         this.valorTotalVendas=0;
     }
 
-    Utilizadores(String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
+    Utilizadores(String codigo,String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
                  List <Artigo> produtosLoja, List <Artigo> produtosComprou){
-        this.codigo=geraCodigo();
+        this.codigo=codigo;
         this.email=email;
         this.nome=nome;
         this.morada=morada;
@@ -203,14 +203,4 @@ public class Utilizadores {
         return new Utilizadores(this);
     }
 
-    public String geraCodigo(){
-        String charSet = "qwertyuiopasdfghjklzxcvbnm0123456789";
-        Random rand = new Random();
-        int codigoLength = 8;
-        codigo="";
-        for (int j = 0; j < codigoLength; j++) {
-            this.codigo += charSet.charAt(rand.nextInt(charSet.length())); // adiciona um caractere aleatório da string charSet
-        }
-        return codigo;
-    }
 }
