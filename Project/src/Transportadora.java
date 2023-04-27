@@ -14,6 +14,12 @@ public class Transportadora {
         this.e_premium=false;
         this.encomendas= new ArrayList<>();
     }
+    public Transportadora(Transportadora t){
+        this.nome=t.getNome();
+        this.lucro=t.getLucro();
+        this.e_premium=t.getEPremium();
+        this.encomendas=t.getEncomendas();
+    }
 
     public Transportadora(String nome, double taxa, boolean prem, List<Encomenda> lista_encomendas) {
         this.nome = nome;
