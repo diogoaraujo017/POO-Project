@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,13 @@ public class Utilizadores {
 
     Utilizadores(String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
                  List <Artigo> produtosLoja, List <Artigo> produtosComprou){
-
-        this.codigo=UUID.randomUUID().toString(); // gera um código hexadecimal com 36 caracteres único para cada um dos utilizadores
+        String charSet = "qwertyuiopasdfghjklzxcvbnm0123456789";
+        Random rand = new Random();
+        int codigoLength = 8;
+        codigo="";
+        for (int j = 0; j < codigoLength; j++) {
+            this.codigo += charSet.charAt(rand.nextInt(charSet.length())); // adiciona um caractere aleatório da string charSet
+        }
         this.email=email;
         this.nome=nome;
         this.morada=morada;
