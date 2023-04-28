@@ -235,16 +235,16 @@ public class Menu{
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
         char tamanho = 's';
-        if(est.equals("s")){
+        if(tam.equals("s")){
             tamanho = 's';
         }
-        else if(est.equals("m")){
+        else if(tam.equals("m")){
             tamanho = 'm';
         }
-        else if(est.equals("l")){
+        else if(tam.equals("l")){
             tamanho = 'l';
         }
-        else if(est.equals("x")){
+        else if(tam.equals("x")){
             tamanho = 'x';
         }
         else{
@@ -262,13 +262,13 @@ public class Menu{
         Scanner s8 = new Scanner(System.in);
         String pad = s8.nextLine();
         char padrao='p';
-        if(est.equals("p")){
+        if(pad.equals("p")){
             padrao = 'p';
         }
-        else if(est.equals("r")){
+        else if(pad.equals("r")){
             padrao = 'r';
         }
-        else if(est.equals("l")){
+        else if(pad.equals("l")){
             padrao = 'l';
         }
         else{
