@@ -183,8 +183,20 @@ public class Menu{
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        char estado = est.charAt(0);
-        if((estado!='a')&&(estado!='b')&&(estado!='c')&&(estado!='n')){
+        char estado='a';
+        if(est.equals("a")){
+            estado = 'a';
+        }
+        else if(est.equals("b")){
+            estado = 'b';
+        }
+        else if(est.equals("c")){
+            estado = 'c';
+        }
+        else if(est.equals("n")){
+            estado = 'n';
+        }
+        else{
             System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
             try {
                 Thread.sleep(3000);
@@ -222,8 +234,20 @@ public class Menu{
         System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
-        char tamanho = tam.charAt(0);
-        if((estado!='a')&&(estado!='b')&&(estado!='c')&&(estado!='n')){
+        char tamanho = 's';
+        if(est.equals("s")){
+            tamanho = 's';
+        }
+        else if(est.equals("m")){
+            tamanho = 'm';
+        }
+        else if(est.equals("l")){
+            tamanho = 'l';
+        }
+        else if(est.equals("x")){
+            tamanho = 'x';
+        }
+        else{
             System.out.println("O tamanho não corresponde a nenhuma das opções, tente novamente.");
             try {
                 Thread.sleep(3000);
@@ -237,8 +261,17 @@ public class Menu{
         System.out.println("Qual o padrão da sua TShirt?\np-Palmeiras\nr-Riscas\nl-Liso");
         Scanner s8 = new Scanner(System.in);
         String pad = s8.nextLine();
-        char padrao = pad.charAt(0);
-        if((padrao!='p')&&(estado!='r')&&(estado!='l')){
+        char padrao='p';
+        if(est.equals("p")){
+            padrao = 'p';
+        }
+        else if(est.equals("r")){
+            padrao = 'r';
+        }
+        else if(est.equals("l")){
+            padrao = 'l';
+        }
+        else{
             System.out.println("O padrão não corresponde a nenhuma das opções, tente novamente.");
             try {
                 Thread.sleep(3000);
@@ -279,8 +312,20 @@ public class Menu{
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        char estado = est.charAt(0);
-        if((estado!='a')&&(estado!='b')&&(estado!='c')&&(estado!='n')){
+        char estado='a';
+        if(est.equals("a")){
+            estado = 'a';
+        }
+        else if(est.equals("b")){
+            estado = 'b';
+        }
+        else if(est.equals("c")){
+            estado = 'c';
+        }
+        else if(est.equals("n")){
+            estado = 'n';
+        }
+        else{
             System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
             try {
                 Thread.sleep(3000);
@@ -288,8 +333,9 @@ public class Menu{
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuVendasMalas();
+            abreMenuVendasTShirts();
         }
+
 
         System.out.println("Quantos donos já teve a Mala?");
         Scanner s5 = new Scanner(System.in);
@@ -391,8 +437,20 @@ public class Menu{
         System.out.println("A que estado correspondem as suas Sapatilhas?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        char estado = est.charAt(0);
-        if((estado!='a')||(estado!='b')||(estado!='c')||(estado!='n')){
+        char estado='a';
+        if(est.equals("a")){
+            estado = 'a';
+        }
+        else if(est.equals("b")){
+            estado = 'b';
+        }
+        else if(est.equals("c")){
+            estado = 'c';
+        }
+        else if(est.equals("n")){
+            estado = 'n';
+        }
+        else{
             System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
             try {
                 Thread.sleep(3000);
@@ -402,6 +460,7 @@ public class Menu{
             clearTerminal();
             abreMenuVendasTShirts();
         }
+
 
         System.out.println("Quantos donos já tiveram as Sapatilhas?");
         Scanner s5 = new Scanner(System.in);
