@@ -1,9 +1,10 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Info_Inicial {
-    public static void info() throws Exception {
+    public static void info() throws Exception{
 
     // SAPATILHAS
     Artigo art1, art2, art3, art4, art5, art6, art7, art8, art9, art10, art11, art12, art13, art14, art15, art16, art17, art18, art19, art20;
@@ -109,9 +110,9 @@ public class Info_Inicial {
     Utilizadores user1, user2, user3;
     
 
-    user1 = new Utilizadores("João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",conj_artigos1,conj_artigos2,conj_artigos3);
-    user2 = new Utilizadores("Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
-    user3 = new Utilizadores("Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user1 = new Utilizadores("yhdbasy2","João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",conj_artigos1,conj_artigos2,conj_artigos3);
+    user2 = new Utilizadores("sada0021","Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user3 = new Utilizadores("dfnsad32","Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
 
     // art1.setMarca("JJDSADASDS");
@@ -129,6 +130,18 @@ public class Info_Inicial {
     System.out.println();
     System.out.println(user1.toString());
 
-
+    }
+    public interface Code {
+        public static String geraCodigo(){
+            String codigo;
+            String charSet = "qwertyuiopasdfghjklzxcvbnm0123456789";
+            Random rand = new Random();
+            int codigoLength = 8;
+            codigo="";
+            for (int j = 0; j < codigoLength; j++) {
+                codigo += charSet.charAt(rand.nextInt(charSet.length())); // adiciona um caractere aleatório da string charSet
+            }
+            return codigo;
+        }
     }
 }

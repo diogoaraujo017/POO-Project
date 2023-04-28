@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Transportadora {
-    private String nome; // CTT, USPS, USP, DHL, FedEx
+    private String nome; // CTT, USPS, UPS, DHL, FedEx
     private double lucro;
     private boolean e_premium;
     private List<Encomenda> encomendas;
