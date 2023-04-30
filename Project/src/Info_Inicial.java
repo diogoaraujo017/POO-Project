@@ -131,17 +131,4 @@ public class Info_Inicial {
     System.out.println(user1.toString());
 
     }
-    public interface Code {
-        public static String geraCodigo(){
-            String codigo;
-            String charSet = "qwertyuiopasdfghjklzxcvbnm0123456789";
-            Random rand = new Random();
-            int codigoLength = 8;
-            codigo="";
-            for (int j = 0; j < codigoLength; j++) {
-                codigo += charSet.charAt(rand.nextInt(charSet.length())); // adiciona um caractere aleatório da string charSet
-            }
-            return codigo;
-        }
-    }
 }
