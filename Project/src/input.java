@@ -1,5 +1,3 @@
-import jdk.jshell.execution.Util;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -8,8 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Input {
-    public static void recebe(String[] args) throws FileNotFoundException {
-        List<Artigo> artigos = new ArrayList<>();
+    public static void recebe(String[] args) throws FileNotFoundException{
         File file = new File("input.txt");
         Scanner scanner = new Scanner(file);
         int i;
@@ -18,26 +15,28 @@ public class Input {
             String[] partes = linha.split(",");
             for(i=0;i<partes.length;i++){
                 String tipo = partes[i];
-                if (tipo.equals("Sapatilhas")) {
-                    Sapatilhas input = meteSapatilhas(linha, i);
-                    i+=9;
-                }
-                else if (tipo.equals("Mala")) {
-                    Malas input = meteMala(linha, i);
-                    i+=12;
-                }
-                else if (tipo.equals("Tshirt")) {
-                    Tshirts input = meteShirt(linha, i);
-                    i+=12;
-                }
-                else if (tipo.equals("Utilizador")) {
-                    Utilizadores input = meteUtilizador(linha, i);
-                }
-                else if (tipo.equals("Transportadora")) {
-                    Transportadora transportadorainput = meteTransportadora(linha, i);
-                }
-                else if (tipo.equals("Encomenda")) {
-                    Encomenda encomendainput = meteEncomenda(linha, i);
+                switch (tipo) {
+                    case "Sapatilhas" -> {
+                        Sapatilhas input = meteSapatilhas(linha, i);
+                        i += 9;
+                    }
+                    case "Mala" -> {
+                        Malas input = meteMala(linha, i);
+                        i += 12;
+                    }
+                    case "Tshirt" -> {
+                        Tshirts input = meteShirt(linha, i);
+                        i += 12;
+                    }
+                    case "Utilizador" -> {
+                        Utilizadores input = meteUtilizador(linha, i);
+                    }
+                    case "Transportadora" -> {
+                        Transportadora transportadorainput = meteTransportadora(linha, i);
+                    }
+                    case "Encomenda" -> {
+                        Encomenda encomendainput = meteEncomenda(linha, i);
+                    }
                 }
             }
         }
@@ -56,10 +55,13 @@ public class Input {
         codigo=Menu.geraCodigo(9);
         preco_base=Double.parseDouble(partes[i+3]);
         estado='e';
-        if(partes[i+4].equals("a")) estado = 'a';
-        else if(partes[i+4].equals("b")) estado = 'b';
-        else if(partes[i+4].equals("c")) estado = 'c';
-        else if(partes[i+4].equals("n")) estado = 'n';
+        estado = switch (partes[i + 4]) {
+            case "a" -> 'a';
+            case "b" -> 'b';
+            case "c" -> 'c';
+            case "n" -> 'n';
+            default -> estado;
+        };
         n_donos = Integer.parseInt(partes[i+5]);
         transportadora=partes[i+6];
         n_tamanho=Double.parseDouble(partes[i+7]);
@@ -89,10 +91,13 @@ public class Input {
         codigo=Menu.geraCodigo(11);
         preco_base=Double.parseDouble(partes[i+3]);
         estado='e';
-        if(partes[i+4].equals("a")) estado = 'a';
-        else if(partes[i+4].equals("b")) estado = 'b';
-        else if(partes[i+4].equals("c")) estado = 'c';
-        else if(partes[i+4].equals("n")) estado = 'n';
+        estado = switch (partes[i + 4]) {
+            case "a" -> 'a';
+            case "b" -> 'b';
+            case "c" -> 'c';
+            case "n" -> 'n';
+            default -> estado;
+        };
         n_donos = Integer.parseInt(partes[i+5]);
         transportadora=partes[i+6];
         comprimento = Integer.parseInt(partes[i+7]);
@@ -117,21 +122,29 @@ public class Input {
         codigo=Menu.geraCodigo(10);
         preco_base=Double.parseDouble(partes[i+3]);
         estado='e';
-        if(partes[i+4].equals("a")) estado = 'a';
-        else if(partes[i+4].equals("b")) estado = 'b';
-        else if(partes[i+4].equals("c")) estado = 'c';
-        else if(partes[i+4].equals("n")) estado = 'n';
+        estado = switch (partes[i + 4]) {
+            case "a" -> 'a';
+            case "b" -> 'b';
+            case "c" -> 'c';
+            case "n" -> 'n';
+            default -> estado;
+        };
         n_donos = Integer.parseInt(partes[i+5]);
         transportadora=partes[i+6];
         tamanho='o';
-        if(partes[i+7].equals("s")) tamanho = 's';
-        else if(partes[i+7].equals("m")) tamanho = 'm';
-        else if(partes[i+7].equals("l")) tamanho = 'l';
-        else if(partes[i+7].equals("xl")) estado = 'x';
+        switch (partes[i + 7]) {
+            case "s" -> tamanho = 's';
+            case "m" -> tamanho = 'm';
+            case "l" -> tamanho = 'l';
+            case "xl" -> estado = 'x';
+        }
         padrao='o';
-        if(partes[i+8].equals("p")) tamanho = 'p';
-        else if(partes[i+8].equals("r")) tamanho = 'r';
-        else if(partes[i+8].equals("l")) tamanho = 'l';
+        tamanho = switch (partes[i + 8]) {
+            case "p" -> 'p';
+            case "r" -> 'r';
+            case "l" -> 'l';
+            default -> tamanho;
+        };
         Tshirts tshirtinput = new Tshirts(descricao,marca,codigo,preco_base,estado,n_donos,transportadora,tamanho,padrao);
         return tshirtinput;
     }

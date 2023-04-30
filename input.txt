@@ -1,0 +1,61 @@
+Sapatilhas,Sapatilhas Desportivas,Nike,cd5xo1fp6, 154.34,a,3,UPS,43.0,Não,Amarelo,2019/6/12,Não
+Sapatilhas,Sapatilhas Casuais,Adidas,wgvupmumg, 94.23,a, 1,DHL, 42.5, Sim,Azul,2021/4/14,Sim
+Sapatilhas,Sapatilhas Festivas,Puma,9g7repv37,44.45,n,2,FedEx,39.0,Não,Preto,2021/1/17,Sim
+Sapatilhas,Sapatilhas Desportivas,NewBalance,ufp5ylqyu,321.3,c,0,USPS,22.0,Sim,Azul,2019/8/1,Não
+Sapatilhas,Sapatilhas Festivas,Adidas,l2wrqsrcv,45.32,b, 3,DHL,34.0,Não,Amarelo,2021/4/29,Sim
+Sapatilhas,Sapatilhas Desportivas,NewBalance,nfr950f07,123.34,b,2,UPS,54.0,Sim,Azul,2012/3/12,Não
+Sapatilhas,Sapatilhas Casuais,Puma,z21za7v4q,431.36,n, 1,DHL,42.0, Sim,Vermelho,2021/2/1,Sim
+Sapatilhas,Sapatilhas Casuais,Nike,qwrrjgv6v,55.99,c,1,FedEx,33.0,Não,Roxo,2021/4/8,Sim
+Sapatilhas,Sapatilhas Festivas,Adidas,4mss7ngdf,34.64,b,3,DHL,43.0,Sim,Azul,2019/4/19,Sim
+Sapatilhas,Sapatilhas Festivas,Puma,l3zmopumj,58.43,c,1,FedEx,46.0,Sim,Preto,2022/4/20,Sim
+Sapatilhas,Sapatilhas Desportivas,NewBalance,u6upqoiei,63.32,n,2,UPS,33.0,Não,Azul,2022/10/12,Não
+Sapatilhas,Sapatilhas Casuais,Adidas,5ym074315,42.11,a,3,CTT,17.0,Sim,Preto,2020/11/11,Não
+Sapatilhas,Sapatilhas Casuais,Decathlon,pok2jtbnz,12.24,a,2,FedEx,14.5,Sim,Azul,2020/4/14,Sim
+Sapatilhas,Sapatilhas Desportivas,Nike,e86o549ty,113.34,n,0,UPS,55.5,Não,Verde,2021/31/9,Não
+Sapatilhas,Sapatilhas Casuais,Adidas,f9pe5mg8g,54.64,c,0,USPS,23.5,Sim,Amarelo,2020/12/7,Sim
+Sapatilhas,Sapatilhas Festivas,NewBalance,e2unr4d7s,13.34,a,2,UPS,22.5,Não,Azul,2003/6/2,Sim
+Sapatilhas,Sapatilhas Festivas,Puma,e544js8of,154.04,n,2,FedEx,11.5,Sim,Verde,2020/4/17,Não
+Sapatilhas,Sapatilhas Casuais,Decathlon,cw9nn67a1,184.00,b,1,DHL,28.5,Não,Azul,2020/8/30,Não
+Sapatilhas,Sapatilhas Desportivas,Adidas,dg7v5w65k,18.34,a,4,CTT,31.0,Sim,Amarelo,2021/9/30,Não
+Sapatilhas,Sapatilhas Casuais,Puma,jaxh72hoe,15.99,b,6,FedEx,23.0,Não,Verde,2021/4/1,Não
+
+Tshirt,Camisola Desportiva,DC Shoes,corkhvcko8,23.12,n,8,UPS,s,l
+Tshirt,Camisola Formal,DC Shoes,xw4d1cdm0l,11.52,c,7,CTT,l,l
+Tshirt,Camisola Casual,Vans,gm0rccojyy,17.05,c,3,USPS,s,p
+Tshirt,Camisola Formal,New Balance,dvj7mtk4fe,13.52,b,1,UPS,m,l
+Tshirt,Camisola Desportiva,Under Armour,z40ewicx54,23.16,a,1,UPS,m,r
+Tshirt,Camisola Básica,Under Armour,8owzklu2ya,18.00,c,3,USPS,x,l
+Tshirt,Camisola Casual,Nike,mdwvlwr2wv,15.99,n,0,DHL,m,p
+Tshirt,Camisola Desportiva,DC Shoes,h8xu05b6u8,28.56,c,7,CTT,x,r
+Tshirt,Camisola Desportiva,Under Armour,8gontks1mx,17.09,a,6,UPS,m,r
+Tshirt,Camisola Desportiva,Puma,uuug14cioo,23.00,n,4,FedEx,x,l
+Tshirt,Camisola Desportiva,Fila,9qjuxkz8zk,24.11,a,1,CTT, x,p
+Tshirt,Camisola Casual,Nike,70jfsf0cnh,18.03,c,9,USPS,m,r
+Tshirt,Camisola Básica,Nike,dwq5pygvl8,29.56,a,1,FedEx,x,l
+Tshirt,Camisola Desportiva,DC Shoes,nspqjdmoxe,25.02,n,4,UPS,x,r
+Tshirt,Camisola Casual,Vans,594pohir93,28.70,a,4,CTT,m, p
+Tshirt,Camisola Básica,Nike,0ay74og76l,19.92,a,7,DHL,l,r
+Tshirt,Camisola Casual,DC Shoes,ybsh1gwj5d,22.46,b,3,CTT,x,l
+Tshirt,Camisola Desportiva,Nike,18nq9h95xk,16.72,b,6,DHL,x,p
+Tshirt,Camisola Desportiva,Vans,s19l5rc3t3,18.71,a,5,USPS,s,p
+Tshirt,Camisola Desportiva,Fila,8vk2vfcrgb,29.03,n,4,CTT,x p
+
+Mala,Mala Clássica,Samsonite,c1y1cr60i0q,141,20,b,7,USP,33,12,58,ABS,1994,Sim
+Mala,Mala Profissional,Gucci,6cnvgwxi9g7,697,63,b,6,USPS,63,46,12,Couro,2008,Não
+Mala,Mala Casual,Delsey,n464pobnfga,249,76,a,9,USP,29,13,27,Nylon,1963,Não
+Mala,Mala Casual,Tumi,6bpc3olj4ht,195,50,a,1,DHL,60,43,20,Nylon,1993,Não
+Mala,Mala Profissional,Delsey,lzkg9dsw263,580,72,b,4,USP,64,39,20,Couro,1988,Não
+Mala,Mala Casual,Tumi,q98pq4e0wbx,268,42,b,8,USPS,27,30,35,PVC,2004,Sim
+Mala,Mala Clássica,Delsey,w9kntpz0dww,428,87,n,2,FedEx,56,26,59,Poliéster,1960,Sim
+Mala,Mala Clássica,Delsey,qjijuxff4ar,1059,02,a,3,DHL,97,28,34,Couro,1989,Não
+Mala,Mala Masculina,Tumi,5yqzj0qk3h8,146,53,n,3,USP,41,20,23,Couro,2019,Sim
+Mala,Mala Masculina,Delsey,h2oosse7kra,540,97,c,6,DHL,89,19,46,ABS,2019,Sim
+Mala,Mala Casual,Delsey,ho69qv670mo,380,03,n,7,CTT,53,56,47,Couro,1984,Não
+Mala,Mala Casual,Rimowa,yldknsd06hc,970,04,b,3,USPS,30,48,26,Poliéster,1954,Sim
+Mala,Mala Casual,Delsey,oz2oaagcr9e,290,65,n,4,USP,102,22,43,Couro,1975,Não
+Mala,Mala Profissional,Delsey,6bfu2wvsdqv,782,90,c,4,DHL,85,13,29,PVC,2000,Não
+Mala,Mala Clássica,Gucci,alh356u6h2h,787,77,c,8,USPS,81,36,38,PVC,1954,Sim
+Mala,Mala Casual,Rimowa,lag1n5wzquu,929,22,n,0,USPS,105,13,45,Nylon,1964,Não
+Mala,Mala Masculina,Samsonite,6ynuxnkhbqo,880,95,a,6,DHL,59,57,19,Nylon,1993,Não
+Mala,Mala Profissional,Samsonite,yghzkcsvh7z,320,86,c,3,DHL,69,29,34,Nylon,1991,Não
+Mala,Mala Clássica,Rimowa,5iy0il0pi4l,459,56,a,1,USP,50,54,46,ABS,1993,Não
