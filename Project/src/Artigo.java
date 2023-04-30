@@ -2,7 +2,7 @@ public class Artigo {
     
     private String descricao;
     private String marca;
-    private String codigo;
+    private String codigo; // 9 digitos sapatilhas, 10 digitos tshirts, 11 digitos mala,
     private double preco_base;
     private double preco_final;
     private char estado; // n = artigo novo

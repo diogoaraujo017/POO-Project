@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class Utilizadores {
     
-    private String codigo; // código identificador de cada user
+    private String codigo; // código identificador de cada user de 8 digitos
     private String email; // usado para login
     private String nome;
     private String morada;

@@ -46,7 +46,7 @@ public class input {
         LocalDate data_lancamento;
         descricao=partes[1];
         marca=partes[2];
-        codigo=Menu.geraCodigo(8);
+        codigo=Menu.geraCodigo(9);
         preco_base=Double.parseDouble(partes[3]);
         estado='e';
         if(partes[4].equals("a")){
@@ -95,7 +95,7 @@ public class input {
         char estado;
         descricao=partes[1];
         marca=partes[2];
-        codigo=Menu.geraCodigo(10);
+        codigo=Menu.geraCodigo(11);
         preco_base=Double.parseDouble(partes[3]);
         estado='e';
         if(partes[4].equals("a")){
@@ -135,7 +135,7 @@ public class input {
         char estado, tamanho, padrao;
         descricao=partes[1];
         marca=partes[2];
-        codigo=Menu.geraCodigo(9);
+        codigo=Menu.geraCodigo(10);
         preco_base=Double.parseDouble(partes[3]);
         estado='e';
         if(partes[4].equals("a")){
@@ -198,6 +198,7 @@ public class input {
     }
     public static Utilizadores meteUtilizador(String linha){
         Utilizadores user=null;
+        String[] partes = linha.split(",");
         return user;
     }
     public static Encomenda meteEncomenda(String linha){
