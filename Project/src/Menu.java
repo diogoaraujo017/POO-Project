@@ -184,18 +184,10 @@ public class Menu{
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
         char estado='a';
-        if(est.equals("a")){
-            estado = 'a';
-        }
-        else if(est.equals("b")){
-            estado = 'b';
-        }
-        else if(est.equals("c")){
-            estado = 'c';
-        }
-        else if(est.equals("n")){
-            estado = 'n';
-        }
+        if(est.equals("a")) estado = 'a';
+        else if(est.equals("b")) estado = 'b';
+        else if(est.equals("c")) estado = 'c';
+        else if(est.equals("n")) estado = 'n';
         else{
             System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
             try {
