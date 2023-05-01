@@ -36,7 +36,7 @@ public class Utilizadores {
         this.produtosVendidos = produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosLoja = produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosComprou = produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
-        valorTotalVendas(produtosVendidos);
+        valorTotalVendas(produtosVendidos,0);
     }
 
     Utilizadores(Utilizadores ut){
@@ -49,12 +49,12 @@ public class Utilizadores {
         this.produtosVendidos = ut.getProdutosVendidos();
         this.produtosLoja = ut.getProdutosLoja();
         this.produtosComprou = ut.getProdutosComprou();
-        valorTotalVendas(getProdutosVendidos());
+        valorTotalVendas(getProdutosVendidos(),0);
     }
 
-    public void valorTotalVendas(List <Artigo> list){
+    public void valorTotalVendas(List<Artigo> list, double vendidoPassado){
         double taxa_vintage=1.03;
-        double valortotal=0;
+        double valortotal=vendidoPassado;
         for(Artigo art : list){
             valortotal+=art.getPrecoFinal();
         }
@@ -120,20 +120,34 @@ public class Utilizadores {
 
     public void setListaVendeu(List<Artigo> lvendeu) {
         produtosVendidos.clear();
+        produtosVendidos=new ArrayList<>(lvendeu);
     }
 
     public void setListaVenda(List<Artigo> lvenda) {
         produtosLoja.clear();
+        produtosLoja=new ArrayList<>(lvenda);
     }
 
     public void setListaCompra(List<Artigo> lcompra) {
         produtosComprou.clear();
+        produtosComprou=new ArrayList<>(lcompra);
     }
 
     public void setValorTotalVendas(double total) {
         this.valorTotalVendas = total;
     }
 
+    public void adicionaArtigoVendido(Artigo art){
+        this.produtosVendidos.add(art);
+    }
+
+    public void adicionaArtigoComprado(Artigo art){
+        this.produtosComprou.add(art);
+    }
+
+    public void removeArtigoVendido(Artigo art){
+        this.produtosLoja.remove(art);
+    }
 
     public boolean equals(Object obj){
 

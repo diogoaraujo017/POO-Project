@@ -59,6 +59,7 @@ public class Transportadora {
 
     public void setEncomendas(List<Encomenda> lista_encomendas) {
         encomendas.clear();
+        encomendas=new ArrayList<>(lista_encomendas);
     }
 
 

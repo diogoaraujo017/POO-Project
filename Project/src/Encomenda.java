@@ -58,10 +58,10 @@ public class Encomenda {
         }
     }
 
-    public double valorFinalEncomenda(Encomenda enc){
+    public static double valorFinalEncomenda(Encomenda enc){
         double total = 0;
 
-        for(Artigo a : artigos){
+        for(Artigo a : enc.artigos){
             total+=a.getPrecoFinal();
             if(a.getEstado()=='n') total+=0.5;
             else total+=0.25;
@@ -92,6 +92,7 @@ public class Encomenda {
 
     public void setArtigos(List<Artigo> lista_artigos) {
         artigos.clear();
+        artigos=new ArrayList<>(lista_artigos);
     }
 
     public void setDimensao(int dimensao) {

@@ -19,6 +19,7 @@ public class Loja {
     }
     public void setUtilizadores(List<Utilizadores> lista_users) {
         users.clear();
+        users=new ArrayList<>(lista_users);
     }
 
     public boolean equals(Object obj){
