@@ -13,6 +13,7 @@ public class Utilizadores {
     private List <Artigo> produtosLoja;
     private List <Artigo> produtosComprou;
     private double valorTotalVendas;
+    private List<Fatura> faturas;
 
     Utilizadores(){
         this.codigo=null;
@@ -24,10 +25,11 @@ public class Utilizadores {
         this.produtosLoja=new ArrayList<>();
         this.produtosComprou=new ArrayList<>();
         this.valorTotalVendas=0;
+        this.faturas=new ArrayList<>();
     }
 
     Utilizadores(String codigo,String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
-                 List <Artigo> produtosLoja, List <Artigo> produtosComprou){
+                 List <Artigo> produtosLoja, List <Artigo> produtosComprou, List<Fatura> fat){
         this.codigo=codigo;
         this.email=email;
         this.nome=nome;
@@ -37,6 +39,7 @@ public class Utilizadores {
         this.produtosLoja = produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
         this.produtosComprou = produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
         valorTotalVendas(produtosVendidos,0);
+        this.faturas=fat;
     }
 
     Utilizadores(Utilizadores ut){
@@ -50,6 +53,7 @@ public class Utilizadores {
         this.produtosLoja = ut.getProdutosLoja();
         this.produtosComprou = ut.getProdutosComprou();
         valorTotalVendas(getProdutosVendidos(),0);
+        this.faturas=ut.faturas;
     }
 
     public void valorTotalVendas(List<Artigo> list, double vendidoPassado){
@@ -97,6 +101,9 @@ public class Utilizadores {
     public List<Artigo> getProdutosComprou() {
         return produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
     }
+    public List<Fatura> getFaturas() {
+        return faturas.stream().map(Fatura::clone).collect(Collectors.toList());
+    }
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -137,6 +144,11 @@ public class Utilizadores {
         this.valorTotalVendas = total;
     }
 
+    public void setFatura(List<Fatura> faturas) {
+        faturas.clear();
+        faturas=new ArrayList<>(faturas);
+    }
+
     public void adicionaArtigoVendido(Artigo art){
         this.produtosVendidos.add(art);
     }
@@ -147,6 +159,12 @@ public class Utilizadores {
 
     public void removeArtigoVendido(Artigo art){
         this.produtosLoja.remove(art);
+    }
+    public void adicionaFatura(Fatura fat){
+        this.faturas.add(fat);
+    }
+    public void removeFatura(Fatura fat){
+        this.faturas.remove(fat);
     }
 
     public boolean equals(Object obj){

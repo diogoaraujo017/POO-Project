@@ -16,6 +16,9 @@ public class Fatura {
             vendedor.removeArtigoVendido(art);
         }
         vendedor.setValorTotalVendas(passado+custo);
+        Fatura nova = new Fatura(comprador,vendedor,enc,custo);
+        vendedor.adicionaFatura(nova);
+        comprador.adicionaFatura(nova);
     }
 
     public double valorCusto(Encomenda enc){
@@ -75,6 +78,10 @@ public class Fatura {
 
     public void setCusto(double custo) {
         this.custo = custo;
+    }
+
+    public Fatura clone(){
+        return new Fatura(this);
     }
 
 }
