@@ -40,6 +40,7 @@ public class Input {
                 }
             }
         }
+        scanner.close();
     }
 
     public static Sapatilhas meteSapatilhas(String linha, int i){

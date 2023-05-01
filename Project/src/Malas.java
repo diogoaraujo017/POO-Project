@@ -46,6 +46,7 @@ public class Malas extends Artigo{
     }
 
     public void calculaValorFinalMala(Malas ml){
+        double taxa_vintage=1.03;
         double preco_base = ml.getPrecoBase();
         double preco_final = preco_base;
 
@@ -59,7 +60,7 @@ public class Malas extends Artigo{
         }
 
         if(preco_final <= 15) preco_final = 15;
-
+        preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }

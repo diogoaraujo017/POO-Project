@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.lang.Thread;
@@ -12,6 +11,7 @@ public class Menu{
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
+        input.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuLogin();
@@ -46,35 +46,50 @@ public class Menu{
 
     public static void abreMenuLogin(){
         System.out.println("Menu de Login\n");
-        System.out.print("Nome de Utilizador:");
-        Scanner username = new Scanner(System.in);
-        String nome = username.nextLine();
+        System.out.print("Email de Utilizador:");
+        Scanner mail = new Scanner(System.in);
+        String email = mail.nextLine();
+        mail.close();
         System.out.print("Insira a palavra passe:");
         Scanner password = new Scanner(System.in);
         String pass= password.nextLine();
-        clearTerminal();
-        abreMenuIntermedio();
+        password.close();
+        if(ContaMap.loginCorreto(email,pass)){
+            clearTerminal();
+            abreMenuIntermedio();
+        }
+        else{
+            clearTerminal();
+            abreMenuLogin();
+        }
     }
     public static void abreMenuRegister(){
         System.out.println("Menu de Registo\n");
         System.out.print("Nome de Utilizador:");
         Scanner s1 = new Scanner(System.in);
         String nome = s1.nextLine();
+        s1.close();
         System.out.print("Email:");
         Scanner s2 = new Scanner(System.in);
         String email = s2.nextLine();
+        s2.close();
         System.out.print("Password:");
         Scanner s3 = new Scanner(System.in);
         String pass = s3.nextLine();
+        s3.close();
         System.out.print("Morada:");
         Scanner s4 = new Scanner(System.in);
         String morada = s4.nextLine();
+        s4.close();
         System.out.print("NIF:");
         Scanner s5 = new Scanner(System.in);
         String nif = s5.nextLine();
+        s5.close();
         List<Artigo> vazio=new ArrayList<Artigo>();
         String code= geraCodigo(8);
         new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio);
+        Conta nova = new Conta(code,email,pass);
+        ContaMap.addConta(nova);
         clearTerminal();
         abreMenuIntermedio();
     }
@@ -83,12 +98,15 @@ public class Menu{
         System.out.print("Dia:");
         Scanner s1 = new Scanner(System.in);
         String dia = s1.nextLine();
+        s1.close();
         System.out.print("Mês:");
         Scanner s2 = new Scanner(System.in);
         String mes = s2.nextLine();
+        s2.close();
         System.out.print("Ano:");
         Scanner s3 = new Scanner(System.in);
         String ano = s3.nextLine();
+        s3.close();
         int diaa = Integer.parseInt(dia);
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
@@ -103,6 +121,7 @@ public class Menu{
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
         String entrada = s1.nextLine();
+        s1.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuCompras();
@@ -138,6 +157,7 @@ public class Menu{
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
         String entrada = s1.nextLine();
+        s1.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuVendaSapatilhas();
@@ -170,19 +190,21 @@ public class Menu{
         System.out.println("Descreva a sua tshirt");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-
+        s1.close();
         System.out.println("Qual a marca da TShirt?");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-
+        s2.close();
         System.out.println("A qual preço deseja listar a sua TShirt?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
+        s3.close();
         double preco = Double.parseDouble(pre);
 
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
+        s4.close();
         char estado='a';
         if(est.equals("a")) estado = 'a';
         else if(est.equals("b")) estado = 'b';
@@ -202,11 +224,13 @@ public class Menu{
         System.out.println("Quantos donos já teve a TShirt?");
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
+        s5.close();
         int donos = Integer.parseInt(dono);
 
         System.out.println("Em qual transportadora será feito o envio da TShirt?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
+        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -226,6 +250,7 @@ public class Menu{
         System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
+        s7.close();
         char tamanho = 's';
         if(tam.equals("s")){
             tamanho = 's';
@@ -253,6 +278,7 @@ public class Menu{
         System.out.println("Qual o padrão da sua TShirt?\np-Palmeiras\nr-Riscas\nl-Liso");
         Scanner s8 = new Scanner(System.in);
         String pad = s8.nextLine();
+        s8.close();
         char padrao='p';
         if(pad.equals("p")){
             padrao = 'p';
@@ -416,19 +442,20 @@ public class Menu{
         System.out.println("Descreva as suas Sapatilhas");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-
+        s1.close();
         System.out.println("Qual a marca das Sapatilhas?");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-
+        s2.close();
         System.out.println("A qual preço deseja listar as suas Sapatilhas?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
         double preco = Double.parseDouble(pre);
-
+        s3.close();
         System.out.println("A que estado correspondem as suas Sapatilhas?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
+        s4.close();
         char estado='a';
         if(est.equals("a")){
             estado = 'a';
@@ -458,10 +485,11 @@ public class Menu{
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
         int donos = Integer.parseInt(dono);
-
+        s5.close();
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
+        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -481,10 +509,11 @@ public class Menu{
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
         double tamanho = Double.parseDouble(tam);
-
+        s7.close();
         System.out.println("A suas sapatilhas têm atacadores?\n1-Sim\n2-Não");
         Scanner s8 = new Scanner(System.in);
         String ata = s8.nextLine();
+        s8.close();
         boolean atacadores=false;
         if(ata.equals("1")){
             atacadores=true;
@@ -506,17 +535,20 @@ public class Menu{
         System.out.println("Qual a cor das suas sapatilhas?");
         Scanner s9 = new Scanner(System.in);
         String cor = s9.nextLine();
-
+        s9.close();
         System.out.println("Qual a data de lançamento das suas sapatilhas? (Por favor, coloque a data em números)");
         System.out.print("Dia:");
         Scanner s10 = new Scanner(System.in);
         String dia = s10.nextLine();
+        s10.close();
         System.out.print("Mês:");
         Scanner s11 = new Scanner(System.in);
         String mes = s11.nextLine();
+        s11.close();
         System.out.print("Ano:");
         Scanner s12 = new Scanner(System.in);
         String ano = s12.nextLine();
+        s12.close();
         int diaa = Integer.parseInt(dia);
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
@@ -525,6 +557,7 @@ public class Menu{
         System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
         Scanner s13 = new Scanner(System.in);
         String prem = s13.nextLine();
+        s13.close();
         boolean premium=false;
         if(prem.equals("1")){
             premium=true;
@@ -549,7 +582,6 @@ public class Menu{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
         String codigoSapatilhas=geraCodigo(9);
         new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,premium);
         clearTerminal();

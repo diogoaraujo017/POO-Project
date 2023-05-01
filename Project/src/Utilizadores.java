@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Utilizadores {
@@ -55,10 +53,12 @@ public class Utilizadores {
     }
 
     public void valorTotalVendas(List <Artigo> list){
+        double taxa_vintage=1.03;
         double valortotal=0;
         for(Artigo art : list){
             valortotal+=art.getPrecoFinal();
         }
+        valortotal=valortotal/taxa_vintage;
         setValorTotalVendas(valortotal);
     }
 

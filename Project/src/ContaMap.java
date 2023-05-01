@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
 public class ContaMap {
-    private Map<Integer,Conta> contas;
+    private static Map<Integer,Conta> contas;
 
 
     public ContaMap(){
@@ -55,15 +55,15 @@ public class ContaMap {
         return Objects.equals(contas, contaMap.contas);
     }
 
-    public void addConta(Conta c){
-        this.contas.put(hash(c.getEmail()), c.clone());
+    public static void addConta(Conta c){
+        contas.put(hash(c.getEmail()), c.clone());
     }
 
     public void removeConta(Conta c){
         this.contas.remove(hash(c.getEmail()));
     }
 
-    public boolean loginCorreto(String email,String password){
+    public static boolean loginCorreto(String email,String password){
         int key = hash(email);
 
         if(contas.containsKey(key)){

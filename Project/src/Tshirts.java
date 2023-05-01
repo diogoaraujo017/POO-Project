@@ -27,13 +27,14 @@ public class Tshirts extends Artigo{
     }
 
     public void calculaValorFinalShirts(Tshirts ts){
+        double taxa_vintage=1.03;
         char padrao = ts.getPadrao();
         double preco_final = ts.getPrecoBase();
 
         if(ts.getEstado() != 'n' && (padrao == 'r' || padrao == 'p')){
             preco_final = preco_final * 0.50;
         }
-
+        preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }

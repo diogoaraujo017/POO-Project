@@ -33,8 +33,6 @@ public class Loja {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        List<Artigo> total = new ArrayList<>();
-        total=getTodosArtigosAVenda(this.users);
         int cont=1;
         sb.append("Artigos disponíveis: ");
         for (Utilizadores art : this.users){

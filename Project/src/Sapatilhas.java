@@ -51,6 +51,7 @@ public class Sapatilhas extends Artigo{
     }
 
     public void calculaValorFinalSapatilhas(Sapatilhas sp){
+        double taxa_vintage=1.03;
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
         char estado = sp.getEstado();
@@ -95,6 +96,7 @@ public class Sapatilhas extends Artigo{
         if(preco_final <= 10) {
             preco_final = 10;
         }
+        preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         setPrecoFinal(preco_final);
     }
