@@ -86,8 +86,9 @@ public class Menu{
         String nif = s5.nextLine();
         s5.close();
         List<Artigo> vazio=new ArrayList<Artigo>();
+        List<Fatura> vazia=new ArrayList<Fatura>();
         String code= geraCodigo(8);
-        new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio);
+        new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
         Conta nova = new Conta(code,email,pass);
         ContaMap.addConta(nova);
         clearTerminal();
