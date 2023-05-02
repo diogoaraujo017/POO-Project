@@ -4,9 +4,10 @@ import java.lang.Thread;
 
 public class Menu{
     private Loja shop;
+    private LocalDate data;
 
     public static void abreMenuInicial(){
-        System.out.println("\nMENU\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
+        System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n5-\n6-\n7-\n8-\n9-\n0-Sair\n");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
@@ -54,6 +55,10 @@ public class Menu{
         Scanner password = new Scanner(System.in);
         String pass= password.nextLine();
         password.close();
+        if(email.equals("admin") && pass.equals("1234")){
+            clearTerminal();
+            abreMenuVisaoAdmin();
+        }
         if(ContaMap.loginCorreto(email,pass)){
             clearTerminal();
             abreMenuIntermedio();
@@ -112,6 +117,7 @@ public class Menu{
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
+        //setData(mudada);
     }
     public static void abreMenuQueries(){
         System.out.println("Coming soon");
@@ -318,19 +324,20 @@ public class Menu{
         System.out.println("Descreva a sua mala");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-
+        s1.close();
         System.out.println("Qual a marca da mala");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-
+        s2.close();
         System.out.println("A qual preço deseja listar a sua mala?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
         double preco = Double.parseDouble(pre);
-
+        s3.close();
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
+        s4.close();
         char estado='a';
         if(est.equals("a")){
             estado = 'a';
@@ -360,10 +367,11 @@ public class Menu{
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
         int donos = Integer.parseInt(dono);
-
+        s5.close();
         System.out.println("Em qual transportadora será feito o envio da Mala?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
+        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -384,30 +392,31 @@ public class Menu{
         Scanner s7 = new Scanner(System.in);
         String compri = s7.nextLine();
         int comprimento= Integer.parseInt(compri);
-
+        s7.close();
         System.out.println("Qual a largura da sua Mala?");
         Scanner s8 = new Scanner(System.in);
         String lar = s8.nextLine();
         int largura= Integer.parseInt(lar);
-
+        s8.close();
         System.out.println("Qual a altura da sua Mala?");
         Scanner s9 = new Scanner(System.in);
         String alt = s9.nextLine();
         int altura= Integer.parseInt(alt);
-
+        s9.close();
         System.out.println("Qual o material da sua Mala?");
         Scanner s10 = new Scanner(System.in);
         String material = s10.nextLine();
-
+        s10.close();
         System.out.println("Qual o ano de lançamento da sua Mala?");
         Scanner s11 = new Scanner(System.in);
         String an = s11.nextLine();
         int ano= Integer.parseInt(an);
-
+        s11.close();
         System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
         Scanner s12 = new Scanner(System.in);
         String prem = s12.nextLine();
         boolean premium=false;
+        s12.close();
         if(prem.equals("1")){
             premium=true;
         }
@@ -589,16 +598,67 @@ public class Menu{
         abreMenuIntermedio();
     }
 
+    public static void abreMenuVisaoAdmin(){
+        System.out.println("Menu de Administração\n\n");
+        System.out.println("Selecione o menu que deseja aceder\n1-Criar Transportadora\n2-Gerir Transportadora\n\n\n\n\n\n\n\n0-Voltar ao Menu Inicial");
+        System.out.print("->");
+        Scanner input = new Scanner(System.in);
+        String entrada = input.nextLine();
+        input.close();
+        if(entrada.equals("1")){
+            clearTerminal();
+            abreMenuCreateTrans();
+        } else if(entrada.equals("2")){
+            clearTerminal();
+            abreMenuGerirTrans();
+        }
+        else{
+            clearTerminal();
+            abreMenuInicial();
+        }
+    }
+
+    public static void abreMenuCreateTrans(){
+        System.out.println("Menu de criação de transportadoras\n\n");
+        System.out.println("Qual o nome da transportadora a adicionar?");
+        Scanner s1 = new Scanner(System.in);
+        String desc = s1.nextLine();
+        s1.close();
+        System.out.println("Qual a margem de lucro da transportadora a adicionar?");
+        Scanner s2 = new Scanner(System.in);
+        String pre = s2.nextLine();
+        double lucro = Double.parseDouble(pre);
+        s2.close();
+        System.out.println("A transportadora é premium? (Sim ou Não)");
+        Scanner s3 = new Scanner(System.in);
+        String premium = s3.nextLine();
+        boolean prem=false;
+        if(premium.equals("Sim")) prem=true;
+        List<Encomenda> vazia = new ArrayList<Encomenda>();
+        new Transportadora(desc,lucro,prem,vazia);
+    }
+
+    public static void abreMenuGerirTrans(){
+        System.out.println("Menu de gestão de transportadoras\n\n");
+        System.out.println("Qual o nome da transportadora a modificar?");
+        Scanner s1 = new Scanner(System.in);
+        String nome = s1.nextLine();
+        s1.close();
+    }
+
     public Menu(Menu me){
         this.shop=me.shop;
+        this.data=me.data;
     }
 
     public Menu(){
         this.shop=null;
+        this.data=LocalDate.now();
     }
 
-    public Menu(Loja shop) {
+    public Menu(Loja shop, LocalDate dat) {
         this.shop = shop;
+        this.data = dat;
     }
 
     public Loja getShop() {
@@ -607,6 +667,14 @@ public class Menu{
 
     public void setShop(Loja shop) {
         this.shop = shop;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public boolean equals(Object o) {
