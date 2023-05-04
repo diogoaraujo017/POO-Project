@@ -4,20 +4,20 @@ import java.lang.Thread;
 
 public class Menu{
     private Loja shop;
-    private LocalDate data;
+    private static LocalDate data;
 
     public static void abreMenuInicial(){
+        //setData(LocalDate.now());
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n5-\n6-\n7-\n8-\n9-\n0-Sair\n");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
-        input.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuLogin();
         }
-        if(entrada.equals("2")){
+        else if(entrada.equals("2")){
             clearTerminal();
             abreMenuRegister();
         }
@@ -43,6 +43,7 @@ public class Menu{
             clearTerminal();
             abreMenuInicial();
         }
+        input.close();
     }
 
     public static void abreMenuLogin(){
@@ -50,11 +51,9 @@ public class Menu{
         System.out.print("Email de Utilizador:");
         Scanner mail = new Scanner(System.in);
         String email = mail.nextLine();
-        mail.close();
         System.out.print("Insira a palavra passe:");
         Scanner password = new Scanner(System.in);
         String pass= password.nextLine();
-        password.close();
         if(email.equals("admin") && pass.equals("1234")){
             clearTerminal();
             abreMenuVisaoAdmin();
@@ -67,57 +66,59 @@ public class Menu{
             clearTerminal();
             abreMenuLogin();
         }
+        mail.close();
+        password.close();
     }
     public static void abreMenuRegister(){
         System.out.println("Menu de Registo\n");
         System.out.print("Nome de Utilizador:");
         Scanner s1 = new Scanner(System.in);
         String nome = s1.nextLine();
-        s1.close();
         System.out.print("Email:");
         Scanner s2 = new Scanner(System.in);
         String email = s2.nextLine();
-        s2.close();
         System.out.print("Password:");
         Scanner s3 = new Scanner(System.in);
         String pass = s3.nextLine();
-        s3.close();
         System.out.print("Morada:");
         Scanner s4 = new Scanner(System.in);
         String morada = s4.nextLine();
-        s4.close();
         System.out.print("NIF:");
         Scanner s5 = new Scanner(System.in);
         String nif = s5.nextLine();
-        s5.close();
         List<Artigo> vazio=new ArrayList<Artigo>();
         List<Fatura> vazia=new ArrayList<Fatura>();
         String code= geraCodigo(8);
         new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
-        Conta nova = new Conta(code,email,pass);
-        ContaMap.addConta(nova);
+        //Conta nova = new Conta(code,email,pass);
+        //ContaMap.addConta(nova);
         clearTerminal();
         abreMenuIntermedio();
+        s1.close();
+        s2.close();
+        s3.close();
+        s4.close();
+        s5.close();
     }
     public static void abreMenuData(){
         System.out.println("Menu de Data");
         System.out.print("Dia:");
         Scanner s1 = new Scanner(System.in);
         String dia = s1.nextLine();
-        s1.close();
         System.out.print("Mês:");
         Scanner s2 = new Scanner(System.in);
         String mes = s2.nextLine();
-        s2.close();
         System.out.print("Ano:");
         Scanner s3 = new Scanner(System.in);
         String ano = s3.nextLine();
-        s3.close();
         int diaa = Integer.parseInt(dia);
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
         //setData(mudada);
+        s1.close();
+        s2.close();
+        s3.close();
     }
     public static void abreMenuQueries(){
         System.out.println("Coming soon");
@@ -128,7 +129,6 @@ public class Menu{
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
         String entrada = s1.nextLine();
-        s1.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuCompras();
@@ -154,6 +154,7 @@ public class Menu{
             clearTerminal();
             abreMenuIntermedio();
         }
+        s1.close();
     }
     public static void abreMenuCompras(){
         System.out.println("Menu de Compras");
@@ -164,7 +165,6 @@ public class Menu{
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
         String entrada = s1.nextLine();
-        s1.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuVendaSapatilhas();
@@ -191,27 +191,23 @@ public class Menu{
             clearTerminal();
             abreMenuVendas();
         }
+        s1.close();
     }
     public static void abreMenuVendasTShirts(){
         System.out.println("Menu de venda de TShirts\n\n");
         System.out.println("Descreva a sua tshirt");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-        s1.close();
         System.out.println("Qual a marca da TShirt?");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-        s2.close();
         System.out.println("A qual preço deseja listar a sua TShirt?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
-        s3.close();
         double preco = Double.parseDouble(pre);
-
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        s4.close();
         char estado='a';
         if(est.equals("a")) estado = 'a';
         else if(est.equals("b")) estado = 'b';
@@ -231,13 +227,11 @@ public class Menu{
         System.out.println("Quantos donos já teve a TShirt?");
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
-        s5.close();
         int donos = Integer.parseInt(dono);
 
         System.out.println("Em qual transportadora será feito o envio da TShirt?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
-        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -257,7 +251,6 @@ public class Menu{
         System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
-        s7.close();
         char tamanho = 's';
         if(tam.equals("s")){
             tamanho = 's';
@@ -285,7 +278,6 @@ public class Menu{
         System.out.println("Qual o padrão da sua TShirt?\np-Palmeiras\nr-Riscas\nl-Liso");
         Scanner s8 = new Scanner(System.in);
         String pad = s8.nextLine();
-        s8.close();
         char padrao='p';
         if(pad.equals("p")){
             padrao = 'p';
@@ -317,27 +309,30 @@ public class Menu{
         new Tshirts(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
         clearTerminal();
         abreMenuIntermedio();
-
+        s1.close();
+        s2.close();
+        s3.close();
+        s4.close();
+        s5.close();
+        s6.close();
+        s7.close();
+        s8.close();
     }
     public static void abreMenuVendasMalas(){
         System.out.println("Menu de venda de Malas\n\n");
         System.out.println("Descreva a sua mala");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-        s1.close();
         System.out.println("Qual a marca da mala");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-        s2.close();
         System.out.println("A qual preço deseja listar a sua mala?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
         double preco = Double.parseDouble(pre);
-        s3.close();
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        s4.close();
         char estado='a';
         if(est.equals("a")){
             estado = 'a';
@@ -361,17 +356,13 @@ public class Menu{
             clearTerminal();
             abreMenuVendasTShirts();
         }
-
-
         System.out.println("Quantos donos já teve a Mala?");
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
         int donos = Integer.parseInt(dono);
-        s5.close();
         System.out.println("Em qual transportadora será feito o envio da Mala?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
-        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -392,31 +383,25 @@ public class Menu{
         Scanner s7 = new Scanner(System.in);
         String compri = s7.nextLine();
         int comprimento= Integer.parseInt(compri);
-        s7.close();
         System.out.println("Qual a largura da sua Mala?");
         Scanner s8 = new Scanner(System.in);
         String lar = s8.nextLine();
         int largura= Integer.parseInt(lar);
-        s8.close();
         System.out.println("Qual a altura da sua Mala?");
         Scanner s9 = new Scanner(System.in);
         String alt = s9.nextLine();
         int altura= Integer.parseInt(alt);
-        s9.close();
         System.out.println("Qual o material da sua Mala?");
         Scanner s10 = new Scanner(System.in);
         String material = s10.nextLine();
-        s10.close();
         System.out.println("Qual o ano de lançamento da sua Mala?");
         Scanner s11 = new Scanner(System.in);
         String an = s11.nextLine();
         int ano= Integer.parseInt(an);
-        s11.close();
         System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
         Scanner s12 = new Scanner(System.in);
         String prem = s12.nextLine();
         boolean premium=false;
-        s12.close();
         if(prem.equals("1")){
             premium=true;
         }
@@ -445,27 +430,34 @@ public class Menu{
         new Malas(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano,premium);
         clearTerminal();
         abreMenuIntermedio();
-
+        s1.close();
+        s2.close();
+        s3.close();
+        s4.close();
+        s5.close();
+        s6.close();
+        s7.close();
+        s8.close();
+        s9.close();
+        s10.close();
+        s11.close();
+        s12.close();
     }
     public static void abreMenuVendaSapatilhas(){
         System.out.println("Menu de venda de Sapatilhas\n\n");
         System.out.println("Descreva as suas Sapatilhas");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-        s1.close();
         System.out.println("Qual a marca das Sapatilhas?");
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
-        s2.close();
         System.out.println("A qual preço deseja listar as suas Sapatilhas?");
         Scanner s3 = new Scanner(System.in);
         String pre = s3.nextLine();
         double preco = Double.parseDouble(pre);
-        s3.close();
         System.out.println("A que estado correspondem as suas Sapatilhas?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
-        s4.close();
         char estado='a';
         if(est.equals("a")){
             estado = 'a';
@@ -495,11 +487,9 @@ public class Menu{
         Scanner s5 = new Scanner(System.in);
         String dono = s5.nextLine();
         int donos = Integer.parseInt(dono);
-        s5.close();
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
-        s6.close();
         if((trans.equals("1")))trans="CTT";
         else if((trans.equals("2")))trans="USPS";
         else if((trans.equals("3")))trans="UPS";
@@ -519,11 +509,9 @@ public class Menu{
         Scanner s7 = new Scanner(System.in);
         String tam = s7.nextLine();
         double tamanho = Double.parseDouble(tam);
-        s7.close();
         System.out.println("A suas sapatilhas têm atacadores?\n1-Sim\n2-Não");
         Scanner s8 = new Scanner(System.in);
         String ata = s8.nextLine();
-        s8.close();
         boolean atacadores=false;
         if(ata.equals("1")){
             atacadores=true;
@@ -545,29 +533,23 @@ public class Menu{
         System.out.println("Qual a cor das suas sapatilhas?");
         Scanner s9 = new Scanner(System.in);
         String cor = s9.nextLine();
-        s9.close();
         System.out.println("Qual a data de lançamento das suas sapatilhas? (Por favor, coloque a data em números)");
         System.out.print("Dia:");
         Scanner s10 = new Scanner(System.in);
         String dia = s10.nextLine();
-        s10.close();
         System.out.print("Mês:");
         Scanner s11 = new Scanner(System.in);
         String mes = s11.nextLine();
-        s11.close();
         System.out.print("Ano:");
         Scanner s12 = new Scanner(System.in);
         String ano = s12.nextLine();
-        s12.close();
         int diaa = Integer.parseInt(dia);
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
         LocalDate lanc=LocalDate.of(anoo,mess,diaa);
-
         System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
         Scanner s13 = new Scanner(System.in);
         String prem = s13.nextLine();
-        s13.close();
         boolean premium=false;
         if(prem.equals("1")){
             premium=true;
@@ -596,6 +578,19 @@ public class Menu{
         new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,premium);
         clearTerminal();
         abreMenuIntermedio();
+        s1.close();
+        s2.close();
+        s3.close();
+        s4.close();
+        s5.close();
+        s6.close();
+        s7.close();
+        s8.close();
+        s9.close();
+        s10.close();
+        s11.close();
+        s12.close();
+        s13.close();
     }
 
     public static void abreMenuVisaoAdmin(){
@@ -604,7 +599,6 @@ public class Menu{
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
-        input.close();
         if(entrada.equals("1")){
             clearTerminal();
             abreMenuCreateTrans();
@@ -616,6 +610,7 @@ public class Menu{
             clearTerminal();
             abreMenuInicial();
         }
+        input.close();
     }
 
     public static void abreMenuCreateTrans(){
@@ -623,20 +618,20 @@ public class Menu{
         System.out.println("Qual o nome da transportadora a adicionar?");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
-        s1.close();
         System.out.println("Qual a margem de lucro da transportadora a adicionar?");
         Scanner s2 = new Scanner(System.in);
         String pre = s2.nextLine();
         double lucro = Double.parseDouble(pre);
-        s2.close();
         System.out.println("A transportadora é premium? (Sim ou Não)");
         Scanner s3 = new Scanner(System.in);
         String premium = s3.nextLine();
-        s3.close();
         boolean prem=false;
         if(premium.equals("Sim")) prem=true;
-        List<Encomenda> vazia = new ArrayList<Encomenda>();
+        List<Encomenda> vazia = new ArrayList<>();
         new Transportadora(desc,lucro,prem,vazia);
+        s1.close();
+        s2.close();
+        s3.close();
     }
 
     public static void abreMenuGerirTrans(){
@@ -644,7 +639,6 @@ public class Menu{
         System.out.println("Qual o nome da transportadora a modificar?");
         Scanner s1 = new Scanner(System.in);
         String nome = s1.nextLine();
-        s1.close();
     }
 
     public Menu(Menu me){
@@ -674,8 +668,8 @@ public class Menu{
         return data;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public static void setData(LocalDate dat) {
+       data = dat;
     }
 
     public boolean equals(Object o) {
