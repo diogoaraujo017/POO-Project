@@ -6,7 +6,7 @@ import static java.util.Objects.hash;
 public class Vintage {
 
     private String currentUser;
-    private Map<Integer,Conta> contas;
+    private static Map<Integer,Conta> contas;
     private Map<Integer,Utilizadores> utilizadores;
     private List<Transportadora> transportadoras;
     private List<Encomenda> encomendas;
@@ -97,17 +97,15 @@ public class Vintage {
     }
 
 
-
-
-    public void addConta(Conta c){
-        this.contas.put(hash(c.getEmail()), c.clone());
+    public static void addConta(Conta c){
+        contas.put(hash(c.getEmail()), c.clone());
     }
 
     public void removeConta(Conta c){
         this.contas.remove(hash(c.getEmail()));
     }
 
-    public boolean loginCorreto(String email,String password){
+    public static boolean loginCorreto(String email, String password){
         int key = hash(email);
 
         if(contas.containsKey(key)){
@@ -121,19 +119,26 @@ public class Vintage {
     }
 
 
-    public String getCodigoUtilizadores(String email){
+    public static String getCodigoUtilizadores(String email){
         int key = hash(email);
         String codigo = null;
 
-        if(this.contas.containsKey(key)){
-            Conta conta = this.contas.get(key);
+        if(contas.containsKey(key)){
+            Conta conta = contas.get(key);
             codigo = conta.geraCodigo();
         }
 
         return codigo;
     }
 
-
-
+    public Utilizadores getUtilizadorByEmail(String email) {
+        for (Map.Entry<Integer, Utilizadores> entry : this.utilizadores.entrySet()) {
+            Utilizadores u = entry.getValue();
+            if (u.getEmail().equals(email)) {
+                return u;
+            }
+        }
+        return null;
+    }
 
 }

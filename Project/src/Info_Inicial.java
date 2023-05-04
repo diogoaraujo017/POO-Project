@@ -160,6 +160,9 @@ public class Info_Inicial {
     user9 = new Utilizadores("mbksalew","Sara Raquel", "raquell@gmail.com", "Rua do Santo n32", "424244321",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
     user10 = new Utilizadores("nsd32424","Renato Guedes", "renatoG@gmail.com", "Rua das Amélias n32", "321223332",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
+    Conta c1;
+    c1=new Conta("pwzjef5j","joao@gmail.com","joaozito");
+
     //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
     Fatura.emiteFatura(enc1, user1, user3);
     
