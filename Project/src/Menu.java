@@ -7,11 +7,11 @@ public class Menu{
     private static LocalDate data;
 
     public static void abreMenuInicial(){
-        if(getData().equals(null)) {
-            setData(LocalDate.now());
+        if(!getData().equals(LocalDate.now())) {
+            setData(getData());
         }
         else{
-            setData(getData());
+            setData(LocalDate.now());
         }
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n5-\n6-\n7-\n8-\n9-\n0-Sair\n");
