@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-import java.util.List;
 
 public class Fatura {
     private Utilizadores comprador;

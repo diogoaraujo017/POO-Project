@@ -108,14 +108,11 @@ public class Info_Inicial {
 
     // UTILIZADORES
     Utilizadores user1, user2, user3;
-    
 
     user1 = new Utilizadores("pwzjef5j","João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",conj_artigos1,conj_artigos2,conj_artigos3);
     user2 = new Utilizadores("osyxeg0x","Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
     user3 = new Utilizadores("ldlnzv8v","Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
-
-    // art1.setMarca("JJDSADASDS");
     // System.out.println();
     // System.out.println(art1.toString());
     

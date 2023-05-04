@@ -632,6 +632,7 @@ public class Menu{
         System.out.println("A transportadora é premium? (Sim ou Não)");
         Scanner s3 = new Scanner(System.in);
         String premium = s3.nextLine();
+        s3.close();
         boolean prem=false;
         if(premium.equals("Sim")) prem=true;
         List<Encomenda> vazia = new ArrayList<Encomenda>();
