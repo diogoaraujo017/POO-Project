@@ -224,6 +224,7 @@ public class Utilizadores {
         sb.append("\n");
         for (Artigo art : this.getProdutosComprou()){
             sb.append("\n->Artigo" + cont+ ": ").append(art);
+            if(art.getEstado()=='d') sb.append("*DEVOLVIDO* ");
             sb.append("\n");
             cont++;
         }

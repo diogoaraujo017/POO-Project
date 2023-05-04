@@ -128,18 +128,26 @@ public class Info_Inicial {
     conj_artigos8.add(m1);
     conj_artigos8.add(m2);
 
+    List<Artigo> conj_artigos9 = new ArrayList<>();
+    conj_artigos9.add(t9);
+    conj_artigos9.add(t10);
+    conj_artigos9.add(t11);
+    conj_artigos9.add(t12);
+
     enc1 = new Encomenda(conj_artigos1,2,'e',LocalDate.of(2022,4,2));
     enc2 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1));
-    enc3 = new Encomenda(conj_artigos4,7,'p',LocalDate.of(2022,1,23));
-    enc4 = new Encomenda(conj_artigos7,3,'p',LocalDate.of(2022,12,16));
-    enc5 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3));
+    enc3 = new Encomenda(conj_artigos4,7,'e',LocalDate.of(2022,1,23));
+    enc4 = new Encomenda(conj_artigos6,3,'f',LocalDate.of(2020,3,15));
+    enc5 = new Encomenda(conj_artigos7,3,'f',LocalDate.of(2022,12,16));
+    enc6 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3));
+    enc7 = new Encomenda(conj_artigos9,4,'f',LocalDate.of(2021,9,1));
     
     List<Artigo> multiplas_encomendas1 = new ArrayList<>();
     multiplas_encomendas1.addAll(conj_artigos7);
     multiplas_encomendas1.addAll(conj_artigos8);
 
     // UTILIZADORES
-    Utilizadores user1, user2, user3, user4, user5, user6, user7, user8;
+    Utilizadores user1, user2, user3, user4, user5, user6, user7, user8, user9, user10;
 
     user1 = new Utilizadores("pwzjef5j","João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
     user2 = new Utilizadores("osyxeg0x","Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
@@ -149,28 +157,27 @@ public class Info_Inicial {
     user6 = new Utilizadores("jfsakm3f","Mariana Antunes", "mant@gmail.com", "Rua da Seara n32", "352533535",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
     user7 = new Utilizadores("sdadassd","Clara Manuela", "clara@outlook.com", "Rua da Praça n23", "421433134",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
     user8 = new Utilizadores("dsdas322","Jorge Silva", "jorgesilva@gmail.com", "Rua da Praça n7", "426633134",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user9 = new Utilizadores("mbksalew","Sara Raquel", "raquell@gmail.com", "Rua do Santo n32", "424244321",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user10 = new Utilizadores("nsd32424","Renato Guedes", "renatoG@gmail.com", "Rua das Amélias n32", "321223332",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
     //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
     Fatura.emiteFatura(enc1, user1, user3);
+    
+    Fatura.emiteFatura(enc2, user4, user1);
 
-    //user1.setListaVendeu(conj_artigos1);
+    Fatura.emiteFatura(enc3, user3, user6);
+
+    Fatura.emiteFatura(enc4, user8, user5);
+
+    Fatura.emiteFatura(enc5, user6, user4);
+
+    Fatura.emiteFatura(enc6, user6, user4);
+
+    Fatura.emiteFatura(enc7, user9, user1);
+
     user1.setListaVenda(conj_artigos2);
-    user1.setListaCompra(conj_artigos3);
 
     user2.setListaVenda(conj_artigos5);
-
-    user3.setListaVendeu(conj_artigos4);
-    //user3.setListaCompra(conj_artigos1);
-
-    user4.setListaVendeu(conj_artigos3);
-    user4.setListaCompra(multiplas_encomendas1);
-
-    user5.setListaCompra(conj_artigos6);
-
-    user6.setListaVendeu(multiplas_encomendas1);
-    user6.setListaCompra(conj_artigos4);
-
-    user8.setListaVendeu(conj_artigos6);
 
 
 

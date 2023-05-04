@@ -88,8 +88,8 @@ public class Fatura {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fatura: {");
-        //sb.append("Comprador: ").append(this.getComprador());
-        //sb.append("; Vendedor: ").append(this.getVendedor());
+        sb.append("Comprador: ").append(this.getComprador().getCodigo());
+        sb.append("; Vendedor: ").append(this.getVendedor().getCodigo());
         sb.append("; Encomenda: ").append(this.getEncomenda());
         sb.append("; Custo: ").append(this.getCusto());
         sb.append("}");
