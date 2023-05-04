@@ -1,11 +1,13 @@
 
 public class Fatura {
+
     private Utilizadores comprador;
     private Utilizadores vendedor;
     private Encomenda encomenda;
-    private double custo;
+    private static double custo;
 
-    public void emiteFatura(Encomenda enc, Utilizadores comprador, Utilizadores vendedor){
+    public static void emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador){
+        Fatura nova = new Fatura(comprador,vendedor,enc);
         double passado = vendedor.getValorTotalVendas();
         double custo = valorCusto(enc);
         for(Artigo art : enc.getArtigos()){
@@ -14,12 +16,11 @@ public class Fatura {
             vendedor.removeArtigoVendido(art);
         }
         vendedor.setValorTotalVendas(passado+custo);
-        Fatura nova = new Fatura(comprador,vendedor,enc,custo);
         vendedor.adicionaFatura(nova);
         comprador.adicionaFatura(nova);
     }
 
-    public double valorCusto(Encomenda enc){
+    public static double valorCusto(Encomenda enc){
         double val = Encomenda.valorFinalEncomenda(enc);
         setCusto(val);
         return val;
@@ -29,25 +30,25 @@ public class Fatura {
         this.comprador=null;
         this.vendedor=null;
         this.encomenda=null;
-        this.custo=0;
+        custo=0;
     }
 
     public Fatura(Fatura fat){
         this.comprador=fat.comprador;
         this.vendedor=fat.vendedor;
         this.encomenda=fat.encomenda;
-        this.custo=fat.custo;
+        custo=fat.custo;
     }
 
-    public Fatura(Utilizadores comprador, Utilizadores vendedor, Encomenda compras, double custo) {
+    public Fatura(Utilizadores comprador, Utilizadores vendedor, Encomenda compras) {
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.encomenda = compras;
-        this.custo = custo;
+        custo = Encomenda.valorFinalEncomenda(compras);
     }
 
     public Utilizadores getComprador() {
-        return comprador;
+        return this.comprador;
     }
 
     public void setComprador(Utilizadores comprador) {
@@ -55,7 +56,7 @@ public class Fatura {
     }
 
     public Utilizadores getVendedor() {
-        return vendedor;
+        return this.vendedor;
     }
 
     public void setVendedor(Utilizadores vendedor) {
@@ -63,7 +64,7 @@ public class Fatura {
     }
 
     public Encomenda getEncomenda() {
-        return encomenda;
+        return this.encomenda;
     }
 
     public void setEncomenda(Encomenda compras) {
@@ -74,12 +75,25 @@ public class Fatura {
         return custo;
     }
 
-    public void setCusto(double custo) {
-        this.custo = custo;
+    public static void setCusto(double cust) {
+        custo = cust;
     }
 
     public Fatura clone(){
         return new Fatura(this);
     }
 
+
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Fatura: {");
+        //sb.append("Comprador: ").append(this.getComprador());
+        //sb.append("; Vendedor: ").append(this.getVendedor());
+        sb.append("; Encomenda: ").append(this.getEncomenda());
+        sb.append("; Custo: ").append(this.getCusto());
+        sb.append("}");
+
+        return sb.toString();
+    }
 }

@@ -63,6 +63,7 @@ public class Utilizadores {
             valortotal+=art.getPrecoFinal();
         }
         valortotal=valortotal/taxa_vintage;
+        valortotal=Math.round(valortotal * 100.0) / 100.0;;
         setValorTotalVendas(valortotal);
     }
 
@@ -128,6 +129,7 @@ public class Utilizadores {
     public void setListaVendeu(List<Artigo> lvendeu) {
         produtosVendidos.clear();
         produtosVendidos=new ArrayList<>(lvendeu);
+        valorTotalVendas(lvendeu,0);
     }
 
     public void setListaVenda(List<Artigo> lvenda) {
@@ -181,7 +183,8 @@ public class Utilizadores {
                e.getNif().equals(this.nif) &&
                e.getProdutosVendidos().equals(this.produtosVendidos) &&
                e.getProdutosLoja().equals(this.produtosLoja) &&
-               e.getProdutosComprou().equals(this.produtosComprou);
+               e.getProdutosComprou().equals(this.produtosComprou) &&
+               e.getFaturas().equals(this.faturas);
     }
 
     public String toString() {
@@ -224,7 +227,18 @@ public class Utilizadores {
             sb.append("\n");
             cont++;
         }
+        cont=1;
         sb.append("\n");
+
+        sb.append("\n\nLista de Faturas: ");
+        sb.append("\n");
+        for (Fatura fat : this.getFaturas()){
+            sb.append("\n->Fatura" + cont+ ": ").append(fat);
+            sb.append("\n");
+            cont++;
+        }
+        sb.append("\n\n");
+        
 
         sb.append("Valor total das vendas: ").append(this.getValorTotalVendas());
         sb.append("\n");

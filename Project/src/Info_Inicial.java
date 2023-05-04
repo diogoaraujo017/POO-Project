@@ -1,34 +1,33 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Info_Inicial {
     public static void info() throws Exception{
 
     // SAPATILHAS
-    Artigo art1, art2, art3, art4, art5, art6, art7, art8, art9, art10, art11, art12, art13, art14, art15, art16, art17, art18, art19, art20;
+    Artigo s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20;
 
-    art1 = new Sapatilhas("Sapatilhas Desportivas","Nike", "cd5xo1fp6", 154.34, 'a', 3, "UPS", 43.0, false, "Amarelo", LocalDate.of(2023,6,12), false);
-    art2 = new Sapatilhas("Sapatilhas Casuais","Adidas", "wgvupmumg", 94.23, 'a', 1, "DHL", 42.5, true, "Azul", LocalDate.of(2021,4,14), true);
-    art3 = new Sapatilhas("Sapatilhas Festivas","Puma", "9g7repv37", 44.45, 'n', 2, "FedEx", 39.0, false, "Preto", LocalDate.of(2021,1,17), true);
-    art4 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "ufp5ylqyu", 321.3, 'c', 0, "USPS", 22.0, true, "Azul", LocalDate.of(2023,8,1), false);
-    art5 = new Sapatilhas("Sapatilhas Festivas","Adidas", "l2wrqsrcv", 45.32, 'b', 3, "DHL", 34.0, false, "Amarelo", LocalDate.of(2021,4,29), true);
-    art6 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "nfr950f07", 123.34, 'b', 2, "UPS", 54.0, true, "Azul", LocalDate.of(2023,3,12), false);
-    art7 = new Sapatilhas("Sapatilhas Casuais","Puma", "z21za7v4q", 431.36, 'n', 1, "DHL", 42.0, true, "Vermelho", LocalDate.of(2021,2,1), true);
-    art8 = new Sapatilhas("Sapatilhas Casuais","Nike", "qwrrjgv6v", 55.99, 'c', 1, "FedEx", 33.0, false, "Roxo", LocalDate.of(2021,4,8), true);
-    art9 = new Sapatilhas("Sapatilhas Festivas","Adidas", "4mss7ngdf", 34.64, 'b', 3, "DHL", 43.0, true, "Azul", LocalDate.of(2023,4,19), true);
-    art10 = new Sapatilhas("Sapatilhas Festivas","Puma", "l3zmopumj", 58.43, 'c', 1, "FedEx", 46.0, true, "Preto", LocalDate.of(2022,4,20), true);
-    art11 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "u6upqoiei", 63.32, 'n', 2, "UPS", 33.0, false, "Azul", LocalDate.of(2022,10,12), false);
-    art12 = new Sapatilhas("Sapatilhas Casuais","Adidas", "5ym074315", 42.11, 'a', 3, "CTT", 17.0, true, "Preto", LocalDate.of(2020,11,11), false);
-    art13 = new Sapatilhas("Sapatilhas Casuais","Decathlon", "pok2jtbnz", 12.24, 'a', 2, "FedEx", 14.5, true, "Azul", LocalDate.of(2020,4,14), true);
-    art14 = new Sapatilhas("Sapatilhas Desportivas","Nike", "e86o549ty", 113.34, 'n', 0, "UPS", 55.5, false, "Verde", LocalDate.of(2023,1,9), false);
-    art15 = new Sapatilhas("Sapatilhas Casuais","Adidas", "f9pe5mg8g", 54.64, 'c', 0, "USPS", 23.5, true, "Amarelo", LocalDate.of(2020,12,7), true);
-    art16 = new Sapatilhas("Sapatilhas Festivas","NewBalance", "e2unr4d7s", 13.34, 'a', 2, "UPS", 22.5, false, "Azul", LocalDate.of(2023,6,2), true);
-    art17 = new Sapatilhas("Sapatilhas Festivas","Puma", "e544js8of", 154.04, 'n', 2, "FedEx", 11.5, true, "Verde", LocalDate.of(2020,4,17), false);
-    art18 = new Sapatilhas("Sapatilhas Casuais","Decathlon", "cw9nn67a1", 184.00, 'b', 1, "DHL", 28.5, false, "Azul", LocalDate.of(2023,8,30), false);
-    art19 = new Sapatilhas("Sapatilhas Desportivas","Adidas", "dg7v5w65k", 18.34, 'a', 4, "CTT", 31.0, true, "Amarelo", LocalDate.of(2022,9,30), false);
-    art20 = new Sapatilhas("Sapatilhas Casuais","Puma", "jaxh72hoe", 15.99, 'b', 6, "FedEx", 23.0, false, "Verde", LocalDate.of(2021,4,1), false);
+    s1 = new Sapatilhas("Sapatilhas Desportivas","Nike", "cd5xo1fp6", 154.34, 'a', 3, "UPS", 43.0, false, "Amarelo", LocalDate.of(2023,6,12), false);
+    s2 = new Sapatilhas("Sapatilhas Casuais","Adidas", "wgvupmumg", 94.23, 'a', 1, "DHL", 42.5, true, "Azul", LocalDate.of(2021,4,14), true);
+    s3 = new Sapatilhas("Sapatilhas Festivas","Puma", "9g7repv37", 44.45, 'n', 2, "FedEx", 39.0, false, "Preto", LocalDate.of(2021,1,17), true);
+    s4 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "ufp5ylqyu", 321.3, 'c', 0, "USPS", 22.0, true, "Azul", LocalDate.of(2023,8,1), false);
+    s5 = new Sapatilhas("Sapatilhas Festivas","Adidas", "l2wrqsrcv", 45.32, 'b', 3, "DHL", 34.0, false, "Amarelo", LocalDate.of(2021,4,29), true);
+    s6 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "nfr950f07", 123.34, 'b', 2, "UPS", 54.0, true, "Azul", LocalDate.of(2023,3,12), false);
+    s7 = new Sapatilhas("Sapatilhas Casuais","Puma", "z21za7v4q", 431.36, 'n', 1, "DHL", 42.0, true, "Vermelho", LocalDate.of(2021,2,1), true);
+    s8 = new Sapatilhas("Sapatilhas Casuais","Nike", "qwrrjgv6v", 55.99, 'c', 1, "FedEx", 33.0, false, "Roxo", LocalDate.of(2021,4,8), true);
+    s9 = new Sapatilhas("Sapatilhas Festivas","Adidas", "4mss7ngdf", 34.64, 'b', 3, "DHL", 43.0, true, "Azul", LocalDate.of(2023,4,19), true);
+    s10 = new Sapatilhas("Sapatilhas Festivas","Puma", "l3zmopumj", 58.43, 'c', 1, "FedEx", 46.0, true, "Preto", LocalDate.of(2022,4,20), true);
+    s11 = new Sapatilhas("Sapatilhas Desportivas","NewBalance", "u6upqoiei", 63.32, 'n', 2, "UPS", 33.0, false, "Azul", LocalDate.of(2022,10,12), false);
+    s12 = new Sapatilhas("Sapatilhas Casuais","Adidas", "5ym074315", 42.11, 'a', 3, "CTT", 17.0, true, "Preto", LocalDate.of(2020,11,11), false);
+    s13 = new Sapatilhas("Sapatilhas Casuais","Decathlon", "pok2jtbnz", 12.24, 'a', 2, "FedEx", 14.5, true, "Azul", LocalDate.of(2020,4,14), true);
+    s14 = new Sapatilhas("Sapatilhas Desportivas","Nike", "e86o549ty", 113.34, 'n', 0, "UPS", 55.5, false, "Verde", LocalDate.of(2023,1,9), false);
+    s15 = new Sapatilhas("Sapatilhas Casuais","Adidas", "f9pe5mg8g", 54.64, 'c', 0, "USPS", 23.5, true, "Amarelo", LocalDate.of(2020,12,7), true);
+    s16 = new Sapatilhas("Sapatilhas Festivas","NewBalance", "e2unr4d7s", 13.34, 'a', 2, "UPS", 22.5, false, "Azul", LocalDate.of(2023,6,2), true);
+    s17 = new Sapatilhas("Sapatilhas Festivas","Puma", "e544js8of", 154.04, 'n', 2, "FedEx", 11.5, true, "Verde", LocalDate.of(2020,4,17), false);
+    s18 = new Sapatilhas("Sapatilhas Casuais","Decathlon", "cw9nn67a1", 184.00, 'b', 1, "DHL", 28.5, false, "Azul", LocalDate.of(2023,8,30), false);
+    s19 = new Sapatilhas("Sapatilhas Desportivas","Adidas", "dg7v5w65k", 18.34, 'a', 4, "CTT", 31.0, true, "Amarelo", LocalDate.of(2022,9,30), false);
+    s20 = new Sapatilhas("Sapatilhas Casuais","Puma", "jaxh72hoe", 15.99, 'b', 6, "FedEx", 23.0, false, "Verde", LocalDate.of(2021,4,1), false);
 
 
     // TSHIRTS
@@ -86,42 +85,104 @@ public class Info_Inicial {
 
 
     // ENCOMENDAS
-    Encomenda enc1, enc2, enc3;
+    Encomenda enc1, enc2, enc3, enc4, enc5, enc6, enc7, enc8;
     List<Artigo> conj_artigos1 = new ArrayList<>();
-    conj_artigos1.add(art1);
-    conj_artigos1.add(art2);
+    conj_artigos1.add(s1);
+    conj_artigos1.add(s2);
 
     List<Artigo> conj_artigos2 = new ArrayList<>();
-    conj_artigos2.add(art3);
-    conj_artigos2.add(art4);
-    conj_artigos2.add(art5);
-    conj_artigos2.add(art6);
-    conj_artigos2.add(art7);
+    conj_artigos2.add(s3);
+    conj_artigos2.add(s4);
+    conj_artigos2.add(s5);
+    conj_artigos2.add(s6);
+    conj_artigos2.add(s7);
 
     List<Artigo> conj_artigos3 = new ArrayList<>();
-    conj_artigos3.add(art8);
+    conj_artigos3.add(s8);
+
+    List<Artigo> conj_artigos4 = new ArrayList<>();
+    conj_artigos4.add(s9);
+    conj_artigos4.add(s10);
+    conj_artigos4.add(s11);
+    conj_artigos4.add(m11);
+    conj_artigos4.add(m10);
+    conj_artigos4.add(t2);
+    conj_artigos4.add(t3);
+
+    List<Artigo> conj_artigos5 = new ArrayList<>();
+    conj_artigos5.add(s12);
+    conj_artigos5.add(s13);
+    conj_artigos5.add(m13);
+
+    List<Artigo> conj_artigos6 = new ArrayList<>();
+    conj_artigos6.add(m14);
+    conj_artigos6.add(s14);
+    conj_artigos6.add(t20);
+
+    List<Artigo> conj_artigos7 = new ArrayList<>();
+    conj_artigos7.add(m17);
+    conj_artigos7.add(s15);
+    conj_artigos7.add(t16);
+
+    List<Artigo> conj_artigos8 = new ArrayList<>();
+    conj_artigos8.add(m1);
+    conj_artigos8.add(m2);
 
     enc1 = new Encomenda(conj_artigos1,2,'e',LocalDate.of(2022,4,2));
-    enc2 = new Encomenda(conj_artigos2,5,'f',LocalDate.of(2023,5,22));
-    enc3 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1));
+    enc2 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1));
+    enc3 = new Encomenda(conj_artigos4,7,'p',LocalDate.of(2022,1,23));
+    enc4 = new Encomenda(conj_artigos7,3,'p',LocalDate.of(2022,12,16));
+    enc5 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3));
     
+    List<Artigo> multiplas_encomendas1 = new ArrayList<>();
+    multiplas_encomendas1.addAll(conj_artigos7);
+    multiplas_encomendas1.addAll(conj_artigos8);
 
     // UTILIZADORES
-    Utilizadores user1, user2, user3;
+    Utilizadores user1, user2, user3, user4, user5, user6, user7, user8;
 
-    user1 = new Utilizadores("pwzjef5j","João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",conj_artigos1,conj_artigos2,conj_artigos3, new ArrayList<>());
-    user2 = new Utilizadores("osyxeg0x","Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
-    user3 = new Utilizadores("ldlnzv8v","Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(), new ArrayList<>());
+    user1 = new Utilizadores("pwzjef5j","João Marcelo", "joao@gmail.com", "Rua das Oliveiras n32", "728842772",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user2 = new Utilizadores("osyxeg0x","Rui António", "rui_antonio@outlook.com", "Rua da Albufeira n420", "112314213",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user3 = new Utilizadores("ldlnzv8v","Ana Santos", "anaSantos@gmail.com", "Rua da Beira n1", "429881734",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user4 = new Utilizadores("dsxcsws1","Maria Silva", "msilva@gmail.com", "Rua do Sol n4", "242532556",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user5 = new Utilizadores("fnsakvs3","António Costa", "costaAntonio@gmail.com", "Rua da Beira n63", "242412525",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user6 = new Utilizadores("jfsakm3f","Mariana Antunes", "mant@gmail.com", "Rua da Seara n32", "352533535",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user7 = new Utilizadores("sdadassd","Clara Manuela", "clara@outlook.com", "Rua da Praça n23", "421433134",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    user8 = new Utilizadores("dsdas322","Jorge Silva", "jorgesilva@gmail.com", "Rua da Praça n7", "426633134",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+
+    //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
+    Fatura.emiteFatura(enc1, user1, user3);
+
+    //user1.setListaVendeu(conj_artigos1);
+    user1.setListaVenda(conj_artigos2);
+    user1.setListaCompra(conj_artigos3);
+
+    user2.setListaVenda(conj_artigos5);
+
+    user3.setListaVendeu(conj_artigos4);
+    //user3.setListaCompra(conj_artigos1);
+
+    user4.setListaVendeu(conj_artigos3);
+    user4.setListaCompra(multiplas_encomendas1);
+
+    user5.setListaCompra(conj_artigos6);
+
+    user6.setListaVendeu(multiplas_encomendas1);
+    user6.setListaCompra(conj_artigos4);
+
+    user8.setListaVendeu(conj_artigos6);
+
+
 
     // System.out.println();
-    // System.out.println(art1.toString());
+    // System.out.println(s1.toString());
     
     // enc3.devolverEncomenda(enc3);
-    // System.out.println();
+    // System.out.println(); 
     // System.out.println(enc1.toString());
 
-    //     System.out.println();
-    // System.out.println(art1.toString());
+    // System.out.println();
+    // System.out.println(s1.toString());
 
     //enc1.devolverEncomenda(enc1);
     System.out.println();
