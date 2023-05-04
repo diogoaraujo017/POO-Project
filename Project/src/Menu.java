@@ -7,7 +7,12 @@ public class Menu{
     private static LocalDate data;
 
     public static void abreMenuInicial(){
-        //setData(LocalDate.now());
+        if(getData().equals(null)) {
+            setData(LocalDate.now());
+        }
+        else{
+            setData(getData());
+        }
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n5-\n6-\n7-\n8-\n9-\n0-Sair\n");
         System.out.print("->");
@@ -90,8 +95,6 @@ public class Menu{
         List<Fatura> vazia=new ArrayList<Fatura>();
         String code= geraCodigo(8);
         new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
-        //Conta nova = new Conta(code,email,pass);
-        //ContaMap.addConta(nova);
         clearTerminal();
         abreMenuIntermedio();
         s1.close();
@@ -115,7 +118,27 @@ public class Menu{
         int mess = Integer.parseInt(mes);
         int anoo = Integer.parseInt(ano);
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
-        //setData(mudada);
+        if(mudada.isAfter(getData())) {
+            setData(mudada);
+            System.out.println("Data alterada com sucesso");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuInicial();
+        }
+        else{
+            System.out.println("A sua data é anterior à data atual do sistema, por favor tente novamente");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuData();
+        }
         s1.close();
         s2.close();
         s3.close();
@@ -664,7 +687,7 @@ public class Menu{
         this.shop = shop;
     }
 
-    public LocalDate getData() {
+    public static LocalDate getData() {
         return data;
     }
 
