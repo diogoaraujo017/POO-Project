@@ -98,6 +98,10 @@ public class Transportadora {
 
         return sb.toString();
     }
+
+    public Transportadora clone(){
+        return new Transportadora(this);
+    }
 }
 
 
