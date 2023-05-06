@@ -59,6 +59,16 @@ public class Menu{
         System.out.print("Email de Utilizador:");
         Scanner mail = new Scanner(System.in);
         String email = mail.nextLine();
+        if(!verificaEmail(email)){
+            System.out.println("Parece que o email que escreveu não segue o formato correto, por favor tente novamente");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuLogin();
+        }
         System.out.print("Insira a palavra passe:");
         Scanner password = new Scanner(System.in);
         String pass= password.nextLine();
@@ -752,4 +762,24 @@ public class Menu{
         }
         return codigo;
     }
+
+    public boolean verificaEmail(String email){
+        if (email == null) {
+            return false;
+        }
+        boolean arrobaEncontrado = false;
+        boolean pontoEncontrado = false;
+        for (int i = 0; i < email.length(); i++) {
+            char comp = email.charAt(i);
+            if(comp=='@'){
+                arrobaEncontrado=true;
+            }
+            if(comp=='.'){
+                if(arrobaEncontrado){
+                    pontoEncontrado=true;
+                }
+            }
+        }
+        return (arrobaEncontrado && pontoEncontrado);
+        }
 }
