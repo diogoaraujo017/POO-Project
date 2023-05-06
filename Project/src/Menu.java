@@ -1,5 +1,3 @@
-import jdk.jshell.execution.Util;
-
 import java.time.LocalDate;
 import java.util.*;
 import java.lang.Thread;
@@ -60,7 +58,7 @@ public class Menu{
         Scanner mail = new Scanner(System.in);
         String email = mail.nextLine();
         if(!verificaEmail(email)){
-            System.out.println("Parece que o email que escreveu não segue o formato correto, por favor tente novamente");
+            System.out.println("O email que escreveu não segue o formato correto, por favor tente novamente");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -77,7 +75,8 @@ public class Menu{
             abreMenuVisaoAdmin();
         }
         if(Vintage.loginCorreto(email,pass)){
-            Conta atual = new Conta(Vintage.getCodigoUtilizadores(email),email,pass);
+            Conta conta = Vintage.getContaByEmail(email);
+            Conta atual = new Conta(conta.getCodigo(),email,pass);
             setConta(atual);
             clearTerminal();
             abreMenuIntermedio();
@@ -208,6 +207,25 @@ public class Menu{
     }
     public void abreMenuCompras(){
         System.out.println("Menu de Compras");
+        List<Sapatilhas> svenda = atual.getSapatilhas();
+        List<Malas> mvenda = atual.getSapatilhas();
+        List<Tshirts> tvenda = atual.getSapatilhas();
+        int contador = 1;
+        for(Sapatilhas sap : svenda){
+            System.out.print(contador + "-");
+            sap.toString();
+            contador++;
+        }
+        for(Malas mal : mvenda){
+            System.out.print(contador + "-");
+            mal.toString();
+            contador++;
+        }
+        for(Tshirts ts : tvenda){
+            System.out.print(contador + "-");
+            ts.toString();
+            contador++;
+        }
     }
     public void abreMenuVendas(){
         System.out.println("Menu de Vendas");

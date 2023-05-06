@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Info_Inicial {
     public static void info() throws Exception{
+        Vintage vintage = new Vintage();
 
     // SAPATILHAS
         Artigo s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20;
-
         s1 = new Sapatilhas("Sapatilhas Desportivas","Nike", "cd5xo1fp6", 154.34, 'a', 3, "UPS", 43.0, false, "Amarelo", LocalDate.of(2023,6,12), false);
         s2 = new Sapatilhas("Sapatilhas Casuais","Adidas", "wgvupmumg", 94.23, 'a', 1, "DHL", 42.5, true, "Azul", LocalDate.of(2021,4,14), true);
         s3 = new Sapatilhas("Sapatilhas Festivas","Puma", "9g7repv37", 44.45, 'n', 2, "FedEx", 39.0, false, "Preto", LocalDate.of(2021,1,17), true);
@@ -138,7 +138,15 @@ public class Info_Inicial {
         enc5 = new Encomenda(conj_artigos7,3,'f',LocalDate.of(2022,12,16));
         enc6 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3));
         enc7 = new Encomenda(conj_artigos9,4,'f',LocalDate.of(2021,9,1));
-    
+
+        vintage.addEncomenda(enc1);
+        vintage.addEncomenda(enc2);
+        vintage.addEncomenda(enc3);
+        vintage.addEncomenda(enc4);
+        vintage.addEncomenda(enc5);
+        vintage.addEncomenda(enc6);
+        vintage.addEncomenda(enc7);
+
         List<Artigo> multiplas_encomendas1 = new ArrayList<>();
         multiplas_encomendas1.addAll(conj_artigos7);
         multiplas_encomendas1.addAll(conj_artigos8);
@@ -192,6 +200,12 @@ public class Info_Inicial {
         tr4= new Transportadora("DHL",1.03,false,dhl);
         tr5= new Transportadora("FedEx",1.10,false,fedex);
 
+        vintage.addTransportadora(tr1);
+        vintage.addTransportadora(tr2);
+        vintage.addTransportadora(tr3);
+        vintage.addTransportadora(tr4);
+        vintage.addTransportadora(tr5);
+
         // UTILIZADORES
         Utilizadores user1, user2, user3, user4, user5, user6, user7, user8, user9, user10;
 
@@ -206,8 +220,28 @@ public class Info_Inicial {
         user9 = new Utilizadores("mbksalew","Sara Raquel", "raquell@gmail.com", "Rua do Santo n32", "424244321",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         user10 = new Utilizadores("nsd32424","Renato Guedes", "renatoG@gmail.com", "Rua das Amélias n32", "321223332",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
-        Conta c1;
+        vintage.addUser(user1);
+        vintage.addUser(user2);
+        vintage.addUser(user3);
+        vintage.addUser(user4);
+        vintage.addUser(user5);
+        vintage.addUser(user6);
+        vintage.addUser(user7);
+        vintage.addUser(user8);
+        vintage.addUser(user9);
+        vintage.addUser(user10);
+
+        Conta c1,c2,c3,c4,c5,c6,c7,c8,c9,c10;
         c1=new Conta("pwzjef5j","joao@gmail.com","joaozito");
+        c2=new Conta("osyxeg0x","rui_antonio@outlook.com","RAnt");
+        c3=new Conta("ldlnzv8v","anaSantos@gmail.com","Santorini");
+        c4=new Conta("dsxcsws1","msilva@gmail.com","masil");
+        c5=new Conta("fnsakvs3","costaAntonio@gmail.com","PrimeiroMinistro");
+        c6=new Conta("jfsakm3f","mant@gmail.com","mantissa");
+        c7=new Conta("sdadassd","clara@outlook.com","clouca");
+        c8=new Conta("dsdas322","jorgesilva@gmail.com","jorje");
+        c9=new Conta("mbksalew","raquell@gmail.com","quelsporting");
+        c10=new Conta("nsd32424","renatoG@gmail.com","renaGOD");
 
         //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
         Fatura.emiteFatura(enc1, user1, user3);
