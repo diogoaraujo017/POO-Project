@@ -400,7 +400,7 @@ public class Menu{
             case "4" -> trans = "DHL";
             case "5" -> trans = "FedEx";
             default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
+                System.out.println("A transportadora não corresponde a nenhuma das opções, tente novamente.");
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -410,7 +410,6 @@ public class Menu{
                 abreMenuVendasMalas();
             }
         }
-
         System.out.println("Qual o comprimento da sua Mala?");
         Scanner s7 = new Scanner(System.in);
         String compri = s7.nextLine();
@@ -437,6 +436,9 @@ public class Menu{
         if(prem.equals("1")){
             premium=true;
         }
+        else if(prem.equals("2")){
+            premium=false;
+        }
         else{
             System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
             try {
@@ -447,7 +449,16 @@ public class Menu{
             clearTerminal();
             abreMenuVendasMalas();
         }
-
+        if(!premium && trans.equals("USPS")){
+            System.out.println("A transportadora que selecionou apenas transporta artigos premium e o seu artigo não o é, por favor selecione outra transportadora.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuVendasMalas();
+        }
         System.out.println("Mala registada, obrigado pela preferência!");
         try {
             Thread.sleep(3000);
@@ -541,6 +552,9 @@ public class Menu{
         if(ata.equals("1")){
             atacadores=true;
         }
+        else if(ata.equals("2")){
+            atacadores=false;
+        }
         else{
             System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
             try {
@@ -575,6 +589,9 @@ public class Menu{
         boolean premium=false;
         if(prem.equals("1")){
             premium=true;
+        }
+        else if(prem.equals("2")){
+            premium=false;
         }
         else{
             System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
