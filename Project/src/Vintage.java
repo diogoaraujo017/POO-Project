@@ -5,18 +5,18 @@ import static java.util.Objects.hash;
 
 public class Vintage {
 
-    private String currentUser;
+    private String currentUserEmail;
     private static Map<Integer,Conta> contas;
-    private Map<Integer,Utilizadores> utilizadores;
+    private static Map<Integer,Utilizadores> utilizadores;
     private List<Transportadora> transportadoras;
     private List<Encomenda> encomendas;
 
 
     // CONTRUCTORS /////////////////////////////////////////////////////////////////////////////////////
     public Vintage(){
-        this.currentUser = null;
-        this.contas = new HashMap<>();
-        this.utilizadores = new HashMap<>();
+        this.currentUserEmail = null;
+        contas = new HashMap<>();
+        utilizadores = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.encomendas = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class Vintage {
 
     public Vintage(String user, Map<Integer,Conta> contas, Map<Integer,Utilizadores> users,
                    List<Transportadora> transportadoras, List<Encomenda> encomendas){
-        this.setCurrentUser(user);
+        this.setCurrentUserEmail(user);
         this.setContas(contas);
         this.setUtilizadores(users);
         this.setTransportadoras(transportadoras);
@@ -32,26 +32,26 @@ public class Vintage {
     }
 
     public Vintage(Vintage v){
-        this.currentUser = v.getCurrentUser();
-        this.contas = v.getContas();
-        this.utilizadores = v.getUtilizadores();
+        this.currentUserEmail = v.getCurrentUserEmail();
+        contas = v.getContas();
+        utilizadores = v.getUtilizadores();
         this.transportadoras = v.getTransportadoras();
         this.encomendas = v.getEncomendas();
     }
 
     // GETTERS ///////////////////////////////////////////////////////////////////////////////////////
-    public String getCurrentUser() {
-        return this.currentUser;
+    public String getCurrentUserEmail() {
+        return this.currentUserEmail;
     }
 
     public Map<Integer, Conta> getContas() {
-        return this.contas.entrySet().stream()
+        return contas.entrySet().stream()
                                      .collect(Collectors
                                      .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
     public Map<Integer, Utilizadores> getUtilizadores() {
-        return this.utilizadores.entrySet().stream()
+        return utilizadores.entrySet().stream()
                    .collect(Collectors
                            .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
     }
@@ -68,18 +68,18 @@ public class Vintage {
 
     // SETTERS //////////////////////////////////////////////////////////////////////////////////////////
 
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
+    public void setCurrentUserEmail(String currentUser) {
+        this.currentUserEmail = currentUser;
     }
 
     public void setContas(Map<Integer, Conta> contas) {
-        this.contas = contas.entrySet().stream()
+        contas = contas.entrySet().stream()
                             .collect(Collectors
                                .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
     public void setUtilizadores(Map<Integer, Utilizadores> utilizadores) {
-        this.utilizadores = utilizadores.entrySet().stream()
+        utilizadores = utilizadores.entrySet().stream()
                                   .collect(Collectors
                                           .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
@@ -97,12 +97,38 @@ public class Vintage {
     }
 
 
+    // METODOS DA CLASSE ////////////////////////////////////////////////////////////////////////////
+
     public static void addConta(Conta c){
         contas.put(hash(c.getEmail()), c.clone());
     }
 
     public void removeConta(Conta c){
-        this.contas.remove(hash(c.getEmail()));
+        contas.remove(hash(c.getEmail()));
+    }
+
+    public static void addUser(Utilizadores u){
+        utilizadores.put(hash(u.getEmail()), u.clone());
+    }
+
+    public void removeUser(Utilizadores u){
+        utilizadores.remove(hash(u.getEmail()));
+    }
+
+    public void addTransportadora(Transportadora t){
+        this.transportadoras.add(t.clone());
+    }
+
+    public void removeTrasnportadora(Transportadora t){
+        this.transportadoras.remove(t);
+    }
+
+    public void addEncomenda(Encomenda e){
+        this.encomendas.add(e.clone());
+    }
+
+    public void removeEncomenda(Encomenda e){
+        this.encomendas.remove(e);
     }
 
     public static boolean loginCorreto(String email, String password){
@@ -110,16 +136,51 @@ public class Vintage {
 
         if(contas.containsKey(key)){
             Conta conta = contas.get(key);
-            if(conta.getEmail().equals(email) && conta.getPassword().equals(password)) {
-                return true;
-            }
+            return conta.getEmail().equals(email) && conta.getPassword().equals(password);
         }
 
         return false;
     }
 
+    public Utilizadores getUtilizadorByEmail(String email) {
+        int key = hash(email);
 
-    public static String getCodigoUtilizadores(String email){
+        if(contas.containsKey(key)){
+            return utilizadores.get(key);
+        }
+        return null;
+    }
+
+    public Transportadora getTransportdoraByName(String nome) {
+
+        for(Transportadora value : transportadoras) {
+            if(value.getNome().equals(nome)){
+                return value;
+            }
+        }
+
+        return null;
+    }
+
+
+
+    /// MISC ////////////////////////////////////////////////////////////////////////////////
+
+    /*public static Utilizadores getUsersByCode(String code) {
+        int key = hash(code);
+
+        Utilizadores u = null;
+
+        try {
+            u = utilizadores.get(key);
+        } catch (Exception e) {
+            System.out.println("User does not exist!");
+        }
+
+        return u;
+    }*/
+
+    /*public static String getCodigoUtilizadores(String email){
         int key = hash(email);
         String codigo = null;
 
@@ -129,16 +190,5 @@ public class Vintage {
         }
 
         return codigo;
-    }
-
-    public Utilizadores getUtilizadorByEmail(String email) {
-        for (Map.Entry<Integer, Utilizadores> entry : this.utilizadores.entrySet()) {
-            Utilizadores u = entry.getValue();
-            if (u.getEmail().equals(email)) {
-                return u;
-            }
-        }
-        return null;
-    }
-
+    }*/
 }
