@@ -6,42 +6,42 @@ public class Transportadora {
     private String nome; // CTT, USPS, UPS, DHL, FedEx
     private double lucro;
     private boolean e_premium;
-    private List<Encomenda> encomendas;
+    private List<Artigo> artigos;
 
     public Transportadora(){
         this.nome="";
         this.lucro=0.00;
         this.e_premium=false;
-        this.encomendas= new ArrayList<>();
+        this.artigos= new ArrayList<>();
     }
     public Transportadora(Transportadora t){
         this.nome=t.getNome();
         this.lucro=t.getLucro();
         this.e_premium=t.getEPremium();
-        this.encomendas=t.getEncomendas();
+        this.artigos=t.getArtigos();
     }
 
-    public Transportadora(String nome, double taxa, boolean prem, List<Encomenda> lista_encomendas) {
+    public Transportadora(String nome, double taxa, boolean prem, List<Artigo> lista_encomendas) {
         this.nome = nome;
         this.lucro=taxa;
         this.e_premium=prem;
-        this.encomendas= lista_encomendas.stream().map(Encomenda::clone).collect(Collectors.toList());
+        this.artigos= lista_encomendas.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public double getLucro() {
-        return lucro;
+        return this.lucro;
     }
 
     public boolean getEPremium() {
-        return e_premium;
+        return this.e_premium;
     }
 
-    public List<Encomenda> getEncomendas() {
-        return encomendas.stream().map(Encomenda::clone).collect(Collectors.toList());
+    public List<Artigo> getArtigos() {
+        return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
 
@@ -57,14 +57,13 @@ public class Transportadora {
         this.e_premium = e_premium;
     }
 
-    public void setEncomendas(List<Encomenda> lista_encomendas) {
-        encomendas.clear();
-        encomendas=new ArrayList<>(lista_encomendas);
+    public void setArtigos(List<Artigo> lista_encomendas) {
+        this.artigos.clear();
+        this.artigos=new ArrayList<>(lista_encomendas);
     }
 
-
-    public double precoExpedido(Transportadora transporte){
-        List <Encomenda> encomenda = transporte.getEncomendas();
+    /*public double precoExpedido(Transportadora transporte){
+        List <Artigo> lartigos = transporte.getArtigos();
         double valor_bruto=0.00;
         double valor_final=0.00;
         double imposto=0.23;
@@ -73,8 +72,8 @@ public class Transportadora {
         // if(tam==1) base=1.00;
         // if((tam>=2)&&(tam<=5)) base=1.10;
         // if(tam>=6) base=1.20;
-        for(Encomenda enc : encomenda){
-            valor_bruto+=enc.valorFinalEncomenda(enc);
+        for(Artigo artigo : lartigos){
+            valor_bruto+=artigo.valorFinalEncomenda(artigos);
         }
         if(transporte.getEPremium()) {
             valor_final=(valor_bruto * this.lucro * (1.0 + imposto) * 0.9)*1.5*base;
@@ -85,7 +84,7 @@ public class Transportadora {
         }
         valor_final = Math.round(valor_final * 100.0) / 100.0;
         return valor_final;
-    }
+    }*/
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,7 +92,7 @@ public class Transportadora {
         sb.append("Nome: ").append(this.nome);
         sb.append("; Margem de Lucro: ").append(this.lucro);
         sb.append("; Premium: ").append(this.e_premium);
-        sb.append("; Lista de produtos transportados: ").append(this.encomendas);
+        sb.append("; Lista de produtos transportados: ").append(this.artigos);
         sb.append("}");
 
         return sb.toString();

@@ -66,15 +66,15 @@ public class Malas extends Artigo{
     }
 
     public int getComprimento() {
-        return comprimento;
+        return this.comprimento;
     }
 
     public int getLargura() {
-        return largura;
+        return this.largura;
     }
 
     public int getAltura() {
-        return altura;
+        return this.altura;
     }
 
     public String getMaterial(){

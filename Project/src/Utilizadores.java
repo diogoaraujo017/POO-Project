@@ -68,7 +68,7 @@ public class Utilizadores {
     }
 
     public String getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public String getEmail(){
@@ -80,27 +80,27 @@ public class Utilizadores {
     }
 
     public String getMorada() {
-        return morada;
+        return this.morada;
     }
 
     public String getNif() {
-        return nif;
+        return this.nif;
     }
 
     public double getValorTotalVendas() {
-        return valorTotalVendas;
+        return this.valorTotalVendas;
     }
 
     public List<Artigo> getProdutosVendidos() {
-        return produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
+        return this.produtosVendidos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public List<Artigo> getProdutosLoja() {
-        return produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
+        return this.produtosLoja.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public List<Artigo> getProdutosComprou() {
-        return produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
+        return this.produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
     }
     public List<Fatura> getFaturas() {
         return faturas.stream().map(Fatura::clone).collect(Collectors.toList());
@@ -127,19 +127,19 @@ public class Utilizadores {
     }
 
     public void setListaVendeu(List<Artigo> lvendeu) {
-        produtosVendidos.clear();
-        produtosVendidos=new ArrayList<>(lvendeu);
+        this.produtosVendidos.clear();
+        this.produtosVendidos=new ArrayList<>(lvendeu);
         valorTotalVendas(lvendeu,0);
     }
 
     public void setListaVenda(List<Artigo> lvenda) {
-        produtosLoja.clear();
-        produtosLoja=new ArrayList<>(lvenda);
+        this.produtosLoja.clear();
+        this.produtosLoja=new ArrayList<>(lvenda);
     }
 
     public void setListaCompra(List<Artigo> lcompra) {
-        produtosComprou.clear();
-        produtosComprou=new ArrayList<>(lcompra);
+        this.produtosComprou.clear();
+        this.produtosComprou=new ArrayList<>(lcompra);
     }
 
     public void setValorTotalVendas(double total) {
@@ -147,8 +147,8 @@ public class Utilizadores {
     }
 
     public void setFatura(List<Fatura> faturas) {
-        faturas.clear();
-        faturas=new ArrayList<>(faturas);
+        this.faturas.clear();
+        this.faturas=new ArrayList<>(faturas);
     }
 
     public void adicionaArtigoVendido(Artigo art){

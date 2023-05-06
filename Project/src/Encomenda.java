@@ -58,32 +58,21 @@ public class Encomenda {
         }
     }
 
-    public static double valorFinalEncomenda(Encomenda enc){
-        double total = 0;
-
-        for(Artigo a : enc.artigos){
-            total+=a.getPrecoFinal();
-            if(a.getEstado()=='n') total+=0.5;
-            else total+=0.25;
-        }
-        
-        return total;
-    }
 
     public List<Artigo> getArtigos() {
-        return artigos.stream().map(Artigo::clone).collect(Collectors.toList());
+        return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public int getDimensao() {
-        return dimensao;
+        return this.dimensao;
     }
 
     public char getEstado() {
-        return estado;
+        return this.estado;
     }
 
     public LocalDate getData() {
-        return data;
+        return this.data;
     }
 
     public void clearArtigos() {

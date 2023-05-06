@@ -645,7 +645,7 @@ public class Menu{
         Scanner s3 = new Scanner(System.in);
         String premium = s3.nextLine();
         boolean prem= premium.equals("Sim");
-        List<Encomenda> vazia = new ArrayList<>();
+        List<Artigo> vazia = new ArrayList<>();
         new Transportadora(desc,lucro,prem,vazia);
         s1.close();
         s2.close();

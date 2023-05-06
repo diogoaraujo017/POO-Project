@@ -78,7 +78,7 @@ public class Artigo {
     }
 
     public String getTransportadora() {
-        return transportadora;
+        return this.transportadora;
     }
 
     public void setDescricao(String descricao){

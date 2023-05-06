@@ -44,7 +44,7 @@ public class Fatura {
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.encomenda = compras;
-        custo = Encomenda.valorFinalEncomenda(compras);
+        custo = compras.valorFinalEncomenda(compras);
     }
 
     public Utilizadores getComprador() {
@@ -72,11 +72,11 @@ public class Fatura {
     }
 
     public double getCusto() {
-        return custo;
+        return this.custo;
     }
 
     public static void setCusto(double cust) {
-        custo = cust;
+        this.custo = cust;
     }
 
     public Fatura clone(){
