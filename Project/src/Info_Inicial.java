@@ -243,6 +243,17 @@ public class Info_Inicial {
         c9=new Conta("mbksalew","raquell@gmail.com","quelsporting");
         c10=new Conta("nsd32424","renatoG@gmail.com","renaGOD");
 
+        vintage.addConta(c1);
+        vintage.addConta(c2);
+        vintage.addConta(c3);
+        vintage.addConta(c4);
+        vintage.addConta(c5);
+        vintage.addConta(c6);
+        vintage.addConta(c7);
+        vintage.addConta(c8);
+        vintage.addConta(c9);
+        vintage.addConta(c10);
+
         //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
         Fatura fatura = new Fatura();
         fatura.emiteFatura(enc1, user1, user3);

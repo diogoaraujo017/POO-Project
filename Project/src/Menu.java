@@ -2,20 +2,27 @@ import java.time.LocalDate;
 import java.util.*;
 import java.lang.Thread;
 
+
 public class Menu{
+
     private LocalDate data;
     private Conta conta;
 
-    public void abreMenuInicial(){
-        Vintage atual = new Vintage();
-        atual.getLoja();
+
+    public void inicio (){
+        Vintage vin = new Vintage();
+        abreMenuInicial(vin);
+    }
+
+    public void abreMenuInicial(Vintage vin){
+
         
-        if(!getData().equals(LocalDate.now())){
-            setData(getData());
-        }
-        else{
-            setData(LocalDate.now());
-        }
+        // if(!getData().equals(LocalDate.now())){
+        //     setData(getData());
+        // }
+        // else{
+        //     setData(LocalDate.now());
+        // }
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n\n\n\n\n\n0-Sair\n");
         System.out.print("->");
@@ -24,19 +31,19 @@ public class Menu{
         switch (entrada) {
             case "1" -> {
                 clearTerminal();
-                abreMenuLogin();
+                abreMenuLogin(vin);
             }
             case "2" -> {
                 clearTerminal();
-                abreMenuRegister();
+                abreMenuRegister(vin);
             }
             case "3" -> {
                 clearTerminal();
-                abreMenuData();
+                abreMenuData(vin);
             }
             case "4" -> {
                 clearTerminal();
-                abreMenuQueries();
+                abreMenuQueries(vin);
             }
             case "0" -> System.exit(0);
             default -> {
@@ -44,16 +51,17 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    input.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuInicial();
+                abreMenuInicial(vin);
             }
         }
         input.close();
     }
 
-    public void abreMenuLogin(){
+    public void abreMenuLogin(Vintage vin){
         System.out.println("Menu de Login\n");
         System.out.print("Email de Utilizador:");
         Scanner mail = new Scanner(System.in);
@@ -63,39 +71,42 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                mail.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuLogin();
+            abreMenuLogin(vin);
         }
         System.out.print("Insira a palavra passe:");
         Scanner password = new Scanner(System.in);
         String pass= password.nextLine();
         if(email.equals("admin") && pass.equals("1234")){
             clearTerminal();
-            abreMenuVisaoAdmin();
+            abreMenuVisaoAdmin(vin);
         }
-        if(atual.loginCorreto(email,pass)){
-            Conta conta = atual.getContaByEmail(email);
-            Conta atual = new Conta(conta.getCodigo(),email,pass);
-            setConta(atual);
+        if(vin.loginCorreto(email,pass)){
+            Conta conta = vin.getContaByEmail(email);
+            Conta conta_atual = new Conta(conta.getCodigo(),email,pass);
+            setConta(conta_atual);
             clearTerminal();
-            abreMenuIntermedio();
+            abreMenuIntermedio(vin);
         }
         else{
             System.out.println("Dados de Login incorretos, tente novamente");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                mail.close();
+                password.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuLogin();
+            abreMenuLogin(vin);
         }
         mail.close();
         password.close();
     }
-    public void abreMenuRegister(){
+    public void abreMenuRegister(Vintage vin){
         System.out.println("Menu de Registo\n");
         System.out.print("Nome de Utilizador:");
         Scanner s1 = new Scanner(System.in);
@@ -117,16 +128,16 @@ public class Menu{
         String code= geraCodigo(8);
         new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
         Conta nova = new Conta(code,email,pass);
-        Vintage.addConta(nova);
+        vin.addConta(nova);
         clearTerminal();
-        abreMenuIntermedio();
+        abreMenuIntermedio(vin);
         s1.close();
         s2.close();
         s3.close();
         s4.close();
         s5.close();
     }
-    public void abreMenuData(){
+    public void abreMenuData(Vintage vin){
         System.out.println("Menu de Data");
         System.out.print("Dia:");
         Scanner s1 = new Scanner(System.in);
@@ -147,30 +158,37 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
                 throw new RuntimeException(e);
+                
             }
             clearTerminal();
-            abreMenuInicial();
+            abreMenuInicial(vin);
         }
         else{
             System.out.println("A sua data é anterior à data atual do sistema, por favor tente novamente");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuData();
+            abreMenuData(vin);
         }
         s1.close();
         s2.close();
         s3.close();
     }
-    public void abreMenuQueries(){
+    public void abreMenuQueries(Vintage vin){
         System.out.println("Coming soon");
-        abreMenuInicial();
+        abreMenuInicial(vin);
     }
-    public void abreMenuIntermedio(){
+    public void abreMenuIntermedio(Vintage vin){
         System.out.println("Deseja:\n1-Comprar\n2-Vender\n3- Devolver Artigo\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
@@ -178,57 +196,46 @@ public class Menu{
         switch (entrada) {
             case "1" -> {
                 clearTerminal();
-                abreMenuCompras();
+                abreMenuCompras(vin);
             }
             case "2" -> {
                 clearTerminal();
-                abreMenuVendas();
+                abreMenuVendas(vin);
             }
             case "3" -> {
                 clearTerminal();
-                abreMenuDevolucao();
+                abreMenuDevolucao(vin);
             }
             case "0" -> System.exit(0);
             case "9" -> {
                 clearTerminal();
-                abreMenuInicial();
+                abreMenuInicial(vin);
             }
             default -> {
                 System.out.println("O seu input não vai de acordo às opções, tente novamente");
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuIntermedio();
+                abreMenuIntermedio(vin);
             }
         }
         s1.close();
     }
-    public void abreMenuCompras(){
+    public void abreMenuCompras(Vintage vin){
         System.out.println("Menu de Compras");
-        List<Sapatilhas> svenda = atual.getSapatilhas();
-        List<Malas> mvenda = atual.getSapatilhas();
-        List<Tshirts> tvenda = atual.getSapatilhas();
+        List<Artigo> artvenda = vin.getArtigos();
         int contador = 1;
-        for(Sapatilhas sap : svenda){
+        for(Artigo art : artvenda){
             System.out.print(contador + "-");
-            sap.toString();
-            contador++;
-        }
-        for(Malas mal : mvenda){
-            System.out.print(contador + "-");
-            mal.toString();
-            contador++;
-        }
-        for(Tshirts ts : tvenda){
-            System.out.print(contador + "-");
-            ts.toString();
+            art.toString();
             contador++;
         }
     }
-    public void abreMenuVendas(){
+    public void abreMenuVendas(Vintage vin){
         System.out.println("Menu de Vendas");
         System.out.println("Dejesa vender:\n1-Sapatilhas\n2-Malas\n3-TShirts\n\nSe quiser voltar atrás, prima 0");
         System.out.print("->");
@@ -237,34 +244,35 @@ public class Menu{
         switch (entrada) {
             case "1" -> {
                 clearTerminal();
-                abreMenuVendaSapatilhas();
+                abreMenuVendaSapatilhas(vin);
             }
             case "2" -> {
                 clearTerminal();
-                abreMenuVendasMalas();
+                abreMenuVendasMalas(vin);
             }
             case "3" -> {
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
             case "0" -> {
                 clearTerminal();
-                abreMenuIntermedio();
+                abreMenuIntermedio(vin);
             }
             default -> {
                 System.out.println("O seu input não vai de acordo às opções, tente novamente");
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendas();
+                abreMenuVendas(vin);
             }
         }
         s1.close();
     }
-    public void abreMenuVendasTShirts(){
+    public void abreMenuVendasTShirts(Vintage vin){
         System.out.println("Menu de venda de TShirts\n\n");
         System.out.println("Descreva a sua tshirt");
         Scanner s1 = new Scanner(System.in);
@@ -290,10 +298,14 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
 
@@ -316,10 +328,16 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
+                    s5.close();
+                    s6.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
 
@@ -337,10 +355,17 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
+                    s5.close();
+                    s6.close();
+                    s7.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
 
@@ -357,10 +382,18 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
+                    s5.close();
+                    s6.close();
+                    s7.close();
+                    s8.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
 
@@ -368,12 +401,20 @@ public class Menu{
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
+            s1.close();
+            s2.close();
+            s3.close();
+            s4.close();
+            s5.close();
+            s6.close();
+            s7.close();
+            s8.close();
             throw new RuntimeException(e);
         }
         String codigoTShirt=geraCodigo(10);
         new Tshirts(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
         clearTerminal();
-        abreMenuIntermedio();
+        abreMenuIntermedio(vin);
         s1.close();
         s2.close();
         s3.close();
@@ -383,7 +424,7 @@ public class Menu{
         s7.close();
         s8.close();
     }
-    public void abreMenuVendasMalas(){
+    public void abreMenuVendasMalas(Vintage vin){
         System.out.println("Menu de venda de Malas\n\n");
         System.out.println("Descreva a sua mala");
         Scanner s1 = new Scanner(System.in);
@@ -409,10 +450,14 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
         System.out.println("Quantos donos já teve a Mala?");
@@ -433,10 +478,16 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
+                    s5.close();
+                    s6.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasMalas();
+                abreMenuVendasMalas(vin);
             }
         }
         System.out.println("Qual o comprimento da sua Mala?");
@@ -473,32 +524,68 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                s4.close();
+                s5.close();
+                s6.close();
+                s7.close();
+                s8.close();
+                s9.close();
+                s10.close();
+                s11.close();
+                s12.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuVendasMalas();
+            abreMenuVendasMalas(vin);
         }
         if(!premium && trans.equals("USPS")){
             System.out.println("A transportadora que selecionou apenas transporta artigos premium e o seu artigo não o é, por favor selecione outra transportadora.");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                s4.close();
+                s5.close();
+                s6.close();
+                s7.close();
+                s8.close();
+                s9.close();
+                s10.close();
+                s11.close();
+                s12.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuVendasMalas();
+            abreMenuVendasMalas(vin);
         }
         System.out.println("Mala registada, obrigado pela preferência!");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
+            s1.close();
+            s2.close();
+            s3.close();
+            s4.close();
+            s5.close();
+            s6.close();
+            s7.close();
+            s8.close();
+            s9.close();
+            s10.close();
+            s11.close();
+            s12.close();
             throw new RuntimeException(e);
         }
 
         String codigoMala=geraCodigo(11);
         new Malas(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano,premium);
         clearTerminal();
-        abreMenuIntermedio();
+        abreMenuIntermedio(vin);
         s1.close();
         s2.close();
         s3.close();
@@ -512,7 +599,7 @@ public class Menu{
         s11.close();
         s12.close();
     }
-    public void abreMenuVendaSapatilhas(){
+    public void abreMenuVendaSapatilhas(Vintage vin){
         System.out.println("Menu de venda de Sapatilhas\n\n");
         System.out.println("Descreva as suas Sapatilhas");
         Scanner s1 = new Scanner(System.in);
@@ -538,10 +625,14 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
 
@@ -564,10 +655,16 @@ public class Menu{
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+                    s1.close();
+                    s2.close();
+                    s3.close();
+                    s4.close();
+                    s5.close();
+                    s6.close();
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts();
+                abreMenuVendasTShirts(vin);
             }
         }
         System.out.println("Qual o número (tamanho) das sapatilhas?");
@@ -589,10 +686,18 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                s4.close();
+                s5.close();
+                s6.close();
+                s7.close();
+                s8.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuVendaSapatilhas();
+            abreMenuVendaSapatilhas(vin);
         }
 
         System.out.println("Qual a cor das suas sapatilhas?");
@@ -627,22 +732,48 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                s4.close();
+                s5.close();
+                s6.close();
+                s7.close();
+                s8.close();
+                s9.close();
+                s10.close();
+                s11.close();
+                s12.close();
+                s13.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuVendaSapatilhas();
+            abreMenuVendaSapatilhas(vin);
 
         }
         System.out.println("Sapatilhas registadas, obrigado pela preferência!");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
+            s1.close();
+            s2.close();
+            s3.close();
+            s4.close();
+            s5.close();
+            s6.close();
+            s7.close();
+            s8.close();
+            s9.close();
+            s10.close();
+            s11.close();
+            s12.close();
+            s13.close();
             throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
         new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,premium);
         clearTerminal();
-        abreMenuIntermedio();
+        abreMenuIntermedio(vin);
         s1.close();
         s2.close();
         s3.close();
@@ -658,7 +789,7 @@ public class Menu{
         s13.close();
     }
 
-    public void abreMenuVisaoAdmin(){
+    public void abreMenuVisaoAdmin(Vintage vin){
         System.out.println("Menu de Administração\n\n");
         System.out.println("Selecione o menu que deseja aceder\n1-Criar Transportadora\n2-Gerir Transportadora\n\n\n\n\n\n\n\n0-Voltar ao Menu Inicial");
         System.out.print("->");
@@ -673,7 +804,7 @@ public class Menu{
         }
         else{
             clearTerminal();
-            abreMenuInicial();
+            abreMenuInicial(vin);
         }
         input.close();
     }
@@ -703,43 +834,45 @@ public class Menu{
         System.out.println("Qual o nome da transportadora a modificar?");
         Scanner s1 = new Scanner(System.in);
         String nome = s1.nextLine();
+        s1.close();
+
     }
 
-    public void abreMenuDevolucao(){
+    public void abreMenuDevolucao(Vintage vin){
         LocalDate agora= getData();
         agora.plusDays(2);
         Conta atual=getConta();
         System.out.println();
-        Vintage loja=getShop();
+        Vintage loja=vin;
         Utilizadores novo = loja.getUtilizadorByEmail(atual.getEmail());
         System.out.println(novo.toString());
     }
 
-    public Menu(Menu me){
-        this.shop=me.shop;
-        this.data=me.data;
-        this.conta=me.conta;
-    }
+    // public Menu(Menu me){
+    //     this.shop=me.shop;
+    //     this.data=me.data;
+    //     this.conta=me.conta;
+    // }
 
-    public Menu(){
-        this.shop=null;
-        this.data=LocalDate.now();
-        this.conta=null;
-    }
+    // public Menu(){
+    //     this.shop=null;
+    //     this.data=LocalDate.now();
+    //     this.conta=null;
+    // }
 
-    public Menu(Vintage shop, LocalDate dat, Conta cont) {
-        this.shop = shop;
-        this.data = dat;
-        this.conta= cont;
-    }
+    // public Menu(Vintage shop, LocalDate dat, Conta cont) {
+    //     this.shop = shop;
+    //     this.data = dat;
+    //     this.conta= cont;
+    // }
 
-    public Vintage getShop() {
-        return this.shop;
-    }
+    // public Vintage getShop() {
+    //     return this.shop;
+    // }
 
-    public void setShop(Vintage shop) {
-        this.shop = shop;
-    }
+    // public void setShop(Vintage shop) {
+    //     this.shop = shop;
+    // }
 
     public LocalDate getData() {
         return data;
@@ -758,12 +891,12 @@ public class Menu{
     }
 
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Menu menu = (Menu) o;
-        return Objects.equals(getShop(), menu.getShop());
-    }
+    // public boolean equals(Object o) {
+    //     if (this == o) return true;
+    //     if (o == null || getClass() != o.getClass()) return false;
+    //     Menu menu = (Menu) o;
+    //     return Objects.equals(getShop(), menu.getShop());
+    // }
 
     public void clearTerminal() {
         for (int i = 0;i<100;i++){
@@ -785,6 +918,9 @@ public class Menu{
     public boolean verificaEmail(String email){
         if (email == null) {
             return false;
+        }
+        if (email.equals("admin")){
+            return true;
         }
         boolean arrobaEncontrado = false;
         boolean pontoEncontrado = false;
