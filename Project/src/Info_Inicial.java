@@ -244,19 +244,20 @@ public class Info_Inicial {
         c10=new Conta("nsd32424","renatoG@gmail.com","renaGOD");
 
         //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
-        Fatura.emiteFatura(enc1, user1, user3);
+        Fatura fatura = new Fatura();
+        fatura.emiteFatura(enc1, user1, user3);
     
-        Fatura.emiteFatura(enc2, user4, user1);
+        fatura.emiteFatura(enc2, user4, user1);
 
-        Fatura.emiteFatura(enc3, user3, user6);
+        fatura.emiteFatura(enc3, user3, user6);
 
-        Fatura.emiteFatura(enc4, user8, user5);
+        fatura.emiteFatura(enc4, user8, user5);
 
-        Fatura.emiteFatura(enc5, user6, user4);
+        fatura.emiteFatura(enc5, user6, user4);
 
-        Fatura.emiteFatura(enc6, user6, user4);
+        fatura.emiteFatura(enc6, user6, user4);
 
-        Fatura.emiteFatura(enc7, user9, user1);
+        fatura.emiteFatura(enc7, user9, user1);
 
         user1.setListaVenda(conj_artigos2);
 

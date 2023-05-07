@@ -6,14 +6,11 @@ import static java.util.Objects.hash;
 public class Vintage {
 
     private String currentUserEmail;
-    private static Map<Integer,Conta> contas;
-    private static Map<Integer,Utilizadores> utilizadores;
+    private Map<Integer,Conta> contas;
+    private Map<Integer,Utilizadores> utilizadores;
     private List<Transportadora> transportadoras;
     private List<Encomenda> encomendas;
-
-    private List<Tshirts> shirts;
-    private List<Sapatilhas> sapatilhas;
-    private List<Malas> malas;
+    private List<Artigo> artigos;
 
 
     // CONTRUCTORS /////////////////////////////////////////////////////////////////////////////////////
@@ -23,32 +20,28 @@ public class Vintage {
         utilizadores = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.encomendas = new ArrayList<>();
-        this.shirts = new ArrayList<>();
-        this.sapatilhas = new ArrayList<>();
-        this.malas = new ArrayList<>();
+        this.artigos = new ArrayList<>();
 
     }
 
     public Vintage(String user, Map<Integer,Conta> contas, Map<Integer,Utilizadores> users,
-                   List<Transportadora> transportadoras, List<Encomenda> encomendas,List<Tshirts> shirts,
-                   List<Sapatilhas> sapatilhas, List<Malas> malas){
-        this.setCurrentUserEmail(user);
-        this.setContas(contas);
-        this.setUtilizadores(users);
-        this.setTransportadoras(transportadoras);
-        this.setEncomendas(encomendas);
-        this.setShirts(shirts);
-        this.setSapatilhas(sapatilhas);
-        this.setMalas(malas);
+                   List<Transportadora> transportadoras, List<Encomenda> encomendas,List<Artigo> artigos){
+        this.currentUserEmail=user;
+        this.contas=contas;
+        this.utilizadores=users;
+        this.transportadoras=transportadoras;
+        this.encomendas=encomendas;
+        this.artigos=artigos;
 
     }
 
     public Vintage(Vintage v){
         this.currentUserEmail = v.getCurrentUserEmail();
-        contas = v.getContas();
-        utilizadores = v.getUtilizadores();
+        this.contas = v.getContas();
+        this.utilizadores = v.getUtilizadores();
         this.transportadoras = v.getTransportadoras();
         this.encomendas = v.getEncomendas();
+        this.artigos= v.getArtigos();
     }
 
     // GETTERS ///////////////////////////////////////////////////////////////////////////////////////
@@ -56,14 +49,18 @@ public class Vintage {
         return this.currentUserEmail;
     }
 
+    public Vintage getLoja(){
+        return new Vintage();
+    }
+
     public Map<Integer, Conta> getContas() {
-        return contas.entrySet().stream()
+        return this.contas.entrySet().stream()
                                      .collect(Collectors
                                      .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
     public Map<Integer, Utilizadores> getUtilizadores() {
-        return utilizadores.entrySet().stream()
+        return this.utilizadores.entrySet().stream()
                    .collect(Collectors
                            .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
     }
@@ -78,18 +75,8 @@ public class Vintage {
                 .map(Encomenda::clone).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public List<Artigo> getShirts() {
-        return this.shirts.stream()
-                .map(Artigo::clone).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public List<Artigo> getSapatilhas() {
-        return this.sapatilhas.stream()
-                .map(Artigo::clone).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public List<Artigo> getMalas() {
-        return this.malas.stream()
+    public List<Artigo> getArtigos() {
+        return this.artigos.stream()
                 .map(Artigo::clone).collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -100,13 +87,13 @@ public class Vintage {
     }
 
     public void setContas(Map<Integer, Conta> contas) {
-        contas = contas.entrySet().stream()
+        this.contas = contas.entrySet().stream()
                             .collect(Collectors
                                .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
     public void setUtilizadores(Map<Integer, Utilizadores> utilizadores) {
-        utilizadores = utilizadores.entrySet().stream()
+        this.utilizadores = utilizadores.entrySet().stream()
                                   .collect(Collectors
                                           .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
@@ -119,16 +106,8 @@ public class Vintage {
         this.encomendas = new ArrayList<>(encomendas);
     }
 
-    public void setShirts(List<Tshirts> shirts) {
-        this.shirts = new ArrayList<>(shirts);
-    }
-
-    public void setSapatilhas(List<Sapatilhas> sapatilhas) {
-        this.sapatilhas = new ArrayList<>(sapatilhas);
-    }
-
-    public void setMalas(List<Malas> malas) {
-        this.malas = new ArrayList<>(malas);
+    public void setMalas(List<Artigo> artigos) {
+        this.artigos = new ArrayList<>(artigos);
     }
 
     public Vintage clone(){
@@ -138,7 +117,7 @@ public class Vintage {
 
     // METODOS DA CLASSE ////////////////////////////////////////////////////////////////////////////
 
-    public static void addConta(Conta c){
+    public void addConta(Conta c){
         contas.put(hash(c.getEmail()), c.clone());
     }
 
@@ -146,7 +125,7 @@ public class Vintage {
         contas.remove(hash(c.getEmail()));
     }
 
-    public static void addUser(Utilizadores u){
+    public void addUser(Utilizadores u){
         utilizadores.put(hash(u.getEmail()), u.clone());
     }
 
@@ -170,29 +149,14 @@ public class Vintage {
         this.encomendas.remove(e);
     }
 
-    public void addShirt(Tshirts t){
-        this.shirts.add((Tshirts) t.clone());
+    public void removeArtigo(Artigo art){
+        this.artigos.remove(art);
     }
 
-    public void removeShirt(Tshirts t){
-        this.shirts.remove(t);
+    public void addArtigo(Artigo art){
+        this.artigos.add((Artigo) art.clone());
     }
-
-    public void addSapatilhas(Sapatilhas s){
-        this.sapatilhas.add((Sapatilhas) s.clone());
-    }
-
-    public void removeSapatilha(Sapatilhas s){
-        this.sapatilhas.remove(s);
-    }
-    public void addMala(Malas m){
-        this.malas.add((Malas) m.clone());
-    }
-
-    public void removeMala(Malas m){
-        this.malas.remove(m);
-    }
-    public static boolean loginCorreto(String email, String password){
+    public boolean loginCorreto(String email, String password){
         int key = hash(email);
 
         if(contas.containsKey(key)){
@@ -202,6 +166,7 @@ public class Vintage {
 
         return false;
     }
+
 
     public Utilizadores getUtilizadorByEmail(String email) {
         int key = hash(email);
@@ -223,7 +188,7 @@ public class Vintage {
         return null;
     }
 
-    public static Conta getContaByEmail(String email) {
+    public Conta getContaByEmail(String email) {
 
         int key = hash(email);
 

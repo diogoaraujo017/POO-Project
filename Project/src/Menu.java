@@ -3,12 +3,13 @@ import java.util.*;
 import java.lang.Thread;
 
 public class Menu{
-    private Vintage shop;
     private LocalDate data;
     private Conta conta;
 
     public void abreMenuInicial(){
-        Vintage atual=getShop();
+        Vintage atual = new Vintage();
+        atual.getLoja();
+        
         if(!getData().equals(LocalDate.now())){
             setData(getData());
         }
@@ -74,8 +75,8 @@ public class Menu{
             clearTerminal();
             abreMenuVisaoAdmin();
         }
-        if(Vintage.loginCorreto(email,pass)){
-            Conta conta = Vintage.getContaByEmail(email);
+        if(atual.loginCorreto(email,pass)){
+            Conta conta = atual.getContaByEmail(email);
             Conta atual = new Conta(conta.getCodigo(),email,pass);
             setConta(atual);
             clearTerminal();
