@@ -133,4 +133,25 @@ public class Encomenda {
 
         return sb.toString();
     }
+
+    //Custo total encomenda
+    public double valorFinalEncomenda(Encomenda enc){
+        double total = 0;
+        for(Artigo a : artigos){
+            double precoArt = a.getPrecoFinal();
+            String nome = a.getTransportadora();
+            switch (nome) {
+                case "CTT" -> precoArt = precoArt * 1.05;
+                case "UPS" -> precoArt = precoArt * 1.07;
+                case "USPS" -> precoArt = precoArt * 1.09;
+                case "DHL" -> precoArt = precoArt * 1.03;
+                case "FedEx" -> precoArt = precoArt * 1.10;
+            }
+            precoArt = Math.round(precoArt * 100.0) / 100.0;
+            total+=precoArt;
+            if(a.getEstado()=='n') total+=0.5;
+            else total+=0.25;
+        }
+        return total;
+    }
 }
