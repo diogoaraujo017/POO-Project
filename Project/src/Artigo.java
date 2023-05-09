@@ -1,10 +1,15 @@
-public class Artigo {
+public abstract class Artigo {
     
     private String descricao;
+
     private String marca;
+
     private String codigo; // 9 digitos sapatilhas, 10 digitos tshirts, 11 digitos mala,
+
     private double preco_base;
+
     private double preco_final;
+
     private char estado; // n = artigo novo
                          // a = artigo usado (como novo)
                          // b = artigo usado (bom estado)
@@ -113,9 +118,7 @@ public class Artigo {
         this.transportadora = transportadora;
     }
 
-    public Artigo clone(){
-        return new Artigo(this);
-    }
+    public abstract Artigo clone();
 
 
     public boolean equals(Object obj){
@@ -132,7 +135,7 @@ public class Artigo {
                 e.getPrecoFinal()==(this.preco_final) &&
                 e.getEstado()==(this.estado) &&
                 e.getNDonos()==(this.n_donos) &&
-                e.getTransportadora()==(this.transportadora);
+                e.getTransportadora().equals((this.transportadora));
     }
 
     public String toString() {

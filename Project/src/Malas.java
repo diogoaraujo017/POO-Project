@@ -4,12 +4,14 @@ import java.time.Year;
 public class Malas extends Artigo{
 
     private int comprimento;
-    private int largura;
-    private int altura;
-    private String material;
-    private int ano_lancamento;
-    private boolean e_premium; // true = Premium // false = not Premium
 
+    private int largura;
+
+    private int altura;
+
+    private String material;
+
+    private int ano_lancamento;
 
     public Malas(){
         super();
@@ -18,7 +20,6 @@ public class Malas extends Artigo{
         this.altura = 0;
         this.material="";
         this.ano_lancamento=0;
-        this.e_premium=true;
     }
 
     public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
@@ -30,7 +31,6 @@ public class Malas extends Artigo{
         this.altura = altura;
         this.material=material;
         this.ano_lancamento=ano_lancamento;
-        this.e_premium=e_premium;
         calculaValorFinalMala(this);
     }
 
@@ -41,28 +41,24 @@ public class Malas extends Artigo{
         this.altura = malas.getAltura();
         this.material = malas.getMaterial();
         this.ano_lancamento = malas.getAnoLancamento();
-        this.e_premium = malas.getEPremium();
         calculaValorFinalMala(malas);
     }
 
-    public void calculaValorFinalMala(Malas ml){
+    public void calculaValorFinalMala(Malas mala){
         double taxa_vintage=1.03;
-        double preco_base = ml.getPrecoBase();
+        double preco_base = mala.getPrecoBase();
         double preco_final = preco_base;
 
-        int idade = Year.now().getValue() - ml.getAnoLancamento();
-        int volume = ml.getComprimento() * ml.getLargura() * ml.getAltura();
+        int idade = Year.now().getValue() - mala.getAnoLancamento();
+        int volume = mala.getComprimento() * mala.getLargura() * mala.getAltura();
 
-        if(ml.getEPremium()){
-            preco_final = preco_base + preco_base * 0.05 * idade;
-        } else {
-            preco_final = preco_base - preco_base * 0.02 * idade - (double) 12000000 / volume;
-        }
+        preco_final = preco_base - preco_base * 0.02 * idade - (double) 12000000 / volume;
 
         if(preco_final <= 15) preco_final = 15;
+
         preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
-        setPrecoFinal(preco_final);
+        mala.setPrecoFinal(preco_final);
     }
 
     public int getComprimento() {
@@ -85,10 +81,6 @@ public class Malas extends Artigo{
         return this.ano_lancamento;
     }
 
-    public boolean getEPremium(){
-        return this.e_premium;
-    }
-
     public void setComprimento(int comprimento) {
         this.comprimento = comprimento;
     }
@@ -109,10 +101,9 @@ public class Malas extends Artigo{
         this.ano_lancamento=ano_lancamento;
     }
 
-    public void setEPremium(boolean e_premium){
-        this.e_premium=e_premium;
+    public Artigo clone() {
+        return new Malas(this);
     }
-    
 
     public boolean equals(Object obj){
 
@@ -126,8 +117,7 @@ public class Malas extends Artigo{
                 e.getLargura()==(this.largura) &&
                 e.getAltura()==(this.altura) &&
                 e.getMaterial().equals(this.material) &&
-                e.getAnoLancamento()==(this.ano_lancamento) &&
-                e.getEPremium()==(this.e_premium);
+                e.getAnoLancamento()==(this.ano_lancamento);
 
     }
 
@@ -147,9 +137,6 @@ public class Malas extends Artigo{
         sb.append("; Altura: ").append(this.getAltura());
         sb.append("; Material: ").append(this.getMaterial());
         sb.append("; Ano de Lançamento: ").append(this.getAnoLancamento());
-        sb.append("; Premium: ");
-        if(this.getEPremium())sb.append("Sim");
-        else sb.append("Não");
         sb.append(" }");
 
         return sb.toString();

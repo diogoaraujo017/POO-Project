@@ -5,10 +5,13 @@ import java.time.Period;
 public class Sapatilhas extends Artigo{
     
     private double n_tamanho;
+
     private boolean tem_atacadores; // true - tem atacadores // false - não tem atacadores
+
     private String cor;
+
     private LocalDate data_lancamento; // dd/mm/aaaa
-    private boolean e_premium; // true - é Premium // false - não é Premium
+
 
     public Sapatilhas(){
         super();
@@ -16,18 +19,21 @@ public class Sapatilhas extends Artigo{
         this.tem_atacadores=true;
         this.cor="";
         this.data_lancamento= null;
-        this.e_premium=true;
+    }
+
+    @Override
+    public Artigo clone() {
+        return new Sapatilhas(this);
     }
 
     public Sapatilhas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
-                      double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento, boolean e_premium){
+                      double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora);
         this.n_tamanho=n_tamanho;
         this.tem_atacadores=tem_atacadores;
         this.cor=cor;
         this.data_lancamento=data_lancamento;
-        this.e_premium=e_premium;
         calculaValorFinalSapatilhas(this);
     }
 
@@ -37,7 +43,6 @@ public class Sapatilhas extends Artigo{
         this.tem_atacadores=sapatilhas.getTemAtacadores();
         this.cor=sapatilhas.getCor();
         this.data_lancamento=sapatilhas.getDataLancamento();
-        this.e_premium=sapatilhas.getEPremium();
         calculaValorFinalSapatilhas(sapatilhas);
     }
 
@@ -62,43 +67,32 @@ public class Sapatilhas extends Artigo{
             n_donos = 4;
         }
 
-        if(sp.getEPremium()){
+        
+        if(estado == 'n' && sp.getNTamanho() > 45) {
+                preco_final = preco_base - sp.getNTamanho() * 0.1;
+        }
+        
+        if(estado != 'n'){
             switch(estado){
                 case 'a':
-                    preco_final = preco_base + (preco_base * 0.1 * idade);
-                    break;
+                    preco_final = preco_base - (preco_base * n_donos) * 0.1;
+                    break; 
                 case 'b':
-                    preco_final = preco_base + (preco_base * 0.075 * idade);
-                    break;
+                    preco_final = preco_base - (preco_base * n_donos) * 0.13;
+                    break; 
                 case 'c':
-                    preco_final = preco_base + (preco_base * 0.03 * idade);
+                    preco_final = preco_base - (preco_base * n_donos) * 0.16;
                     break;
-            }
-        } else {
-            if(estado == 'n' && sp.getNTamanho() > 45) {
-                preco_final = preco_base - sp.getNTamanho() * 0.1;
-            }
-            if(estado != 'n'){
-                switch(estado){
-                    case 'a':
-                        preco_final = preco_base - (preco_base * n_donos) * 0.1;
-                        break;
-                    case 'b':
-                        preco_final = preco_base - (preco_base * n_donos) * 0.13;
-                        break;
-                    case 'c':
-                        preco_final = preco_base - (preco_base * n_donos) * 0.16;
-                        break;
-                }
             }
         }
+       
 
         if(preco_final <= 10) {
             preco_final = 10;
         }
         preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
-        setPrecoFinal(preco_final);
+        sp.setPrecoFinal(preco_final);
     }
     
     public double getNTamanho(){
@@ -117,11 +111,6 @@ public class Sapatilhas extends Artigo{
         return this.data_lancamento;
     }
 
-    public boolean getEPremium(){
-        return this.e_premium;
-    }
-
-    
     public void setNTamanho(double n_tamanho){
         this.n_tamanho=n_tamanho;
     }
@@ -138,11 +127,6 @@ public class Sapatilhas extends Artigo{
         this.data_lancamento=data_lancamento;
     }
 
-    public void setEPremium(boolean e_premium){
-        this.e_premium=e_premium;
-    }
-
-
     public boolean equals(Object obj){
 
         if(obj==this) return true;
@@ -154,8 +138,7 @@ public class Sapatilhas extends Artigo{
         return e.getNTamanho()==(this.n_tamanho) &&
                e.getTemAtacadores()==(this.tem_atacadores) && 
                e.getCor().equals(this.cor) && 
-               e.getDataLancamento().equals(this.data_lancamento) && 
-               e.getEPremium()==(this.e_premium);
+               e.getDataLancamento().equals(this.data_lancamento);
     }
 
     public String toString() {
@@ -175,9 +158,6 @@ public class Sapatilhas extends Artigo{
         else sb.append("Não");
         sb.append("; Cor: ").append(this.getCor());
         sb.append("; Data de Lançamento: ").append(this.getDataLancamento());
-        sb.append("; Premium: ");
-        if(this.getEPremium())sb.append("Sim");
-        else sb.append("Não");
         sb.append("}");
 
         return sb.toString();
