@@ -6,8 +6,8 @@ public class MalaPremium extends Malas implements Premium{
         super();
     }
 
-    public MalaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, int comprimento, int largura, int altura, String material, int ano_lancamento, boolean e_premium) {
-        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, comprimento, largura, altura, material, ano_lancamento, e_premium);
+    public MalaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, int comprimento, int largura, int altura, String material, int ano_lancamento) {
+        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, comprimento, largura, altura, material, ano_lancamento);
     }
 
     public MalaPremium(Malas malas) {
@@ -31,4 +31,7 @@ public class MalaPremium extends Malas implements Premium{
         mala.setPrecoFinal(preco_final);
     }
 
+    public Artigo clone() {
+        return new MalaPremium(this);
+    }
 }

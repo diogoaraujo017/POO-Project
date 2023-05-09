@@ -14,6 +14,10 @@ public class SapatilhasPremium extends Sapatilhas implements Premium {
         super(sapatilhas);
     }
 
+    public Artigo clone() {
+        return new SapatilhasPremium(this);
+    }
+
     public void calculaValorPremium(Sapatilhas sp) {
         double taxa_vintage=1.03;
         double preco_base = sp.getPrecoBase();

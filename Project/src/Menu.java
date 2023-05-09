@@ -9,8 +9,7 @@ public class Menu{
     private Conta conta;
 
 
-    public void inicio (){
-        Vintage vin = new Vintage();
+    public void inicio (Vintage vin){
         abreMenuInicial(vin);
     }
 
@@ -583,7 +582,7 @@ public class Menu{
         }
 
         String codigoMala=geraCodigo(11);
-        new Malas(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano,premium);
+        new Malas(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -771,7 +770,7 @@ public class Menu{
             throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,premium);
+        new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();

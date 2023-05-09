@@ -23,7 +23,7 @@ public class Malas extends Artigo{
     }
 
     public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
-                 int comprimento, int largura, int altura, String material, int ano_lancamento, boolean e_premium){
+                 int comprimento, int largura, int altura, String material, int ano_lancamento){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora);
         this.comprimento = comprimento;
@@ -31,7 +31,8 @@ public class Malas extends Artigo{
         this.altura = altura;
         this.material=material;
         this.ano_lancamento=ano_lancamento;
-        calculaValorFinalMala(this);
+        if(this instanceof Premium) ((MalaPremium) this).calculaValorMalaPremium(this);
+        else calculaValorFinalMala(this);
     }
 
     public Malas(Malas malas){
@@ -41,7 +42,8 @@ public class Malas extends Artigo{
         this.altura = malas.getAltura();
         this.material = malas.getMaterial();
         this.ano_lancamento = malas.getAnoLancamento();
-        calculaValorFinalMala(malas);
+        if(malas instanceof Premium) ((MalaPremium) malas).calculaValorMalaPremium(malas);
+        else calculaValorFinalMala(malas);
     }
 
     public void calculaValorFinalMala(Malas mala){
@@ -129,6 +131,8 @@ public class Malas extends Artigo{
         sb.append("; Código: ").append(this.getCodigo());
         sb.append("; Preço Base: ").append(this.getPrecoBase());
         sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        if(this instanceof Premium) sb.append("; Premium: Sim");
+        else sb.append("; Premium: Não");
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());

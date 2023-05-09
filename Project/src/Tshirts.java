@@ -57,6 +57,10 @@ public class Tshirts extends Artigo{
     }
 
 
+    public Artigo clone(){
+        return new Tshirts(this);
+    }
+
     public boolean equals(Object obj){
 
         if(obj==this) return true;

@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        Info_Inicial.info();
         Menu novo = new Menu();
-        novo.inicio();
+        novo.inicio(Info_Inicial.info());
     }
 }

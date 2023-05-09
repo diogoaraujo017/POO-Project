@@ -21,7 +21,6 @@ public class Sapatilhas extends Artigo{
         this.data_lancamento= null;
     }
 
-    @Override
     public Artigo clone() {
         return new Sapatilhas(this);
     }
@@ -34,7 +33,8 @@ public class Sapatilhas extends Artigo{
         this.tem_atacadores=tem_atacadores;
         this.cor=cor;
         this.data_lancamento=data_lancamento;
-        calculaValorFinalSapatilhas(this);
+        if(this instanceof Premium) ((SapatilhasPremium) this).calculaValorPremium(this);
+        else calculaValorFinalSapatilhas(this);
     }
 
     public Sapatilhas(Sapatilhas sapatilhas){
@@ -43,7 +43,8 @@ public class Sapatilhas extends Artigo{
         this.tem_atacadores=sapatilhas.getTemAtacadores();
         this.cor=sapatilhas.getCor();
         this.data_lancamento=sapatilhas.getDataLancamento();
-        calculaValorFinalSapatilhas(sapatilhas);
+        if(sapatilhas instanceof Premium) ((SapatilhasPremium) sapatilhas).calculaValorPremium(sapatilhas);
+        else calculaValorFinalSapatilhas(sapatilhas);
     }
 
     // Calcula a idade da coleção das sapatilhas em anos.
@@ -75,13 +76,13 @@ public class Sapatilhas extends Artigo{
         if(estado != 'n'){
             switch(estado){
                 case 'a':
-                    preco_final = preco_base - (preco_base * n_donos) * 0.1;
+                    preco_final = preco_base - (preco_base * n_donos) * 0.1 - idade;
                     break; 
                 case 'b':
-                    preco_final = preco_base - (preco_base * n_donos) * 0.13;
+                    preco_final = preco_base - (preco_base * n_donos) * 0.13 - idade;
                     break; 
                 case 'c':
-                    preco_final = preco_base - (preco_base * n_donos) * 0.16;
+                    preco_final = preco_base - (preco_base * n_donos) * 0.16 - idade;
                     break;
             }
         }
@@ -156,6 +157,8 @@ public class Sapatilhas extends Artigo{
         sb.append("; Atacadores: ");
         if(this.getTemAtacadores())sb.append("Sim");
         else sb.append("Não");
+        if(this instanceof Premium) sb.append("; Premium: Sim");
+        else sb.append("; Premium: Não");
         sb.append("; Cor: ").append(this.getCor());
         sb.append("; Data de Lançamento: ").append(this.getDataLancamento());
         sb.append("}");
