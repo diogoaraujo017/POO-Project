@@ -51,7 +51,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     input.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuInicial(vin);
@@ -71,7 +71,7 @@ public class Menu{
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 mail.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuLogin(vin);
@@ -97,7 +97,7 @@ public class Menu{
             } catch (InterruptedException e) {
                 mail.close();
                 password.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuLogin(vin);
@@ -190,7 +190,7 @@ public class Menu{
                 s1.close();
                 s2.close();
                 s3.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
 
             }
             clearTerminal();
@@ -204,7 +204,7 @@ public class Menu{
                 s1.close();
                 s2.close();
                 s3.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuData(vin);
@@ -246,7 +246,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     s1.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuIntermedio(vin);
@@ -259,10 +259,37 @@ public class Menu{
         List<Artigo> artvenda = vin.getListaArtigos();
         int contador = 1;
         for(Artigo art : artvenda){
-            System.out.print(contador + "-");
-            art.toString();
+            System.out.print(contador + " -  ");
+            System.out.println(art.toString());
+            System.out.println();
             contador++;
         }
+        Scanner scanner = new Scanner(System.in);
+        String linha = scanner.nextLine();
+        String[] partes = linha.split(",");
+        boolean cont=false;
+        for(int i=0; i<partes.length;i++){
+            if(vin.existeArtigo(partes[i])){
+                cont=true;
+                Artigo art = vin.getArtigo(partes[i]);
+                Fatura fatura = new Fatura();
+                fatura.emiteFatura(art,vin.getUtilizadorByEmail(art.getCodigo()),vin.getUtilizadorByEmail(conta.getEmail()));
+                vin.removeArtigo(art);
+            }
+            else{
+                System.out.println("Erro: "+partes[i]+ " não existe");
+            }
+        }
+        if(cont) System.out.println("Compra efetuada com sucesso");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            scanner.close();
+            throw new RuntimeException(e);
+        }
+        abreMenuIntermedio(vin);
+        scanner.close();
+
     }
     public void abreMenuVendas(Vintage vin){
         System.out.println("Menu de Vendas");
@@ -293,7 +320,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     s1.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendas(vin);
@@ -341,7 +368,7 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -382,7 +409,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -410,7 +437,7 @@ public class Menu{
                     s5.close();
                     s6.close();
                     s7.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -438,7 +465,7 @@ public class Menu{
                     s6.close();
                     s7.close();
                     s8.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -457,10 +484,10 @@ public class Menu{
             s6.close();
             s7.close();
             s8.close();
-            //throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         String codigoTShirt=geraCodigo(10);
-        new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
+        new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao,conta.getEmail());
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -512,7 +539,7 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasMalas(vin);
@@ -552,7 +579,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasMalas(vin);
@@ -644,7 +671,7 @@ public class Menu{
                 s10.close();
                 s11.close();
                 s12.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendasMalas(vin);
@@ -666,7 +693,7 @@ public class Menu{
                 s10.close();
                 s11.close();
                 s12.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendasMalas(vin);
@@ -687,11 +714,11 @@ public class Menu{
             s10.close();
             s11.close();
             s12.close();
-            //throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
         String codigoMala=geraCodigo(11);
-        new Mala(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano);
+        new Mala(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano,conta.getEmail());
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -747,7 +774,7 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -789,7 +816,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -832,7 +859,7 @@ public class Menu{
                 s6.close();
                 s7.close();
                 s8.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
@@ -913,7 +940,7 @@ public class Menu{
                 s11.close();
                 s12.close();
                 s13.close();
-                //throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
@@ -936,10 +963,10 @@ public class Menu{
             s11.close();
             s12.close();
             s13.close();
-            //throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
+        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,conta.getEmail());
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();

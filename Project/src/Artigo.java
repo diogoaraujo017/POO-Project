@@ -19,6 +19,8 @@ public abstract class Artigo {
 
     private String transportadora;
 
+    private String vendedor;
+
     public Artigo (){
         this.descricao = "";
         this.marca = "";
@@ -27,11 +29,12 @@ public abstract class Artigo {
         this.preco_final = 0.00;
         this.estado = ' ';
         this.n_donos = 0;
-        this.transportadora = null;
+        this.transportadora = "";
+        this.vendedor="";
     }
 
     public Artigo (String descricao, String marca, String codigo, double preco_base,
-                   char estado, int n_donos, String transportadora){
+                   char estado, int n_donos, String transportadora, String vendedor){
         this.descricao = descricao;
         this.marca = marca;
         this.codigo = codigo;
@@ -41,6 +44,7 @@ public abstract class Artigo {
         if(estado == 'n') this.n_donos = 0;
         else this.n_donos = n_donos;
         this.transportadora = transportadora;
+        this.vendedor=vendedor;
     }
 
     public Artigo (Artigo artigo){
@@ -52,6 +56,7 @@ public abstract class Artigo {
         this.estado = artigo.getEstado();
         this.n_donos = artigo.getNDonos();
         this.transportadora = artigo.getTransportadora();
+        this.vendedor=artigo.getVendedor();
     }
 
     public String getDescricao(){
@@ -86,6 +91,10 @@ public abstract class Artigo {
         return this.transportadora;
     }
 
+    public String getVendedor() {
+        return vendedor;
+    }
+
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
@@ -118,6 +127,10 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
     public abstract Artigo clone();
 
 
@@ -135,7 +148,8 @@ public abstract class Artigo {
                 e.getPrecoFinal()==(this.preco_final) &&
                 e.getEstado()==(this.estado) &&
                 e.getNDonos()==(this.n_donos) &&
-                e.getTransportadora().equals((this.transportadora));
+                e.getTransportadora().equals((this.transportadora)) &&
+                e.getVendedor().equals((this.vendedor));
     }
 
     public String toString() {
@@ -149,6 +163,7 @@ public abstract class Artigo {
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
+        sb.append("; Vendedor: ").append(this.getVendedor());
         sb.append("}");
 
         return sb.toString();

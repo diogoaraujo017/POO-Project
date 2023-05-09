@@ -3,48 +3,48 @@ public class Fatura {
 
     private Utilizador comprador;
     private Utilizador vendedor;
-    private Encomenda encomenda;
+    private Artigo artigo;
     private double custo;
-
-    public void emiteFatura(Encomenda enc, Utilizador vendedor, Utilizador comprador){
-        Fatura nova = new Fatura(comprador,vendedor,enc);
-        double passado = vendedor.getValorTotalVendas();
-        double custo = valorCusto(enc);
-        for(Artigo art : enc.getArtigos()){
-            vendedor.adicionaArtigoVendido(art);
-            comprador.adicionaArtigoComprado(art);
-            vendedor.removeArtigoVendido(art);
-        }
-        vendedor.setValorTotalVendas(passado+custo);
-        vendedor.adicionaFatura(nova);
-        comprador.adicionaFatura(nova);
-    }
-
-    public double valorCusto(Encomenda enc){
-        double val = enc.valorFinalEncomenda(enc);
-        setCusto(val);
-        return val;
-    }
 
     public Fatura(){
         this.comprador=null;
         this.vendedor=null;
-        this.encomenda=null;
+        this.artigo=null;
         this.custo=0;
     }
 
     public Fatura(Fatura fat){
         this.comprador=fat.comprador;
         this.vendedor=fat.vendedor;
-        this.encomenda=fat.encomenda;
+        this.artigo=fat.artigo;
         this.custo=fat.custo;
     }
 
-    public Fatura(Utilizador comprador, Utilizador vendedor, Encomenda compras) {
+    public Fatura(Utilizador comprador, Utilizador vendedor, Artigo artigo) {
         this.comprador = comprador;
         this.vendedor = vendedor;
-        this.encomenda = compras;
-        this.custo = compras.valorFinalEncomenda(compras);
+        this.artigo = artigo;
+        this.custo = valorCusto(artigo);
+    }
+
+
+
+    public void emiteFatura(Artigo art, Utilizador vendedor, Utilizador comprador){
+        Fatura nova = new Fatura(comprador,vendedor,art);
+        double passado = vendedor.getValorTotalVendas();
+        double custo = valorCusto(art);
+        vendedor.adicionaArtigoVendido(art);
+        comprador.adicionaArtigoComprado(art);
+        vendedor.removeArtigoVendido(art);
+        vendedor.setValorTotalVendas(passado+custo);
+        vendedor.adicionaFatura(nova);
+        comprador.adicionaFatura(nova);
+    }
+
+    public double valorCusto(Artigo art){
+        double val = art.getPrecoFinal();
+        setCusto(art.getPrecoFinal());
+        return val;
     }
 
     public Utilizador getComprador() {
@@ -63,12 +63,12 @@ public class Fatura {
         this.vendedor = vendedor;
     }
 
-    public Encomenda getEncomenda() {
-        return this.encomenda;
+    public Artigo getArtigo() {
+        return this.artigo;
     }
 
-    public void setEncomenda(Encomenda compras) {
-        this.encomenda = compras;
+    public void setArtigo(Artigo artigo) {
+        this.artigo = artigo;
     }
 
     public double getCusto() {
@@ -90,7 +90,7 @@ public class Fatura {
         sb.append("Fatura: {");
         sb.append("Comprador: ").append(this.getComprador().getCodigo());
         sb.append("; Vendedor: ").append(this.getVendedor().getCodigo());
-        sb.append("; Encomenda: ").append(this.getEncomenda());
+        sb.append("; Artigo: ").append(this.getArtigo());
         sb.append("; Custo: ").append(this.getCusto());
         sb.append("}");
 

@@ -6,8 +6,8 @@ public class SapatilhaPremium extends Sapatilha implements Premium {
         super();
     }
 
-    public SapatilhaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento) {
-        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, n_tamanho, tem_atacadores, cor, data_lancamento);
+    public SapatilhaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento, String vendedor) {
+        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, n_tamanho, tem_atacadores, cor, data_lancamento, vendedor);
     }
 
     public SapatilhaPremium(Sapatilha sapatilha) {

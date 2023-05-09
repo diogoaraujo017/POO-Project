@@ -16,9 +16,9 @@ public class Tshirt extends Artigo{
     }
 
     public Tshirt(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
-                   String transportadora, char tamanho, char padrao){
+                   String transportadora, char tamanho, char padrao, String vendedor){
                     
-        super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora);
+        super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora, vendedor);
         this.tamanho=tamanho;
         this.padrao=padrao;
         calculaValorFinalShirts(this);
