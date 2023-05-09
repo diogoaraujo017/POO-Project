@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
@@ -164,6 +163,18 @@ public class Vintage {
         artigos.put(hash(art.getCodigo()), art.clone());
     }
 
+    public boolean existeArtigo(String codigo){
+        int hashCode = hash(codigo);
+        Artigo art = artigos.get(hashCode);
+        return art!= null && art.getCodigo().equals(codigo);
+    }
+
+    public Artigo getArtigo(String codigo){
+        int hashCode = hash(codigo);
+        Artigo art = artigos.get(hashCode);
+        return art;
+    }
+
     public boolean loginCorreto(String email, String password){
         int key = hash(email);
 
@@ -174,6 +185,7 @@ public class Vintage {
 
         return false;
     }
+
 
 
     public Utilizador getUtilizadorByEmail(String email) {
