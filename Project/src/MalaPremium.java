@@ -1,6 +1,6 @@
 import java.time.Year;
 
-public class MalaPremium extends Malas implements Premium{
+public class MalaPremium extends Mala implements Premium{
 
     public MalaPremium() {
         super();
@@ -10,11 +10,11 @@ public class MalaPremium extends Malas implements Premium{
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, comprimento, largura, altura, material, ano_lancamento);
     }
 
-    public MalaPremium(Malas malas) {
-        super(malas);
+    public MalaPremium(Mala mala) {
+        super(mala);
     }
 
-    public void calculaValorMalaPremium(Malas mala){
+    public void calculaValorMalaPremium(Mala mala){
         double taxa_vintage=1.03;
         double preco_base = mala.getPrecoBase();
         double preco_final = preco_base;

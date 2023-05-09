@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Utilizadores {
+public class Utilizador {
     
     private String codigo; // código identificador de cada user de 8 digitos
     private String email; // usado para login
@@ -15,7 +15,7 @@ public class Utilizadores {
     private double valorTotalVendas;
     private List<Fatura> faturas;
 
-    Utilizadores(){
+    Utilizador(){
         this.codigo=null;
         this.email=null;
         this.nome=null;
@@ -28,7 +28,7 @@ public class Utilizadores {
         this.faturas=new ArrayList<>();
     }
 
-    Utilizadores(String codigo,String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
+    Utilizador(String codigo,String nome, String email, String morada, String nif, List <Artigo> produtosVendidos,
                  List <Artigo> produtosLoja, List <Artigo> produtosComprou, List<Fatura> fat){
         this.codigo=codigo;
         this.email=email;
@@ -42,7 +42,7 @@ public class Utilizadores {
         this.faturas=fat;
     }
 
-    Utilizadores(Utilizadores ut){
+    Utilizador(Utilizador ut){
 
         this.codigo = ut.getCodigo();
         this.email = ut.getEmail();
@@ -175,7 +175,7 @@ public class Utilizadores {
 
         if(obj==null || obj.getClass()!=this.getClass()) return false;
 
-        Utilizadores e = (Utilizadores) obj;
+        Utilizador e = (Utilizador) obj;
         return e.getCodigo().equals(this.codigo) &&
                e.getEmail().equals(this.email) &&
                e.getNome().equals(this.nome) &&
@@ -246,8 +246,8 @@ public class Utilizadores {
         return sb.toString();
     }
 
-    public Utilizadores clone(){
-        return new Utilizadores(this);
+    public Utilizador clone(){
+        return new Utilizador(this);
     }
 
 }

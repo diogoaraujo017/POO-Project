@@ -1,7 +1,7 @@
 
 import java.time.Year;
 
-public class Malas extends Artigo{
+public class Mala extends Artigo{
 
     private int comprimento;
 
@@ -13,7 +13,7 @@ public class Malas extends Artigo{
 
     private int ano_lancamento;
 
-    public Malas(){
+    public Mala(){
         super();
         this.comprimento = 0;
         this.largura = 0;
@@ -22,7 +22,7 @@ public class Malas extends Artigo{
         this.ano_lancamento=0;
     }
 
-    public Malas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
+    public Mala(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
                  int comprimento, int largura, int altura, String material, int ano_lancamento){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora);
@@ -35,18 +35,18 @@ public class Malas extends Artigo{
         else calculaValorFinalMala(this);
     }
 
-    public Malas(Malas malas){
-        super(malas);
-        this.comprimento = malas.getComprimento();
-        this.largura = malas.getLargura();
-        this.altura = malas.getAltura();
-        this.material = malas.getMaterial();
-        this.ano_lancamento = malas.getAnoLancamento();
-        if(malas instanceof Premium) ((MalaPremium) malas).calculaValorMalaPremium(malas);
-        else calculaValorFinalMala(malas);
+    public Mala(Mala mala){
+        super(mala);
+        this.comprimento = mala.getComprimento();
+        this.largura = mala.getLargura();
+        this.altura = mala.getAltura();
+        this.material = mala.getMaterial();
+        this.ano_lancamento = mala.getAnoLancamento();
+        if(mala instanceof Premium) ((MalaPremium) mala).calculaValorMalaPremium(mala);
+        else calculaValorFinalMala(mala);
     }
 
-    public void calculaValorFinalMala(Malas mala){
+    public void calculaValorFinalMala(Mala mala){
         double taxa_vintage=1.03;
         double preco_base = mala.getPrecoBase();
         double preco_final = preco_base;
@@ -104,7 +104,7 @@ public class Malas extends Artigo{
     }
 
     public Artigo clone() {
-        return new Malas(this);
+        return new Mala(this);
     }
 
     public boolean equals(Object obj){
@@ -114,7 +114,7 @@ public class Malas extends Artigo{
         if(obj==null || obj.getClass()!=this.getClass()) return false;
         if (!super.equals(obj)) return false;
 
-        Malas e = (Malas) obj;
+        Mala e = (Mala) obj;
         return  e.getComprimento()==(this.comprimento) &&
                 e.getLargura()==(this.largura) &&
                 e.getAltura()==(this.altura) &&

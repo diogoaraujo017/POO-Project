@@ -1,24 +1,24 @@
 import java.time.LocalDate;
 
-public class SapatilhasPremium extends Sapatilhas implements Premium {
+public class SapatilhaPremium extends Sapatilha implements Premium {
 
-    public SapatilhasPremium() {
+    public SapatilhaPremium() {
         super();
     }
 
-    public SapatilhasPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento) {
+    public SapatilhaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento) {
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, n_tamanho, tem_atacadores, cor, data_lancamento);
     }
 
-    public SapatilhasPremium(Sapatilhas sapatilhas) {
-        super(sapatilhas);
+    public SapatilhaPremium(Sapatilha sapatilha) {
+        super(sapatilha);
     }
 
     public Artigo clone() {
-        return new SapatilhasPremium(this);
+        return new SapatilhaPremium(this);
     }
 
-    public void calculaValorPremium(Sapatilhas sp) {
+    public void calculaValorPremium(Sapatilha sp) {
         double taxa_vintage=1.03;
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;

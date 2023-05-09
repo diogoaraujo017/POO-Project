@@ -1,16 +1,21 @@
 
-public class Tshirts extends Artigo{
+public class Tshirt extends Artigo{
     
     private char tamanho; // s=S // m=M // l=L // x=XL
     private char padrao; // l=liso // r=riscas // p=palmeiras
 
-    public Tshirts(){
+    public Tshirt(){
         super();
         this.tamanho=' ';
         this.padrao=' ';
     }
 
-    public Tshirts(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
+    @Override
+    public Artigo clone() {
+        return new Tshirt(this);
+    }
+
+    public Tshirt(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
                    String transportadora, char tamanho, char padrao){
                     
         super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora);
@@ -19,14 +24,14 @@ public class Tshirts extends Artigo{
         calculaValorFinalShirts(this);
     }
 
-    public Tshirts(Tshirts tshirts){
+    public Tshirt(Tshirt tshirts){
         super(tshirts);
         this.tamanho=tshirts.getTamanho();
         this.padrao=tshirts.getPadrao();
         calculaValorFinalShirts(tshirts);
     }
 
-    public void calculaValorFinalShirts(Tshirts ts){
+    public void calculaValorFinalShirts(Tshirt ts){
         double taxa_vintage=1.03;
         char padrao = ts.getPadrao();
         double preco_final = ts.getPrecoBase();
@@ -57,10 +62,6 @@ public class Tshirts extends Artigo{
     }
 
 
-    public Artigo clone(){
-        return new Tshirts(this);
-    }
-
     public boolean equals(Object obj){
 
         if(obj==this) return true;
@@ -68,7 +69,7 @@ public class Tshirts extends Artigo{
         if(obj==null || obj.getClass()!=this.getClass()) return false;
         if (!super.equals(obj)) return false;
 
-        Tshirts e = (Tshirts) obj;
+        Tshirt e = (Tshirt) obj;
         return e.getTamanho()==(this.tamanho) &&
                e.getPadrao()==(this.padrao);
     }

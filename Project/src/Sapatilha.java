@@ -2,8 +2,8 @@
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Sapatilhas extends Artigo{
-    
+public class Sapatilha extends Artigo{
+
     private double n_tamanho;
 
     private boolean tem_atacadores; // true - tem atacadores // false - não tem atacadores
@@ -13,7 +13,7 @@ public class Sapatilhas extends Artigo{
     private LocalDate data_lancamento; // dd/mm/aaaa
 
 
-    public Sapatilhas(){
+    public Sapatilha(){
         super();
         this.n_tamanho=0.00;
         this.tem_atacadores=true;
@@ -22,10 +22,10 @@ public class Sapatilhas extends Artigo{
     }
 
     public Artigo clone() {
-        return new Sapatilhas(this);
+        return new Sapatilha(this);
     }
 
-    public Sapatilhas(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
+    public Sapatilha(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
                       double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora);
@@ -33,17 +33,17 @@ public class Sapatilhas extends Artigo{
         this.tem_atacadores=tem_atacadores;
         this.cor=cor;
         this.data_lancamento=data_lancamento;
-        if(this instanceof Premium) ((SapatilhasPremium) this).calculaValorPremium(this);
+        if(this instanceof Premium) ((SapatilhaPremium) this).calculaValorPremium(this);
         else calculaValorFinalSapatilhas(this);
     }
 
-    public Sapatilhas(Sapatilhas sapatilhas){
+    public Sapatilha(Sapatilha sapatilhas){
         super(sapatilhas);
         this.n_tamanho=sapatilhas.getNTamanho();
         this.tem_atacadores=sapatilhas.getTemAtacadores();
         this.cor=sapatilhas.getCor();
         this.data_lancamento=sapatilhas.getDataLancamento();
-        if(sapatilhas instanceof Premium) ((SapatilhasPremium) sapatilhas).calculaValorPremium(sapatilhas);
+        if(sapatilhas instanceof Premium) ((SapatilhaPremium) sapatilhas).calculaValorPremium(sapatilhas);
         else calculaValorFinalSapatilhas(sapatilhas);
     }
 
@@ -56,7 +56,7 @@ public class Sapatilhas extends Artigo{
         return diferenca.getYears();
     }
 
-    public void calculaValorFinalSapatilhas(Sapatilhas sp){
+    public void calculaValorFinalSapatilhas(Sapatilha sp){
         double taxa_vintage=1.03;
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
@@ -68,25 +68,25 @@ public class Sapatilhas extends Artigo{
             n_donos = 4;
         }
 
-        
+
         if(estado == 'n' && sp.getNTamanho() > 45) {
-                preco_final = preco_base - sp.getNTamanho() * 0.1;
+            preco_final = preco_base - sp.getNTamanho() * 0.1;
         }
-        
+
         if(estado != 'n'){
             switch(estado){
                 case 'a':
                     preco_final = preco_base - (preco_base * n_donos) * 0.1 - idade;
-                    break; 
+                    break;
                 case 'b':
                     preco_final = preco_base - (preco_base * n_donos) * 0.13 - idade;
-                    break; 
+                    break;
                 case 'c':
                     preco_final = preco_base - (preco_base * n_donos) * 0.16 - idade;
                     break;
             }
         }
-       
+
 
         if(preco_final <= 10) {
             preco_final = 10;
@@ -95,7 +95,7 @@ public class Sapatilhas extends Artigo{
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         sp.setPrecoFinal(preco_final);
     }
-    
+
     public double getNTamanho(){
         return this.n_tamanho;
     }
@@ -135,11 +135,11 @@ public class Sapatilhas extends Artigo{
         if(obj==null || obj.getClass()!=this.getClass()) return false;
         if (!super.equals(obj)) return false;
 
-        Sapatilhas e = (Sapatilhas) obj;
+        Sapatilha e = (Sapatilha) obj;
         return e.getNTamanho()==(this.n_tamanho) &&
-               e.getTemAtacadores()==(this.tem_atacadores) && 
-               e.getCor().equals(this.cor) && 
-               e.getDataLancamento().equals(this.data_lancamento);
+                e.getTemAtacadores()==(this.tem_atacadores) &&
+                e.getCor().equals(this.cor) &&
+                e.getDataLancamento().equals(this.data_lancamento);
     }
 
     public String toString() {

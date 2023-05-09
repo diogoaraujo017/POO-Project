@@ -5,26 +5,22 @@ import java.util.stream.Collectors;
 public class Transportadora {
     private String nome; // CTT, USPS, UPS, DHL, FedEx
     private double lucro;
-    private boolean e_premium;
     private List<Artigo> artigos;
 
     public Transportadora(){
         this.nome="";
         this.lucro=0.00;
-        this.e_premium=false;
         this.artigos= new ArrayList<>();
     }
     public Transportadora(Transportadora t){
         this.nome=t.getNome();
         this.lucro=t.getLucro();
-        this.e_premium=t.getEPremium();
         this.artigos=t.getArtigos();
     }
 
     public Transportadora(String nome, double taxa, boolean prem, List<Artigo> lista_encomendas) {
         this.nome = nome;
         this.lucro=taxa;
-        this.e_premium=prem;
         this.artigos= lista_encomendas.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
@@ -36,14 +32,9 @@ public class Transportadora {
         return this.lucro;
     }
 
-    public boolean getEPremium() {
-        return this.e_premium;
-    }
-
     public List<Artigo> getArtigos() {
         return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
-
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -51,10 +42,6 @@ public class Transportadora {
 
     public void setLucro(double lucro) {
         this.lucro = lucro;
-    }
-
-    public void setEPremium(boolean e_premium) {
-        this.e_premium = e_premium;
     }
 
     public void setArtigos(List<Artigo> lista_encomendas) {
@@ -91,7 +78,6 @@ public class Transportadora {
         sb.append("Transportadora: {");
         sb.append("Nome: ").append(this.nome);
         sb.append("; Margem de Lucro: ").append(this.lucro);
-        sb.append("; Premium: ").append(this.e_premium);
         sb.append("; Lista de produtos transportados: ").append(this.artigos);
         sb.append("}");
 
