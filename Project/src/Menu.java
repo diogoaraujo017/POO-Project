@@ -865,7 +865,7 @@ public class Menu{
             String mes = s11.nextLine();
             try {
                 mess = Integer.parseInt(mes);
-                check = true;
+                check2 = true;
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
             }
@@ -875,7 +875,7 @@ public class Menu{
         int anoo = 0;
         boolean check3 = false;
 
-        while (!check) {
+        while (!check3) {
             String ano = s12.nextLine();
             try {
                 anoo = Integer.parseInt(ano);
@@ -939,7 +939,7 @@ public class Menu{
             //throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
+        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
