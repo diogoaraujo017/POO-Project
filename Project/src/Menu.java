@@ -15,7 +15,7 @@ public class Menu{
 
     public void abreMenuInicial(Vintage vin){
 
-        
+
         // if(!getData().equals(LocalDate.now())){
         //     setData(getData());
         // }
@@ -51,7 +51,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     input.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuInicial(vin);
@@ -71,7 +71,7 @@ public class Menu{
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 mail.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuLogin(vin);
@@ -97,7 +97,7 @@ public class Menu{
             } catch (InterruptedException e) {
                 mail.close();
                 password.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuLogin(vin);
@@ -140,16 +140,46 @@ public class Menu{
         System.out.println("Menu de Data");
         System.out.print("Dia:");
         Scanner s1 = new Scanner(System.in);
-        String dia = s1.nextLine();
+        int diaa = 0;
+        boolean check = false;
+
+        while (!check) {
+            String dia = s1.nextLine();
+            try {
+                diaa = Integer.parseInt(dia);
+                check = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.print("Mês:");
         Scanner s2 = new Scanner(System.in);
-        String mes = s2.nextLine();
+        int mess = 0;
+        boolean check1 = false;
+
+        while (!check1) {
+            String mes = s2.nextLine();
+            try {
+                mess = Integer.parseInt(mes);
+                check1 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.print("Ano:");
         Scanner s3 = new Scanner(System.in);
-        String ano = s3.nextLine();
-        int diaa = Integer.parseInt(dia);
-        int mess = Integer.parseInt(mes);
-        int anoo = Integer.parseInt(ano);
+        int anoo = 0;
+        boolean check2 = false;
+
+        while (!check2) {
+            String ano = s1.nextLine();
+            try {
+                anoo = Integer.parseInt(ano);
+                check2 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
         if(mudada.isAfter(getData())) {
             setData(mudada);
@@ -160,8 +190,8 @@ public class Menu{
                 s1.close();
                 s2.close();
                 s3.close();
-                throw new RuntimeException(e);
-                
+                //throw new RuntimeException(e);
+
             }
             clearTerminal();
             abreMenuInicial(vin);
@@ -174,7 +204,7 @@ public class Menu{
                 s1.close();
                 s2.close();
                 s3.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuData(vin);
@@ -188,7 +218,7 @@ public class Menu{
         abreMenuInicial(vin);
     }
     public void abreMenuIntermedio(Vintage vin){
-        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3- Devolver Artigo\n9-Menu Inicial\n0-Sair");
+        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner s1 = new Scanner(System.in);
         String entrada = s1.nextLine();
@@ -216,7 +246,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     s1.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuIntermedio(vin);
@@ -263,7 +293,7 @@ public class Menu{
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     s1.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendas(vin);
@@ -281,8 +311,18 @@ public class Menu{
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar a sua TShirt?");
         Scanner s3 = new Scanner(System.in);
-        String pre = s3.nextLine();
-        double preco = Double.parseDouble(pre);
+        double preco = 0.0;
+        boolean precoValido = false;
+
+        while (!precoValido) {
+            String pre = s3.nextLine();
+            try {
+                preco = Double.parseDouble(pre);
+                precoValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
@@ -301,7 +341,7 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -310,9 +350,18 @@ public class Menu{
 
         System.out.println("Quantos donos já teve a TShirt?");
         Scanner s5 = new Scanner(System.in);
-        String dono = s5.nextLine();
-        int donos = Integer.parseInt(dono);
+        int donos = 0;
+        boolean check = false;
 
+        while (!check) {
+            String dono = s5.nextLine();
+            try {
+                donos = Integer.parseInt(dono);
+                check = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Em qual transportadora será feito o envio da TShirt?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
@@ -333,7 +382,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -361,7 +410,7 @@ public class Menu{
                     s5.close();
                     s6.close();
                     s7.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -389,7 +438,7 @@ public class Menu{
                     s6.close();
                     s7.close();
                     s8.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -408,7 +457,7 @@ public class Menu{
             s6.close();
             s7.close();
             s8.close();
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         String codigoTShirt=geraCodigo(10);
         new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
@@ -433,9 +482,19 @@ public class Menu{
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar a sua mala?");
         Scanner s3 = new Scanner(System.in);
-        String pre = s3.nextLine();
-        double preco = Double.parseDouble(pre);
-        System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
+        double preco = 0.0;
+        boolean precoValido = false;
+
+        while (!precoValido) {
+            String pre = s3.nextLine();
+            try {
+                preco = Double.parseDouble(pre);
+                precoValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
+        System.out.println("A que estado corresponde a sua Mala?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
         char estado='o';
@@ -453,16 +512,26 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuVendasTShirts(vin);
+                abreMenuVendasMalas(vin);
             }
         }
         System.out.println("Quantos donos já teve a Mala?");
         Scanner s5 = new Scanner(System.in);
-        String dono = s5.nextLine();
-        int donos = Integer.parseInt(dono);
+        int donos = 0;
+        boolean check = false;
+
+        while (!check) {
+            String dono = s5.nextLine();
+            try {
+                donos = Integer.parseInt(dono);
+                check = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Em qual transportadora será feito o envio da Mala?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
@@ -483,7 +552,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasMalas(vin);
@@ -491,23 +560,63 @@ public class Menu{
         }
         System.out.println("Qual o comprimento da sua Mala?");
         Scanner s7 = new Scanner(System.in);
-        String compri = s7.nextLine();
-        int comprimento= Integer.parseInt(compri);
+        int comprimento = 0;
+        boolean check1 = false;
+
+        while (!check1) {
+            String comp = s7.nextLine();
+            try {
+                comprimento = Integer.parseInt(comp);
+                check1 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + comp + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Qual a largura da sua Mala?");
         Scanner s8 = new Scanner(System.in);
-        String lar = s8.nextLine();
-        int largura= Integer.parseInt(lar);
+        int largura = 0;
+        boolean check2 = false;
+
+        while (!check2) {
+            String larg = s8.nextLine();
+            try {
+                largura = Integer.parseInt(larg);
+                check2 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + larg + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Qual a altura da sua Mala?");
         Scanner s9 = new Scanner(System.in);
-        String alt = s9.nextLine();
-        int altura= Integer.parseInt(alt);
+        int altura = 0;
+        boolean check3 = false;
+
+        while (!check3) {
+            String alt = s9.nextLine();
+            try {
+                altura = Integer.parseInt(alt);
+                check3 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + alt + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Qual o material da sua Mala?");
         Scanner s10 = new Scanner(System.in);
         String material = s10.nextLine();
         System.out.println("Qual o ano de lançamento da sua Mala?");
         Scanner s11 = new Scanner(System.in);
-        String an = s11.nextLine();
-        int ano= Integer.parseInt(an);
+        int ano = 0;
+        boolean check4 = false;
+
+        while (!check4) {
+            String anoo = s5.nextLine();
+            try {
+                ano = Integer.parseInt(anoo);
+                check4 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + anoo + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
         Scanner s12 = new Scanner(System.in);
         String prem = s12.nextLine();
@@ -535,7 +644,7 @@ public class Menu{
                 s10.close();
                 s11.close();
                 s12.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendasMalas(vin);
@@ -557,7 +666,7 @@ public class Menu{
                 s10.close();
                 s11.close();
                 s12.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendasMalas(vin);
@@ -578,7 +687,7 @@ public class Menu{
             s10.close();
             s11.close();
             s12.close();
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
         String codigoMala=geraCodigo(11);
@@ -608,8 +717,18 @@ public class Menu{
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar as suas Sapatilhas?");
         Scanner s3 = new Scanner(System.in);
-        String pre = s3.nextLine();
-        double preco = Double.parseDouble(pre);
+        double preco = 0.0;
+        boolean precoValido = false;
+
+        while (!precoValido) {
+            String pre = s3.nextLine();
+            try {
+                preco = Double.parseDouble(pre);
+                precoValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
         System.out.println("A que estado correspondem as suas Sapatilhas?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
         Scanner s4 = new Scanner(System.in);
         String est = s4.nextLine();
@@ -628,7 +747,7 @@ public class Menu{
                     s2.close();
                     s3.close();
                     s4.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -638,8 +757,18 @@ public class Menu{
 
         System.out.println("Quantos donos já tiveram as Sapatilhas?");
         Scanner s5 = new Scanner(System.in);
-        String dono = s5.nextLine();
-        int donos = Integer.parseInt(dono);
+        int donos = 0;
+        boolean check = false;
+
+        while (!check) {
+            String dono = s5.nextLine();
+            try {
+                donos = Integer.parseInt(dono);
+                check = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
         Scanner s6 = new Scanner(System.in);
         String trans = s6.nextLine();
@@ -660,7 +789,7 @@ public class Menu{
                     s4.close();
                     s5.close();
                     s6.close();
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
                 clearTerminal();
                 abreMenuVendasTShirts(vin);
@@ -668,8 +797,18 @@ public class Menu{
         }
         System.out.println("Qual o número (tamanho) das sapatilhas?");
         Scanner s7 = new Scanner(System.in);
-        String tam = s7.nextLine();
-        double tamanho = Double.parseDouble(tam);
+        double tamanho = 0.0;
+        boolean tamValido = false;
+
+        while (!tamValido) {
+            String tam = s7.nextLine();
+            try {
+                tamanho = Double.parseDouble(tam);
+                tamValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + tam + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
         System.out.println("A suas sapatilhas têm atacadores?\n1-Sim\n2-Não");
         Scanner s8 = new Scanner(System.in);
         String ata = s8.nextLine();
@@ -693,7 +832,7 @@ public class Menu{
                 s6.close();
                 s7.close();
                 s8.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
@@ -705,16 +844,46 @@ public class Menu{
         System.out.println("Qual a data de lançamento das suas sapatilhas? (Por favor, coloque a data em números)");
         System.out.print("Dia:");
         Scanner s10 = new Scanner(System.in);
-        String dia = s10.nextLine();
+        int diaa = 0;
+        boolean check1 = false;
+
+        while (!check1) {
+            String dia = s10.nextLine();
+            try {
+                diaa = Integer.parseInt(dia);
+                check1 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.print("Mês:");
         Scanner s11 = new Scanner(System.in);
-        String mes = s11.nextLine();
+        int mess = 0;
+        boolean check2 = false;
+
+        while (!check2) {
+            String mes = s11.nextLine();
+            try {
+                mess = Integer.parseInt(mes);
+                check = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         System.out.print("Ano:");
         Scanner s12 = new Scanner(System.in);
-        String ano = s12.nextLine();
-        int diaa = Integer.parseInt(dia);
-        int mess = Integer.parseInt(mes);
-        int anoo = Integer.parseInt(ano);
+        int anoo = 0;
+        boolean check3 = false;
+
+        while (!check) {
+            String ano = s12.nextLine();
+            try {
+                anoo = Integer.parseInt(ano);
+                check3 = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+            }
+        }
         LocalDate lanc=LocalDate.of(anoo,mess,diaa);
         System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
         Scanner s13 = new Scanner(System.in);
@@ -744,7 +913,7 @@ public class Menu{
                 s11.close();
                 s12.close();
                 s13.close();
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
@@ -767,10 +936,10 @@ public class Menu{
             s11.close();
             s12.close();
             s13.close();
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
+        new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -796,10 +965,10 @@ public class Menu{
         String entrada = input.nextLine();
         if(entrada.equals("1")){
             clearTerminal();
-            abreMenuCreateTrans();
+            abreMenuCreateTrans(vin);
         } else if(entrada.equals("2")){
             clearTerminal();
-            abreMenuGerirTrans();
+            abreMenuGerirTrans(vin);
         }
         else{
             clearTerminal();
@@ -808,15 +977,25 @@ public class Menu{
         input.close();
     }
 
-    public void abreMenuCreateTrans(){
+    public void abreMenuCreateTrans(Vintage vin){
         System.out.println("Menu de criação de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a adicionar?");
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
         System.out.println("Qual a margem de lucro da transportadora a adicionar?");
         Scanner s2 = new Scanner(System.in);
-        String pre = s2.nextLine();
-        double lucro = Double.parseDouble(pre);
+        double lucro = 0.0;
+        boolean lucroValido = false;
+
+        while (!lucroValido) {
+            String pre = s2.nextLine();
+            try {
+                lucro = Double.parseDouble(pre);
+                lucroValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
         System.out.println("A transportadora é premium? (Sim ou Não)");
         Scanner s3 = new Scanner(System.in);
         String premium = s3.nextLine();
@@ -828,7 +1007,7 @@ public class Menu{
         s3.close();
     }
 
-    public void abreMenuGerirTrans(){
+    public void abreMenuGerirTrans(Vintage vin){
         System.out.println("Menu de gestão de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a modificar?");
         Scanner s1 = new Scanner(System.in);
@@ -878,7 +1057,7 @@ public class Menu{
     }
 
     public void setData(LocalDate dat) {
-       data = dat;
+        data = dat;
     }
 
     public Conta getConta() {
@@ -935,5 +1114,5 @@ public class Menu{
             }
         }
         return (arrobaEncontrado && pontoEncontrado);
-        }
+    }
 }
