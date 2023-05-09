@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
@@ -6,10 +7,10 @@ public class Vintage {
 
     private String currentUserEmail;
     private Map<Integer,Conta> contas;
-    private Map<Integer,Utilizadores> utilizadores;
+    private Map<Integer,Utilizador> utilizadores;
     private List<Transportadora> transportadoras;
     private List<Encomenda> encomendas;
-    private List<Artigo> artigos;
+    private Map<Integer,Artigo> artigos;
 
 
     // CONTRUCTORS /////////////////////////////////////////////////////////////////////////////////////
@@ -19,11 +20,11 @@ public class Vintage {
         utilizadores = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.encomendas = new ArrayList<>();
-        this.artigos = new ArrayList<>();
+        this.artigos = new HashMap<>();
     }
 
-    public Vintage(String user, Map<Integer,Conta> contas, Map<Integer,Utilizadores> users,
-                   List<Transportadora> transportadoras, List<Encomenda> encomendas,List<Artigo> artigos){
+    public Vintage(String user, Map<Integer,Conta> contas, Map<Integer,Utilizador> users,
+                   List<Transportadora> transportadoras, List<Encomenda> encomendas,Map<Integer,Artigo> artigos){
         this.currentUserEmail=user;
         this.contas=contas;
         this.utilizadores=users;
@@ -56,7 +57,7 @@ public class Vintage {
                                      .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
-    public Map<Integer, Utilizadores> getUtilizadores() {
+    public Map<Integer, Utilizador> getUtilizadores() {
         return this.utilizadores.entrySet().stream()
                    .collect(Collectors
                            .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
@@ -72,9 +73,16 @@ public class Vintage {
                 .map(Encomenda::clone).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public List<Artigo> getArtigos() {
-        return this.artigos.stream()
-                .map(Artigo::clone).collect(Collectors.toCollection(ArrayList::new));
+    public Map<Integer,Artigo> getArtigos() {
+        return this.artigos.entrySet().stream()
+                   .collect(Collectors
+                           .toMap(Map.Entry::getKey, e -> e.getValue().clone(),(a,b)->a, HashMap::new));
+    }
+
+    public List<Artigo> getListaArtigos() {
+        return this.artigos.values().stream()
+                   .map(Artigo :: clone)
+                   .collect(Collectors.toList());
     }
 
     // SETTERS //////////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +97,7 @@ public class Vintage {
                                .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
-    public void setUtilizadores(Map<Integer, Utilizadores> utilizadores) {
+    public void setUtilizadores(Map<Integer, Utilizador> utilizadores) {
         this.utilizadores = utilizadores.entrySet().stream()
                                   .collect(Collectors
                                           .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
@@ -103,8 +111,10 @@ public class Vintage {
         this.encomendas = new ArrayList<>(encomendas);
     }
 
-    public void setMalas(List<Artigo> artigos) {
-        this.artigos = new ArrayList<>(artigos);
+    public void setArtigos(Map<Integer,Artigo> artigos) {
+        this.artigos = artigos.entrySet().stream()
+                            .collect(Collectors
+                               .toMap(Map.Entry::getKey, v -> v.getValue().clone(),(a,b)->a, HashMap::new));
     }
 
     public Vintage clone(){
@@ -122,11 +132,11 @@ public class Vintage {
         contas.remove(hash(c.getEmail()));
     }
 
-    public void addUser(Utilizadores u){
+    public void addUser(Utilizador u){
         utilizadores.put(hash(u.getEmail()), u.clone());
     }
 
-    public void removeUser(Utilizadores u){
+    public void removeUser(Utilizador u){
         utilizadores.remove(hash(u.getEmail()));
     }
 
@@ -147,12 +157,13 @@ public class Vintage {
     }
 
     public void removeArtigo(Artigo art){
-        this.artigos.remove(art);
+        artigos.remove(hash(art.getCodigo()));
     }
 
     public void addArtigo(Artigo art){
-        this.artigos.add((Artigo) art.clone());
+        artigos.put(hash(art.getCodigo()), art.clone());
     }
+
     public boolean loginCorreto(String email, String password){
         int key = hash(email);
 
@@ -165,7 +176,7 @@ public class Vintage {
     }
 
 
-    public Utilizadores getUtilizadorByEmail(String email) {
+    public Utilizador getUtilizadorByEmail(String email) {
         int key = hash(email);
 
         if(contas.containsKey(key)){

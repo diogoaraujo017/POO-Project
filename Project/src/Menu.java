@@ -125,7 +125,7 @@ public class Menu{
         List<Artigo> vazio= new ArrayList<>();
         List<Fatura> vazia= new ArrayList<>();
         String code= geraCodigo(8);
-        new Utilizadores(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
+        new Utilizador(code,nome,email,morada,nif,vazio,vazio,vazio,vazia);
         Conta nova = new Conta(code,email,pass);
         vin.addConta(nova);
         clearTerminal();
@@ -226,7 +226,7 @@ public class Menu{
     }
     public void abreMenuCompras(Vintage vin){
         System.out.println("Menu de Compras");
-        List<Artigo> artvenda = vin.getArtigos();
+        List<Artigo> artvenda = vin.getListaArtigos();
         int contador = 1;
         for(Artigo art : artvenda){
             System.out.print(contador + "-");
@@ -411,7 +411,7 @@ public class Menu{
             throw new RuntimeException(e);
         }
         String codigoTShirt=geraCodigo(10);
-        new Tshirts(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
+        new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -582,7 +582,7 @@ public class Menu{
         }
 
         String codigoMala=geraCodigo(11);
-        new Malas(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano);
+        new Mala(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -770,7 +770,7 @@ public class Menu{
             throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilhas(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
+        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -843,7 +843,7 @@ public class Menu{
         Conta atual=getConta();
         System.out.println();
         Vintage loja=vin;
-        Utilizadores novo = loja.getUtilizadorByEmail(atual.getEmail());
+        Utilizador novo = loja.getUtilizadorByEmail(atual.getEmail());
         System.out.println(novo.toString());
     }
 

@@ -1,12 +1,12 @@
 
 public class Fatura {
 
-    private Utilizadores comprador;
-    private Utilizadores vendedor;
+    private Utilizador comprador;
+    private Utilizador vendedor;
     private Encomenda encomenda;
     private double custo;
 
-    public void emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador){
+    public void emiteFatura(Encomenda enc, Utilizador vendedor, Utilizador comprador){
         Fatura nova = new Fatura(comprador,vendedor,enc);
         double passado = vendedor.getValorTotalVendas();
         double custo = valorCusto(enc);
@@ -40,26 +40,26 @@ public class Fatura {
         this.custo=fat.custo;
     }
 
-    public Fatura(Utilizadores comprador, Utilizadores vendedor, Encomenda compras) {
+    public Fatura(Utilizador comprador, Utilizador vendedor, Encomenda compras) {
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.encomenda = compras;
         this.custo = compras.valorFinalEncomenda(compras);
     }
 
-    public Utilizadores getComprador() {
+    public Utilizador getComprador() {
         return this.comprador;
     }
 
-    public void setComprador(Utilizadores comprador) {
+    public void setComprador(Utilizador comprador) {
         this.comprador = comprador;
     }
 
-    public Utilizadores getVendedor() {
+    public Utilizador getVendedor() {
         return this.vendedor;
     }
 
-    public void setVendedor(Utilizadores vendedor) {
+    public void setVendedor(Utilizador vendedor) {
         this.vendedor = vendedor;
     }
 

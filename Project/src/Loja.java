@@ -3,21 +3,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Loja {
-    private List<Utilizadores> users;
+    private List<Utilizador> users;
 
     public Loja(Loja shop){
         this.users=shop.getUtilizadores();
     }
-    public Loja(List <Utilizadores> lista_artigos){
-        this.users=lista_artigos.stream().map(Utilizadores::clone).collect(Collectors.toList());
+    public Loja(List <Utilizador> lista_artigos){
+        this.users=lista_artigos.stream().map(Utilizador::clone).collect(Collectors.toList());
     }
     public Loja(){
         this.users=new ArrayList<>();
     }
-    public List<Utilizadores> getUtilizadores() {
-        return users.stream().map(Utilizadores::clone).collect(Collectors.toList());
+    public List<Utilizador> getUtilizadores() {
+        return users.stream().map(Utilizador::clone).collect(Collectors.toList());
     }
-    public void setUtilizadores(List<Utilizadores> lista_users) {
+    public void setUtilizadores(List<Utilizador> lista_users) {
         users.clear();
         users=new ArrayList<>(lista_users);
     }
@@ -36,7 +36,7 @@ public class Loja {
         StringBuilder sb = new StringBuilder();
         int cont=1;
         sb.append("Artigos disponíveis: ");
-        for (Utilizadores art : this.users){
+        for (Utilizador art : this.users){
             sb.append("\n->Artigo" + cont+ ": ").append(art);
             sb.append("\n");
             cont++;
@@ -47,9 +47,9 @@ public class Loja {
         return sb.toString();
     }
 
-    public List<Artigo> getTodosArtigosAVenda(List<Utilizadores> pessoas){
+    public List<Artigo> getTodosArtigosAVenda(List<Utilizador> pessoas){
         List<Artigo> venda = new ArrayList<>();
-        for(Utilizadores util : pessoas){
+        for(Utilizador util : pessoas){
             for(Artigo art : util.getProdutosLoja()){
                 venda.add(art);
             }
