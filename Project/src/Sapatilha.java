@@ -61,6 +61,7 @@ public class Sapatilha extends Artigo{
     public void calculaValorFinalSapatilhas(Sapatilha sp){
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
+        double desconto = sp.getDesconto();
         char estado = sp.getEstado();
         int idade = idade_sapatilhas(sp.getDataLancamento());
         int n_donos = sp.getNDonos();
@@ -71,7 +72,7 @@ public class Sapatilha extends Artigo{
 
 
         if(estado == 'n' && sp.getNTamanho() > 45) {
-            preco_final = preco_base - sp.getNTamanho() * 0.1;
+            preco_final = (preco_base - sp.getNTamanho() * 0.1)*(1-desconto);
         }
 
         if(estado != 'n'){
@@ -86,8 +87,7 @@ public class Sapatilha extends Artigo{
                     preco_final = preco_base - (preco_base * n_donos) * 0.16 - idade;
                     break;
             }
-            double desconto = this.getDesconto();
-            if(desconto>0 && desconto<1) preco_final=preco_final*desconto;
+            if(desconto>0 && desconto<1) preco_final=preco_final*(1-desconto);
         }
 
 

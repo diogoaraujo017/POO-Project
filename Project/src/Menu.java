@@ -20,7 +20,7 @@ public class Menu{
         //     setData(getData());
         // }
         // else{
-        //     setData(LocalDate.now());
+        setData(LocalDate.now());
         // }
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n\n\n\n\n\n0-Sair\n");
@@ -139,11 +139,11 @@ public class Menu{
     public void abreMenuData(Vintage vin){
         System.out.println("Menu de Data");
         System.out.print("Dia:");
-        Scanner s1 = new Scanner(System.in);
         int diaa = 0;
         boolean check = false;
 
         while (!check) {
+            Scanner s1 = new Scanner(System.in);
             String dia = s1.nextLine();
             try {
                 diaa = Integer.parseInt(dia);
@@ -153,11 +153,11 @@ public class Menu{
             }
         }
         System.out.print("Mês:");
-        Scanner s2 = new Scanner(System.in);
         int mess = 0;
         boolean check1 = false;
 
         while (!check1) {
+            Scanner s2 = new Scanner(System.in);
             String mes = s2.nextLine();
             try {
                 mess = Integer.parseInt(mes);
@@ -167,12 +167,12 @@ public class Menu{
             }
         }
         System.out.print("Ano:");
-        Scanner s3 = new Scanner(System.in);
         int anoo = 0;
         boolean check2 = false;
 
         while (!check2) {
-            String ano = s1.nextLine();
+            Scanner s3 = new Scanner(System.in);
+            String ano = s3.nextLine();
             try {
                 anoo = Integer.parseInt(ano);
                 check2 = true;
@@ -187,9 +187,9 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                s1.close();
-                s2.close();
-                s3.close();
+                //s1.close();
+                //s2.close();
+                //s3.close();
                 throw new RuntimeException(e);
 
             }
@@ -201,17 +201,17 @@ public class Menu{
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                s1.close();
-                s2.close();
-                s3.close();
+                //s1.close();
+                //s2.close();
+                //s3.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuData(vin);
         }
-        s1.close();
-        s2.close();
-        s3.close();
+        //s1.close();
+        //s2.close();
+        //s3.close();
     }
     public void abreMenuQueries(Vintage vin){
         System.out.println("Coming soon");
@@ -369,11 +369,11 @@ public class Menu{
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar a sua TShirt?");
-        Scanner s3 = new Scanner(System.in);
         double preco = 0.0;
         boolean precoValido = false;
 
         while (!precoValido) {
+            Scanner s3 = new Scanner(System.in);
             String pre = s3.nextLine();
             try {
                 preco = Double.parseDouble(pre);
@@ -398,7 +398,7 @@ public class Menu{
                 } catch (InterruptedException e) {
                     s1.close();
                     s2.close();
-                    s3.close();
+                    //s3.close();
                     s4.close();
                     throw new RuntimeException(e);
                 }
@@ -408,11 +408,11 @@ public class Menu{
         }
 
         System.out.println("Quantos donos já teve a TShirt?");
-        Scanner s5 = new Scanner(System.in);
         int donos = 0;
         boolean check = false;
 
         while (!check) {
+            Scanner s5 = new Scanner(System.in);
             String dono = s5.nextLine();
             try {
                 donos = Integer.parseInt(dono);
@@ -421,32 +421,34 @@ public class Menu{
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.println("Em qual transportadora será feito o envio da TShirt?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
-        Scanner s6 = new Scanner(System.in);
-        String trans = s6.nextLine();
-        switch (trans) {
-            case "1" -> trans = "CTT";
-            case "2" -> trans = "USPS";
-            case "3" -> trans = "UPS";
-            case "4" -> trans = "DHL";
-            case "5" -> trans = "FedEx";
-            default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    s1.close();
-                    s2.close();
-                    s3.close();
-                    s4.close();
-                    s5.close();
-                    s6.close();
-                    throw new RuntimeException(e);
+        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        List<Transportadora> tran = vin.getTransportadoras();
+        int contador = 1;
+        for(Transportadora t : tran){
+            String nome = t.getNome();
+            System.out.println(contador +"-"+ nome);
+            contador++;
+        }
+        int v=1;
+        boolean checkk1 = false;
+
+        while (!checkk1) {
+            Scanner s6 = new Scanner(System.in);
+            String trans = s6.nextLine();
+            try {
+                v = Integer.parseInt(trans);
+                if(v>=1 && v<= tran.size()) {
+                    checkk1 = true;
                 }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
+                else{
+                    System.out.println("Erro: " + trans + " não corresponde a nenhuma das transportadoras. Tente novamente.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + trans + " não segue as normas de seleção de transportadora. Tente novamente.");
             }
         }
+        Transportadora transp = tran.get(v-1);
+        String trans = transp.getNome();
 
         System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
         Scanner s7 = new Scanner(System.in);
@@ -464,10 +466,10 @@ public class Menu{
                 } catch (InterruptedException e) {
                     s1.close();
                     s2.close();
-                    s3.close();
+                    //s3.close();
                     s4.close();
-                    s5.close();
-                    s6.close();
+                    //s5.close();
+                    //s6.close();
                     s7.close();
                     throw new RuntimeException(e);
                 }
@@ -491,10 +493,10 @@ public class Menu{
                 } catch (InterruptedException e) {
                     s1.close();
                     s2.close();
-                    s3.close();
+                    //s3.close();
                     s4.close();
-                    s5.close();
-                    s6.close();
+                    //s5.close();
+                    //s6.close();
                     s7.close();
                     s8.close();
                     throw new RuntimeException(e);
@@ -510,10 +512,10 @@ public class Menu{
         } catch (InterruptedException e) {
             s1.close();
             s2.close();
-            s3.close();
+            //s3.close();
             s4.close();
-            s5.close();
-            s6.close();
+            //s5.close();
+            //s6.close();
             s7.close();
             s8.close();
             throw new RuntimeException(e);
@@ -528,10 +530,10 @@ public class Menu{
         abreMenuIntermedio(vin);
         s1.close();
         s2.close();
-        s3.close();
+        //s3.close();
         s4.close();
-        s5.close();
-        s6.close();
+        //s5.close();
+        //s6.close();
         s7.close();
         s8.close();
     }
@@ -544,11 +546,11 @@ public class Menu{
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar a sua mala?");
-        Scanner s3 = new Scanner(System.in);
         double preco = 0.0;
         boolean precoValido = false;
 
         while (!precoValido) {
+            Scanner s3 = new Scanner(System.in);
             String pre = s3.nextLine();
             try {
                 preco = Double.parseDouble(pre);
@@ -573,7 +575,7 @@ public class Menu{
                 } catch (InterruptedException e) {
                     s1.close();
                     s2.close();
-                    s3.close();
+                    //s3.close();
                     s4.close();
                     throw new RuntimeException(e);
                 }
@@ -582,11 +584,11 @@ public class Menu{
             }
         }
         System.out.println("Quantos donos já teve a Mala?");
-        Scanner s5 = new Scanner(System.in);
         int donos = 0;
         boolean check = false;
 
         while (!check) {
+            Scanner s5 = new Scanner(System.in);
             String dono = s5.nextLine();
             try {
                 donos = Integer.parseInt(dono);
@@ -595,38 +597,41 @@ public class Menu{
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.println("Em qual transportadora será feito o envio da Mala?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
-        Scanner s6 = new Scanner(System.in);
-        String trans = s6.nextLine();
-        switch (trans) {
-            case "1" -> trans = "CTT";
-            case "2" -> trans = "USPS";
-            case "3" -> trans = "UPS";
-            case "4" -> trans = "DHL";
-            case "5" -> trans = "FedEx";
-            default -> {
-                System.out.println("A transportadora não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    s1.close();
-                    s2.close();
-                    s3.close();
-                    s4.close();
-                    s5.close();
-                    s6.close();
-                    throw new RuntimeException(e);
+        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        List<Transportadora> tran = vin.getTransportadoras();
+        int contador = 1;
+        for(Transportadora t : tran){
+            String nome = t.getNome();
+            System.out.println(contador +"-"+ nome);
+            contador++;
+        }
+        int v=1;
+        boolean checkk1 = false;
+
+        while (!checkk1) {
+            Scanner s6 = new Scanner(System.in);
+            String trans = s6.nextLine();
+            try {
+                v = Integer.parseInt(trans);
+                if(v>=1 && v<= tran.size()) {
+                    checkk1 = true;
                 }
-                clearTerminal();
-                abreMenuVendasMalas(vin);
+                else{
+                    System.out.println("Erro: " + trans + " não corresponde a nenhuma das transportadoras. Tente novamente.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + trans + " não segue as normas de seleção de transportadora. Tente novamente.");
             }
         }
+        Transportadora transp = tran.get(v-1);
+        String trans = transp.getNome();
+
         System.out.println("Qual o comprimento da sua Mala?");
-        Scanner s7 = new Scanner(System.in);
         int comprimento = 0;
         boolean check1 = false;
 
         while (!check1) {
+            Scanner s7 = new Scanner(System.in);
             String comp = s7.nextLine();
             try {
                 comprimento = Integer.parseInt(comp);
@@ -636,11 +641,11 @@ public class Menu{
             }
         }
         System.out.println("Qual a largura da sua Mala?");
-        Scanner s8 = new Scanner(System.in);
         int largura = 0;
         boolean check2 = false;
 
         while (!check2) {
+            Scanner s8 = new Scanner(System.in);
             String larg = s8.nextLine();
             try {
                 largura = Integer.parseInt(larg);
@@ -650,11 +655,11 @@ public class Menu{
             }
         }
         System.out.println("Qual a altura da sua Mala?");
-        Scanner s9 = new Scanner(System.in);
         int altura = 0;
         boolean check3 = false;
 
         while (!check3) {
+            Scanner s9 = new Scanner(System.in);
             String alt = s9.nextLine();
             try {
                 altura = Integer.parseInt(alt);
@@ -667,12 +672,12 @@ public class Menu{
         Scanner s10 = new Scanner(System.in);
         String material = s10.nextLine();
         System.out.println("Qual o ano de lançamento da sua Mala?");
-        Scanner s11 = new Scanner(System.in);
         int ano = 0;
         boolean check4 = false;
 
         while (!check4) {
-            String anoo = s5.nextLine();
+            Scanner s11 = new Scanner(System.in);
+            String anoo = s11.nextLine();
             try {
                 ano = Integer.parseInt(anoo);
                 check4 = true;
@@ -697,15 +702,15 @@ public class Menu{
             } catch (InterruptedException e) {
                 s1.close();
                 s2.close();
-                s3.close();
+                //s3.close();
                 s4.close();
-                s5.close();
-                s6.close();
-                s7.close();
-                s8.close();
-                s9.close();
+                //s5.close();
+                //s6.close();
+                //s7.close();
+                //s8.close();
+                //s9.close();
                 s10.close();
-                s11.close();
+                //s11.close();
                 s12.close();
                 throw new RuntimeException(e);
             }
@@ -719,15 +724,15 @@ public class Menu{
             } catch (InterruptedException e) {
                 s1.close();
                 s2.close();
-                s3.close();
+                //s3.close();
                 s4.close();
-                s5.close();
-                s6.close();
-                s7.close();
-                s8.close();
-                s9.close();
+                //s5.close();
+                //s6.close();
+                //s7.close();
+                //s8.close();
+                //s9.close();
                 s10.close();
-                s11.close();
+                //s11.close();
                 s12.close();
                 throw new RuntimeException(e);
             }
@@ -740,15 +745,15 @@ public class Menu{
         } catch (InterruptedException e) {
             s1.close();
             s2.close();
-            s3.close();
+            //s3.close();
             s4.close();
-            s5.close();
-            s6.close();
-            s7.close();
-            s8.close();
-            s9.close();
+            //s5.close();
+            //s6.close();
+            //s7.close();
+            //s8.close();
+            //s9.close();
             s10.close();
-            s11.close();
+            //s11.close();
             s12.close();
             throw new RuntimeException(e);
         }
@@ -771,15 +776,15 @@ public class Menu{
         abreMenuIntermedio(vin);
         s1.close();
         s2.close();
-        s3.close();
+        //s3.close();
         s4.close();
-        s5.close();
-        s6.close();
-        s7.close();
-        s8.close();
-        s9.close();
+        //s5.close();
+        //s6.close();
+        //s7.close();
+        //s8.close();
+        //s9.close();
         s10.close();
-        s11.close();
+        //s11.close();
         s12.close();
     }
     public void abreMenuVendaSapatilhas(Vintage vin){
@@ -791,11 +796,11 @@ public class Menu{
         Scanner s2 = new Scanner(System.in);
         String marca = s2.nextLine();
         System.out.println("A qual preço deseja listar as suas Sapatilhas?");
-        Scanner s3 = new Scanner(System.in);
         double preco = 0.0;
         boolean precoValido = false;
 
         while (!precoValido) {
+            Scanner s3 = new Scanner(System.in);
             String pre = s3.nextLine();
             try {
                 preco = Double.parseDouble(pre);
@@ -820,7 +825,7 @@ public class Menu{
                 } catch (InterruptedException e) {
                     s1.close();
                     s2.close();
-                    s3.close();
+                    //s3.close();
                     s4.close();
                     throw new RuntimeException(e);
                 }
@@ -831,11 +836,11 @@ public class Menu{
 
 
         System.out.println("Quantos donos já tiveram as Sapatilhas?");
-        Scanner s5 = new Scanner(System.in);
         int donos = 0;
         boolean check = false;
 
         while (!check) {
+            Scanner s5 = new Scanner(System.in);
             String dono = s5.nextLine();
             try {
                 donos = Integer.parseInt(dono);
@@ -844,38 +849,40 @@ public class Menu{
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?\n1-CTT\n2-USPS\n3-UPS\n4-DHL\n5-FedEx");
-        Scanner s6 = new Scanner(System.in);
-        String trans = s6.nextLine();
-        switch (trans) {
-            case "1" -> trans = "CTT";
-            case "2" -> trans = "USPS";
-            case "3" -> trans = "UPS";
-            case "4" -> trans = "DHL";
-            case "5" -> trans = "FedEx";
-            default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    s1.close();
-                    s2.close();
-                    s3.close();
-                    s4.close();
-                    s5.close();
-                    s6.close();
-                    throw new RuntimeException(e);
+        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        List<Transportadora> tran = vin.getTransportadoras();
+        int contador = 1;
+        for(Transportadora t : tran){
+            String nome = t.getNome();
+            System.out.println(contador +"-"+ nome);
+            contador++;
+        }
+        int v=1;
+        boolean checkk1 = false;
+
+        while (!checkk1) {
+            Scanner s6 = new Scanner(System.in);
+            String trans = s6.nextLine();
+            try {
+                v = Integer.parseInt(trans);
+                if(v>=1 && v<= tran.size()) {
+                    checkk1 = true;
                 }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
+                else{
+                    System.out.println("Erro: " + trans + " não corresponde a nenhuma das transportadoras. Tente novamente.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + trans + " não segue as normas de seleção de transportadora. Tente novamente.");
             }
         }
+        Transportadora transp = tran.get(v-1);
+        String trans = transp.getNome();
         System.out.println("Qual o número (tamanho) das sapatilhas?");
-        Scanner s7 = new Scanner(System.in);
         double tamanho = 0.0;
         boolean tamValido = false;
 
         while (!tamValido) {
+            Scanner s7 = new Scanner(System.in);
             String tam = s7.nextLine();
             try {
                 tamanho = Double.parseDouble(tam);
@@ -901,11 +908,11 @@ public class Menu{
             } catch (InterruptedException e) {
                 s1.close();
                 s2.close();
-                s3.close();
+                //s3.close();
                 s4.close();
-                s5.close();
-                s6.close();
-                s7.close();
+                //s5.close();
+                //s6.close();
+                //s7.close();
                 s8.close();
                 throw new RuntimeException(e);
             }
@@ -918,11 +925,11 @@ public class Menu{
         String cor = s9.nextLine();
         System.out.println("Qual a data de lançamento das suas sapatilhas? (Por favor, coloque a data em números)");
         System.out.print("Dia:");
-        Scanner s10 = new Scanner(System.in);
         int diaa = 0;
         boolean check1 = false;
 
         while (!check1) {
+            Scanner s10 = new Scanner(System.in);
             String dia = s10.nextLine();
             try {
                 diaa = Integer.parseInt(dia);
@@ -932,11 +939,11 @@ public class Menu{
             }
         }
         System.out.print("Mês:");
-        Scanner s11 = new Scanner(System.in);
         int mess = 0;
         boolean check2 = false;
 
         while (!check2) {
+            Scanner s11 = new Scanner(System.in);
             String mes = s11.nextLine();
             try {
                 mess = Integer.parseInt(mes);
@@ -946,11 +953,11 @@ public class Menu{
             }
         }
         System.out.print("Ano:");
-        Scanner s12 = new Scanner(System.in);
         int anoo = 0;
         boolean check3 = false;
 
         while (!check3) {
+            Scanner s12 = new Scanner(System.in);
             String ano = s12.nextLine();
             try {
                 anoo = Integer.parseInt(ano);
@@ -963,35 +970,74 @@ public class Menu{
         System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
         Scanner s13 = new Scanner(System.in);
         String prem = s13.nextLine();
-        boolean premium=false;
-        if(prem.equals("1")){
-            premium=true;
-        }
-        else if(prem.equals("2")){
-            premium=false;
-        }
-        else{
-            System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
+        boolean premium = false;
+        if(prem.equals("1")) premium = true;
+        int anoAtual = data.getYear();
+        if((tamanho>45 || anoAtual>anoo) && premium){
+            System.out.println("Qual o desconto que quer aplicar nas sapatilhas (ex: se for 25%, a resposta deve ser 0.25) ?");
+            double desconto = 0.0;
+            boolean dValido = false;
+
+            while (!dValido) {
+                Scanner s14 = new Scanner(System.in);
+                String des = s14.nextLine();
+                try {
+                    desconto = Double.parseDouble(des);
+                    dValido = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + des + " não pode ser convertido para o formato do desconto Tente novamente.");
+                }
+            }
+            System.out.println("Sapatilhas registadas, obrigado pela preferência!");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 s1.close();
                 s2.close();
-                s3.close();
+                //s3.close();
                 s4.close();
-                s5.close();
-                s6.close();
-                s7.close();
+                //s5.close();
+                //s6.close();
+                //s7.close();
                 s8.close();
                 s9.close();
-                s10.close();
-                s11.close();
-                s12.close();
+                //s10.close();
+                //s11.close();
+                //s12.close();
                 s13.close();
+                //s14.close();
                 throw new RuntimeException(e);
             }
+            String codigoSapatilhas=geraCodigo(9);
+            if(premium){
+                SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo(), desconto);
+                String codigo = conta.getCodigo();
+                Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+                vin.addArtigo(t);
+                atual.getProdutosLoja().add(t);
+            }
+            else {
+                Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo(), desconto);
+                String codigo = conta.getCodigo();
+                Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+                vin.addArtigo(t);
+                atual.getProdutosLoja().add(t);
+            }
             clearTerminal();
-            abreMenuVendaSapatilhas(vin);
+            abreMenuIntermedio(vin);
+            s1.close();
+            s2.close();
+            //s3.close();
+            s4.close();
+            //s5.close();
+            //s6.close();
+            //s7.close();
+            s8.close();
+            s9.close();
+            //s10.close();
+            //s11.close();
+            //s12.close();
+            s13.close();
 
         }
         System.out.println("Sapatilhas registadas, obrigado pela preferência!");
@@ -1000,29 +1046,29 @@ public class Menu{
         } catch (InterruptedException e) {
             s1.close();
             s2.close();
-            s3.close();
+            //s3.close();
             s4.close();
-            s5.close();
-            s6.close();
-            s7.close();
+            //s5.close();
+            //s6.close();
+            //s7.close();
             s8.close();
             s9.close();
-            s10.close();
-            s11.close();
-            s12.close();
+            //s10.close();
+            //s11.close();
+            //s12.close();
             s13.close();
             throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
         if(premium){
-            SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo());
+            SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo(),1.00);
             String codigo = conta.getCodigo();
             Utilizador atual = vin.getUtilizadorByCodigo(codigo);
             vin.addArtigo(t);
             atual.getProdutosLoja().add(t);
         }
         else {
-            Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo());
+            Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo(),1.00);
             String codigo = conta.getCodigo();
             Utilizador atual = vin.getUtilizadorByCodigo(codigo);
             vin.addArtigo(t);
@@ -1032,16 +1078,16 @@ public class Menu{
         abreMenuIntermedio(vin);
         s1.close();
         s2.close();
-        s3.close();
+        //s3.close();
         s4.close();
-        s5.close();
-        s6.close();
-        s7.close();
+        //s5.close();
+        //s6.close();
+        //s7.close();
         s8.close();
         s9.close();
-        s10.close();
-        s11.close();
-        s12.close();
+        //s10.close();
+        //s11.close();
+        //s12.close();
         s13.close();
     }
 
@@ -1075,11 +1121,11 @@ public class Menu{
         Scanner s1 = new Scanner(System.in);
         String desc = s1.nextLine();
         System.out.println("Qual a margem de lucro da transportadora a adicionar?");
-        Scanner s2 = new Scanner(System.in);
         double lucro = 0.0;
         boolean lucroValido = false;
 
         while (!lucroValido){
+            Scanner s2 = new Scanner(System.in);
             String pre = s2.nextLine();
             try {
                 lucro = Double.parseDouble(pre);
@@ -1101,14 +1147,14 @@ public class Menu{
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 s1.close();
-                s2.close();
+                //s2.close();
                 s3.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVisaoAdmin(vin);
             s1.close();
-            s2.close();
+            //s2.close();
             s3.close();
         }
         else{
@@ -1120,14 +1166,14 @@ public class Menu{
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 s1.close();
-                s2.close();
+                //s2.close();
                 s3.close();
                 throw new RuntimeException(e);
             }
             clearTerminal();
             abreMenuVisaoAdmin(vin);
             s1.close();
-            s2.close();
+            //s2.close();
             s3.close();
         }
     }
@@ -1164,11 +1210,11 @@ public class Menu{
         }
         else if(opc.equals("2")){
             System.out.println("Para que taxa de lucro deseja alterar a transportadora");
-            Scanner s4 = new Scanner(System.in);
             double preco = 0.0;
             boolean precoValido = false;
 
             while (!precoValido) {
+                Scanner s4 = new Scanner(System.in);
                 String pre = s4.nextLine();
                 try {
                     preco = Double.parseDouble(pre);
@@ -1182,7 +1228,7 @@ public class Menu{
             abreMenuVisaoAdmin(vin);
             s1.close();
             s2.close();
-            s4.close();
+            //s4.close();
         }
         else if(opc.equals("0")){
             clearTerminal();
