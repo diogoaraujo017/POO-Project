@@ -8,7 +8,7 @@ public class Encomenda {
 
     private List <Artigo> artigos; // coleção do artigo
     private int dimensao; // 1 artigo - encomenda pequena // 2 a 5 artigos - encomenda média // > 5 artigos - encomenda grande
-    private char estado; // p - pendente // f - finalizada // e - expedida // d - devolvida
+    private char estado; // p - pendente // f - finalizada // e - expedida // d - devolvida // x - nula
     private LocalDate data; // data de criação
     private String comprador;
 

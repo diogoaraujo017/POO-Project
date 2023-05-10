@@ -9,19 +9,13 @@ public class Menu{
     private Conta conta;
 
 
-    public void inicio (Vintage vin){
+    public void inicio (Vintage vin, LocalDate data_atual){
+        setData(data_atual);
         abreMenuInicial(vin);
     }
 
     public void abreMenuInicial(Vintage vin){
 
-
-        // if(!getData().equals(LocalDate.now())){
-        //     setData(getData());
-        // }
-        // else{
-        setData(LocalDate.now());
-        // }
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
         System.out.println("1-Login\n2-Registar\n3-Mudança de Data\n4-Queries\n\n\n\n\n\n0-Sair\n");
         System.out.print("->");
@@ -140,7 +134,12 @@ public class Menu{
             String dia = input.nextLine();
             try {
                 diaa = Integer.parseInt(dia);
-                check = true;
+                if(diaa>=1&&diaa<=31){
+                    check = true;
+                }
+                else{
+                    System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
             }
@@ -153,7 +152,12 @@ public class Menu{
             String mes = input.nextLine();
             try {
                 mess = Integer.parseInt(mes);
-                check1 = true;
+                if(mess>=1&&mess<=12){
+                    check1 = true;
+                }
+                else{
+                    System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
             }
@@ -166,7 +170,12 @@ public class Menu{
             String ano = input.nextLine();
             try {
                 anoo = Integer.parseInt(ano);
-                check2 = true;
+                if(anoo>=1){
+                    check2= true;
+                }
+                else{
+                    System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
             }
@@ -273,9 +282,6 @@ public class Menu{
                     flag=true;
                     Artigo art = vin.getArtigo(codigo);
                     encomenda.add(art);
-                    Fatura fatura = new Fatura();
-                    fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
-                    vin.removeArtigo(art);
                     System.out.println("Adicionado ao carrinho o produto: "+ art.getCodigo());
                 }
             }
@@ -291,12 +297,32 @@ public class Menu{
             vin.addEncomenda(enc);
             System.out.println("Total da sua compra = "+ enc.valorFinalEncomenda(enc,vin) + "€");
             System.out.println("Confirmar a encomenda: Sim | Não");
+            boolean aux = false;
             String conf = input.nextLine();
+            while (aux) {
+                conf = input.nextLine();
+                try {
+                    if(conf.equals("Sim") || conf.equals("Não")) aux = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + conf + " é uma opção inválida. Tente novamente.");
+                }
+            }
             if(conf.equals("Sim")){
                 enc.setEstado('e');
+                int i;
+                for(i=0;i<encomenda.size();i++){
+                    Fatura fatura = new Fatura();
+                    Artigo art = encomenda.get(i);
+                    fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
+                    vin.removeArtigo(art);
+                }
             }
             else if(conf.equals("Não")){
                 System.out.println("Encomenda cancelada");
+                enc.setArtigos(new ArrayList<Artigo>());
+                enc.setComprador("");
+                enc.setDimensao(0);
+                enc.setEstado('x');
             }
         }
 
@@ -368,7 +394,8 @@ public class Menu{
             String pre = input.nextLine();
             try {
                 preco = Double.parseDouble(pre);
-                precoValido = true;
+                if(preco>=5) precoValido = true;
+                else System.out.println("Valor inválido. Preço mínimo é de 5€");
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
             }
@@ -546,7 +573,7 @@ public class Menu{
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        System.out.println("Em qual transportadora será feito o envio das Malas?");
         List<Transportadora> tran = vin.getTransportadoras();
         int contador = 1;
         for(Transportadora t : tran){
@@ -623,7 +650,7 @@ public class Menu{
             String anoo = input.nextLine();
             try {
                 ano = Integer.parseInt(anoo);
-                if(ano>=1&&ano<=2023){
+                if(ano>=1 && ano<=getData().getYear()){
                     check4 = true;
                 }
                 else{
@@ -853,7 +880,7 @@ public class Menu{
             String ano = input.nextLine();
             try {
                 anoo = Integer.parseInt(ano);
-                if(anoo>=1&&anoo<=2023){
+                if(anoo>=1&&anoo<=getData().getYear()){
                     check3 = true;
                 }
                 else{
@@ -868,8 +895,7 @@ public class Menu{
         String prem = input.nextLine();
         boolean premium = false;
         if(prem.equals("1")) premium = true;
-        int anoAtual = data.getYear();
-        if((tamanho>45 || anoAtual>anoo) && premium){
+        if((tamanho>45 || donos>0) && premium){
             System.out.println("Qual o desconto que quer aplicar nas sapatilhas (ex: se for 25%, a resposta deve ser 0.25) ?");
             double desconto = 0.0;
             boolean dValido = false;

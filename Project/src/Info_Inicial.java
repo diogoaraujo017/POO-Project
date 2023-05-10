@@ -46,7 +46,7 @@ public class Info_Inicial {
         m2 = new Mala("Mala grande", "Samsonite", "gafdas3das312", 983.98, 'a', 4, "UPS", 43, 29, 16, "Couro", 2020,"pwzjef5j");
         m10 = new MalaPremium("Mala de rodinhas", "American Tourister", "40jxcbdy2gj", 511.93, 'a', 0, "UPS", 118, 36, 12, "Nylon", 2022,"sdadassd");
         m11 = new MalaPremium("Mala de mão", "Rimowa", "vq473dk0sxt", 633.61, 'n', 2, "FedEx", 101, 38, 57, "Couro", 1988,"ldlnzv8v");
-        m13 = new Mala("Mala executiva", "American Tourister", "a1znelm5x3z", 788.35, 'c', 5, "Fedex", 69, 46, 28, "PVC", 2022,"osyxeg0x");
+        m13 = new Mala("Mala executiva", "American Tourister", "a1znelm5x3z", 788.35, 'c', 5, "FedEx", 69, 46, 28, "PVC", 2022,"osyxeg0x");
         m14 = new Mala("Mala grande", "Delsey", "de8xr9z405s", 1048.01, 'c', 0, "USPS", 25, 43, 52, "Nylon", 2010,"jfsakm3f");
         m17 = new MalaPremium("Mala executiva", "American Tourister", "78qyama7mhj", 795.88, 'a', 1, "USPS", 39, 10, 29, "ABS", 2022,"sdadassd");
 

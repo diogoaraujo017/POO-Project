@@ -209,7 +209,7 @@ public class Vintage {
 
     public Transportadora getTransportdoraByName(String nome) {
 
-        for(Transportadora value : transportadoras) {
+        for(Transportadora value : this.transportadoras) {
             if(value.getNome().equals(nome)){
                 return value;
             }
