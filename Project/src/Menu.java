@@ -502,7 +502,11 @@ public class Menu{
             throw new RuntimeException(e);
         }
         String codigoTShirt=geraCodigo(10);
-        new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao,conta.getEmail());
+        Tshirt t = new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,tamanho,padrao,conta.getCodigo());
+        String codigo = conta.getCodigo();
+        Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+        vin.addArtigo(t);
+        atual.getProdutosLoja().add(t);
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -731,9 +735,21 @@ public class Menu{
             s12.close();
             throw new RuntimeException(e);
         }
-
         String codigoMala=geraCodigo(11);
-        new Mala(desc,marca,codigoMala,preco,estado,donos,trans,comprimento,largura,altura,material,ano,conta.getEmail());
+        if(premium) {
+            MalaPremium t = new MalaPremium(desc, marca, codigoMala, preco, estado, donos, trans, comprimento, largura, altura, material, ano, conta.getCodigo());
+            String codigo = conta.getCodigo();
+            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+            vin.addArtigo(t);
+            atual.getProdutosLoja().add(t);
+        }
+        else{
+            Mala t = new Mala(desc, marca, codigoMala, preco, estado, donos, trans, comprimento, largura, altura, material, ano, conta.getCodigo());
+            String codigo = conta.getCodigo();
+            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+            vin.addArtigo(t);
+            atual.getProdutosLoja().add(t);
+        }
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -981,7 +997,20 @@ public class Menu{
             throw new RuntimeException(e);
         }
         String codigoSapatilhas=geraCodigo(9);
-        new Sapatilha(desc,marca,codigoSapatilhas,preco,estado,donos,trans,tamanho,atacadores,cor,lanc,conta.getEmail());
+        if(premium){
+            SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo());
+            String codigo = conta.getCodigo();
+            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+            vin.addArtigo(t);
+            atual.getProdutosLoja().add(t);
+        }
+        else {
+            Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans, tamanho, atacadores, cor, lanc, conta.getCodigo());
+            String codigo = conta.getCodigo();
+            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+            vin.addArtigo(t);
+            atual.getProdutosLoja().add(t);
+        }
         clearTerminal();
         abreMenuIntermedio(vin);
         s1.close();
@@ -1012,9 +1041,13 @@ public class Menu{
             clearTerminal();
             abreMenuGerirTrans(vin);
         }
-        else{
+        else if(entrada.equals("0")){
             clearTerminal();
             abreMenuInicial(vin);
+        }
+        else{
+            System.out.println("======O que digitou não corresponde a nenhuma opção, tente novamente======");
+            abreMenuVisaoAdmin(vin);
         }
         input.close();
     }
@@ -1029,7 +1062,7 @@ public class Menu{
         double lucro = 0.0;
         boolean lucroValido = false;
 
-        while (!lucroValido) {
+        while (!lucroValido){
             String pre = s2.nextLine();
             try {
                 lucro = Double.parseDouble(pre);
@@ -1042,11 +1075,44 @@ public class Menu{
         Scanner s3 = new Scanner(System.in);
         String premium = s3.nextLine();
         boolean prem= premium.equals("Sim");
-        List<Artigo> vazia = new ArrayList<>();
-        new Transportadora(desc,lucro,prem,vazia);
-        s1.close();
-        s2.close();
-        s3.close();
+        if(prem){
+            List<Artigo> vazia = new ArrayList<>();
+            TransportadoraPremium t = new TransportadoraPremium(desc,lucro,prem,vazia);
+            vin.addTransportadora(t);
+            System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuVisaoAdmin(vin);
+            s1.close();
+            s2.close();
+            s3.close();
+        }
+        else{
+            List<Artigo> vazia = new ArrayList<>();
+            Transportadora t = new Transportadora(desc,lucro,prem,vazia);
+            vin.addTransportadora(t);
+            System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                s1.close();
+                s2.close();
+                s3.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuVisaoAdmin(vin);
+            s1.close();
+            s2.close();
+            s3.close();
+        }
     }
 
     public void abreMenuGerirTrans(Vintage vin){
@@ -1054,8 +1120,61 @@ public class Menu{
         System.out.println("Qual o nome da transportadora a modificar?");
         Scanner s1 = new Scanner(System.in);
         String nome = s1.nextLine();
-        s1.close();
+        Transportadora mudar = vin.getTransportdoraByName(nome);
+        if(mudar==null){
+            System.out.println("O nome que digitou não corresponde a nenhuma das transportadoras existentes no sistema, eis a lista de tranportadoras existentes:");
+            List<Transportadora> nova = vin.getTransportadoras();
+            for(Transportadora t : nova){
+                System.out.println(t);
+            }
+            System.out.println("\n\n=======//=======\n");
+            abreMenuGerirTrans(vin);
+            s1.close();
+        }
+        System.out.println("O que deseja alterar?\n1-Nome\n2-Margem de Lucro\n\n\n0-Voltar para o Menu de Visão de Administrador");
+        Scanner s2 = new Scanner(System.in);
+        String opc = s2.nextLine();
+        if(opc.equals("1")){
+            System.out.println("Para que nome deseja alterar a transportadora?");
+            Scanner s3 = new Scanner(System.in);
+            String novo = s3.nextLine();
+            mudar.setNome(novo);
+            System.out.println("Nome alterada para " + novo);
+            abreMenuVisaoAdmin(vin);
+            s1.close();
+            s2.close();
+            s3.close();
+        }
+        else if(opc.equals("2")){
+            System.out.println("Para que taxa de lucro deseja alterar a transportadora");
+            Scanner s4 = new Scanner(System.in);
+            double preco = 0.0;
+            boolean precoValido = false;
 
+            while (!precoValido) {
+                String pre = s4.nextLine();
+                try {
+                    preco = Double.parseDouble(pre);
+                    precoValido = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+                }
+            }
+            mudar.setLucro(preco);
+            System.out.println("Taxa de lucro alterada para " + preco);
+            abreMenuVisaoAdmin(vin);
+            s1.close();
+            s2.close();
+            s4.close();
+        }
+        else if(opc.equals("0")){
+            clearTerminal();
+            abreMenuVisaoAdmin(vin);
+        }
+        else{
+            System.out.println("======O que digitou não corresponde a nenhuma opção, tente novamente======");
+            abreMenuGerirTrans(vin);
+        }
     }
 
     public void abreMenuDevolucao(Vintage vin){
