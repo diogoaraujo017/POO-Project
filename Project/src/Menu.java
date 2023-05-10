@@ -259,10 +259,12 @@ public class Menu{
         List<Artigo> artvenda = vin.getListaArtigos();
         int contador = 1;
         for(Artigo art : artvenda){
-            System.out.print(contador + " -  ");
-            System.out.println(art.toString());
-            System.out.println();
-            contador++;
+            if(!(art.getVendedor()).equals(vin.getUtilizadorByEmail(conta.getEmail()).getCodigo())){
+                System.out.print(contador + " -  ");
+                System.out.println(art.toString());
+                System.out.println();
+                contador++;
+            }
         }
         int num=0;
         Scanner scanner = new Scanner(System.in);
@@ -276,14 +278,16 @@ public class Menu{
                 System.out.println("Erro: " + partes[i] + " não pode ser convertido para um inteiro. Tente novamente.");
                 abreMenuIntermedio(vin);
             }
-            String codigo = artvenda.get(num).getCodigo();
-            if(num>=0 && num <=(contador-1) && vin.existeArtigo(codigo)){
-                cont=true;
-                Artigo art = vin.getArtigo(codigo);
-                Fatura fatura = new Fatura();
-                System.out.println(vin.getUtilizadorByCodigo(art.getVendedor()));
-                fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
-                vin.removeArtigo(art);
+            if(num>=0 && num <=(contador-2)){
+                String codigo = artvenda.get(num).getCodigo();
+                if(vin.existeArtigo(codigo)){
+                    cont=true;
+                    Artigo art = vin.getArtigo(codigo);
+                    Fatura fatura = new Fatura();
+                    fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
+                    vin.removeArtigo(art);
+                    System.out.println(vin.getUtilizadorByCodigo(art.getVendedor()));
+                }
             }
             else{
                 System.out.println("Erro: "+partes[i]+ " não existe");
@@ -292,6 +296,7 @@ public class Menu{
         if(cont) System.out.println("Compra efetuada com sucesso");
         try {
             Thread.sleep(3000);
+            clearTerminal();
         } catch (InterruptedException e) {
             scanner.close();
             throw new RuntimeException(e);
@@ -299,6 +304,7 @@ public class Menu{
         abreMenuIntermedio(vin);
         scanner.close();
 
+    
     }
     public void abreMenuVendas(Vintage vin){
         System.out.println("Menu de Vendas");

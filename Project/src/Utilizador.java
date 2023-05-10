@@ -159,7 +159,7 @@ public class Utilizador {
         this.produtosComprou.add(art);
     }
 
-    public void removeArtigoVendido(Artigo art){
+    public void removeArtigoAVenda(Artigo art){
         this.produtosLoja.remove(art);
     }
     public void adicionaFatura(Fatura fat){

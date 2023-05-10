@@ -35,7 +35,7 @@ public class Fatura {
         double custo = valorCusto(art);
         vendedor.adicionaArtigoVendido(art);
         comprador.adicionaArtigoComprado(art);
-        vendedor.removeArtigoVendido(art);
+        vendedor.removeArtigoAVenda(art);
         vendedor.setValorTotalVendas(passado+custo);
         vendedor.adicionaFatura(nova);
         comprador.adicionaFatura(nova);

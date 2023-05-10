@@ -10,19 +10,22 @@ public class Encomenda {
     private int dimensao; // 1 artigo - encomenda pequena // 2 a 5 artigos - encomenda média // > 5 artigos - encomenda grande
     private char estado; // p - pendente // f - finalizada // e - expedida // d - devolvida
     private LocalDate data; // data de criação
+    private String comprador;
 
     public Encomenda(){
         this.artigos=new ArrayList<>();
         this.dimensao=0;
         this.estado='p';
         this.data=LocalDate.now();
+        this.comprador="";
     }
 
-    public Encomenda(List <Artigo> lista_artigos, int dimensao, char estado, LocalDate data){
+    public Encomenda(List <Artigo> lista_artigos, int dimensao, char estado, LocalDate data, String comprador){
         this.artigos=lista_artigos.stream().map(Artigo::clone).collect(Collectors.toList());
         this.dimensao=dimensao;
         this.estado=estado;
         this.data=data;
+        this.comprador=comprador;
     }
 
     public Encomenda(Encomenda enc){
@@ -30,6 +33,7 @@ public class Encomenda {
         this.dimensao=enc.getDimensao();
         this.estado=enc.getEstado();
         this.data=enc.getData();
+        this.comprador=enc.getComprador();
     }
 
     public void adicionarArtigoEncomenda(Artigo art){
@@ -67,6 +71,10 @@ public class Encomenda {
         return this.dimensao;
     }
 
+    public String getComprador() {
+        return this.comprador;
+    }
+
     public char getEstado() {
         return this.estado;
     }
@@ -86,6 +94,10 @@ public class Encomenda {
 
     public void setDimensao(int dimensao) {
         this.dimensao = dimensao;
+    }
+
+    public void setComprador(String comprador) {
+        this.comprador = comprador;
     }
 
     public void setEstado(char estado) {
@@ -111,7 +123,8 @@ public class Encomenda {
         return e.getArtigos().equals(this.artigos) &&
                e.getDimensao() == this.dimensao &&
                e.getEstado() == this.estado &&
-               e.getData().equals(this.data);
+               e.getData().equals(this.data) &&
+               e.getComprador().equals(this.comprador);
     }
 
     public String toString() {

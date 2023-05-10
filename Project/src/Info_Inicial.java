@@ -110,13 +110,13 @@ public class Info_Inicial {
         conj_artigos9.add(t11);
         conj_artigos9.add(t12);
 
-        enc1 = new Encomenda(conj_artigos1,2,'e',LocalDate.of(2022,4,2));
-        enc2 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1));
-        enc3 = new Encomenda(conj_artigos4,7,'e',LocalDate.of(2022,1,23));
-        enc4 = new Encomenda(conj_artigos6,3,'f',LocalDate.of(2020,3,15));
-        enc5 = new Encomenda(conj_artigos7,3,'f',LocalDate.of(2022,12,16));
-        enc6 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3));
-        enc7 = new Encomenda(conj_artigos9,4,'f',LocalDate.of(2021,9,1));
+        enc1 = new Encomenda(conj_artigos1,2,'e',LocalDate.of(2022,4,2),"pwzjef5j");
+        enc2 = new Encomenda(conj_artigos3,1,'e',LocalDate.of(2022,12,1),"pwzjef5j");
+        enc3 = new Encomenda(conj_artigos4,7,'e',LocalDate.of(2022,1,23),"pwzjef5j");
+        enc4 = new Encomenda(conj_artigos6,3,'f',LocalDate.of(2020,3,15),"pwzjef5j");
+        enc5 = new Encomenda(conj_artigos7,3,'f',LocalDate.of(2022,12,16),"pwzjef5j");
+        enc6 = new Encomenda(conj_artigos8,2,'e',LocalDate.of(2022,10,3),"pwzjef5j");
+        enc7 = new Encomenda(conj_artigos9,4,'f',LocalDate.of(2021,9,1),"pwzjef5j");
 
         vintage.addEncomenda(enc1);
         vintage.addEncomenda(enc2);
@@ -276,7 +276,7 @@ public class Info_Inicial {
         //enc1.devolverEncomenda(enc1);
 
         //System.out.println();
-        //System.out.println(user1.toString());
+        //System.out.println(user2.toString());
 
         return vintage;
 
