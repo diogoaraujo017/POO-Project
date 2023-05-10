@@ -197,6 +197,16 @@ public class Vintage {
         return null;
     }
 
+    public Utilizador getUtilizadorByCodigo(String codigo) {
+        for (Map.Entry<Integer, Utilizador> entry : utilizadores.entrySet()) {
+            Utilizador value = entry.getValue();
+            if(value.getCodigo().equals(codigo)){
+                return value.clone();
+            }
+        }
+        return null;
+    }
+
     public Transportadora getTransportdoraByName(String nome) {
 
         for(Transportadora value : transportadoras) {

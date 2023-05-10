@@ -264,16 +264,25 @@ public class Menu{
             System.out.println();
             contador++;
         }
+        int num=0;
         Scanner scanner = new Scanner(System.in);
         String linha = scanner.nextLine();
         String[] partes = linha.split(",");
         boolean cont=false;
         for(int i=0; i<partes.length;i++){
-            if(vin.existeArtigo(partes[i])){
+            try {
+                num = Integer.parseInt(partes[i])-1;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + partes[i] + " não pode ser convertido para um inteiro. Tente novamente.");
+                abreMenuIntermedio(vin);
+            }
+            String codigo = artvenda.get(num).getCodigo();
+            if(num>=0 && num <=(contador-1) && vin.existeArtigo(codigo)){
                 cont=true;
-                Artigo art = vin.getArtigo(partes[i]);
+                Artigo art = vin.getArtigo(codigo);
                 Fatura fatura = new Fatura();
-                fatura.emiteFatura(art,vin.getUtilizadorByEmail(art.getCodigo()),vin.getUtilizadorByEmail(conta.getEmail()));
+                System.out.println(vin.getUtilizadorByCodigo(art.getVendedor()));
+                fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
                 vin.removeArtigo(art);
             }
             else{
