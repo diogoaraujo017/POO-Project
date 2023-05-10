@@ -12,6 +12,8 @@ public class Sapatilha extends Artigo{
 
     private LocalDate data_lancamento; // dd/mm/aaaa
 
+    private double desconto;
+
 
     public Sapatilha(){
         super();
@@ -19,14 +21,12 @@ public class Sapatilha extends Artigo{
         this.tem_atacadores=true;
         this.cor="";
         this.data_lancamento= null;
+        this.desconto=0.00;
     }
 
-    public Artigo clone() {
-        return new Sapatilha(this);
-    }
 
     public Sapatilha(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
-                      double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento, String vendedor){
+                      double n_tamanho, boolean tem_atacadores, String cor, LocalDate data_lancamento, String vendedor, double desconto){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, vendedor);
         this.n_tamanho=n_tamanho;
@@ -35,6 +35,7 @@ public class Sapatilha extends Artigo{
         this.data_lancamento=data_lancamento;
         if(this instanceof Premium) ((SapatilhaPremium) this).calculaValorPremium(this);
         else calculaValorFinalSapatilhas(this);
+        this.desconto=desconto;
     }
 
     public Sapatilha(Sapatilha sapatilhas){
@@ -45,6 +46,7 @@ public class Sapatilha extends Artigo{
         this.data_lancamento=sapatilhas.getDataLancamento();
         if(sapatilhas instanceof Premium) ((SapatilhaPremium) sapatilhas).calculaValorPremium(sapatilhas);
         else calculaValorFinalSapatilhas(sapatilhas);
+        this.desconto=sapatilhas.getDesconto();
     }
 
     // Calcula a idade da coleção das sapatilhas em anos.
@@ -57,7 +59,6 @@ public class Sapatilha extends Artigo{
     }
 
     public void calculaValorFinalSapatilhas(Sapatilha sp){
-        double taxa_vintage=1.03;
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
         char estado = sp.getEstado();
@@ -76,7 +77,7 @@ public class Sapatilha extends Artigo{
         if(estado != 'n'){
             switch(estado){
                 case 'a':
-                    preco_final = preco_base - (preco_base * n_donos) * 0.1 - idade;
+                    preco_final = (preco_base - (preco_base * n_donos) * 0.1 - idade);
                     break;
                 case 'b':
                     preco_final = preco_base - (preco_base * n_donos) * 0.13 - idade;
@@ -85,19 +86,24 @@ public class Sapatilha extends Artigo{
                     preco_final = preco_base - (preco_base * n_donos) * 0.16 - idade;
                     break;
             }
+            double desconto = this.getDesconto();
+            if(desconto>0 && desconto<1) preco_final=preco_final*desconto;
         }
 
 
         if(preco_final <= 10) {
             preco_final = 10;
         }
-        preco_final=preco_final*taxa_vintage;
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         sp.setPrecoFinal(preco_final);
     }
 
     public double getNTamanho(){
         return this.n_tamanho;
+    }
+
+    public double getDesconto() {
+        return this.desconto;
     }
 
     public boolean getTemAtacadores(){
@@ -124,8 +130,16 @@ public class Sapatilha extends Artigo{
         this.cor=cor;
     }
 
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
     public void setDataLancamento(LocalDate data_lancamento){
         this.data_lancamento=data_lancamento;
+    }
+
+    public Artigo clone() {
+        return new Sapatilha(this);
     }
 
     public boolean equals(Object obj){
@@ -139,7 +153,8 @@ public class Sapatilha extends Artigo{
         return e.getNTamanho()==(this.n_tamanho) &&
                 e.getTemAtacadores()==(this.tem_atacadores) &&
                 e.getCor().equals(this.cor) &&
-                e.getDataLancamento().equals(this.data_lancamento);
+                e.getDataLancamento().equals(this.data_lancamento) && 
+                e.getDesconto()==this.desconto;
     }
 
     public String toString() {
@@ -161,6 +176,7 @@ public class Sapatilha extends Artigo{
         else sb.append("; Premium: Não");
         sb.append("; Cor: ").append(this.getCor());
         sb.append("; Data de Lançamento: ").append(this.getDataLancamento());
+        sb.append("; Desconto: ").append(this.getDesconto());
         sb.append("}");
 
         return sb.toString();

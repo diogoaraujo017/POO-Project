@@ -257,9 +257,13 @@ public class Menu{
     public void abreMenuCompras(Vintage vin){
         System.out.println("Menu de Compras");
         List<Artigo> artvenda = vin.getListaArtigos();
+        List<Artigo> artigos_disponiveis = new ArrayList<>();
+        List<Artigo> encomenda = new ArrayList<>();
+        boolean flag = false;
         int contador = 1;
         for(Artigo art : artvenda){
-            if(!(art.getVendedor()).equals(vin.getUtilizadorByEmail(conta.getEmail()).getCodigo())){
+            if(!((art.getVendedor()).equals(conta.getCodigo()))){
+                artigos_disponiveis.add(art);
                 System.out.print(contador + " -  ");
                 System.out.println(art.toString());
                 System.out.println();
@@ -267,10 +271,10 @@ public class Menu{
             }
         }
         int num=0;
+        System.out.print("-> Introduza o número dos produtos que pretende comprar: ");
         Scanner scanner = new Scanner(System.in);
         String linha = scanner.nextLine();
         String[] partes = linha.split(",");
-        boolean cont=false;
         for(int i=0; i<partes.length;i++){
             try {
                 num = Integer.parseInt(partes[i])-1;
@@ -279,21 +283,31 @@ public class Menu{
                 abreMenuIntermedio(vin);
             }
             if(num>=0 && num <=(contador-2)){
-                String codigo = artvenda.get(num).getCodigo();
+                String codigo = artigos_disponiveis.get(num).getCodigo();
                 if(vin.existeArtigo(codigo)){
-                    cont=true;
+                    flag=true;
                     Artigo art = vin.getArtigo(codigo);
+                    encomenda.add(art);
                     Fatura fatura = new Fatura();
                     fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
                     vin.removeArtigo(art);
-                    System.out.println(vin.getUtilizadorByCodigo(art.getVendedor()));
+                    System.out.println("Adicionado ao carrinho o produto: "+ art.getCodigo());
                 }
             }
             else{
                 System.out.println("Erro: "+partes[i]+ " não existe");
             }
+
         }
-        if(cont) System.out.println("Compra efetuada com sucesso");
+
+        if(flag){
+            System.out.print("\n\n");
+            Encomenda enc = new Encomenda(encomenda,encomenda.size(),'p',LocalDate.now(),conta.getCodigo());
+            vin.addEncomenda(enc);
+            //System.out.println("Total da sua compra = "+ enc.valorFinalEncomenda());
+        }
+
+
         try {
             Thread.sleep(3000);
             clearTerminal();
@@ -301,6 +315,9 @@ public class Menu{
             scanner.close();
             throw new RuntimeException(e);
         }
+
+
+        clearTerminal();
         abreMenuIntermedio(vin);
         scanner.close();
 

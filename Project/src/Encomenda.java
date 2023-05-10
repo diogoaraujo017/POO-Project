@@ -148,18 +148,14 @@ public class Encomenda {
     }
 
     //Custo total encomenda
-    public double valorFinalEncomenda(Encomenda enc){
+    public double valorFinalEncomenda(Encomenda enc, Vintage vin){
         double total = 0;
-        for(Artigo a : artigos){
+        List <Artigo> todos_artigos = enc.getArtigos();
+        for(Artigo a : todos_artigos){
             double precoArt = a.getPrecoFinal();
             String nome = a.getTransportadora();
-            switch (nome) {
-                case "CTT" -> precoArt = precoArt * 1.05;
-                case "UPS" -> precoArt = precoArt * 1.07;
-                case "USPS" -> precoArt = precoArt * 1.09;
-                case "DHL" -> precoArt = precoArt * 1.03;
-                case "FedEx" -> precoArt = precoArt * 1.10;
-            }
+            Transportadora tr = vin.getTransportdoraByName(nome);
+            //tr.getLucro()
             precoArt = Math.round(precoArt * 100.0) / 100.0;
             total+=precoArt;
             if(a.getEstado()=='n') total+=0.5;
