@@ -231,6 +231,52 @@ public class Vintage {
         return null;
     }
 
+    public double emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
+        Fatura nova = new Fatura(dataE,comprador,vendedor,art);
+        double passado = vendedor.getValorTotalVendas() + art.getPrecoFinal();
+        double custo = 0;
+        if(art.getEstado()=='n'){
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.5;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
+        else{
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.25;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
+        vendedor.adicionaArtigoVendido(art);
+        comprador.adicionaArtigoComprado(art);
+        vendedor.removeArtigoAVenda(art);
+        vendedor.setValorTotalVendas(passado);
+        vendedor.adicionaFatura(nova);
+        comprador.adicionaFatura(nova);
+        return custo;
+    }
+
+    public double emiteFaturaParse(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
+        Fatura nova = new Fatura(dataE,comprador,vendedor,art);
+        double passado = vendedor.getValorTotalVendas() + art.getPrecoFinal();
+        double custo = 0;
+        if(art.getEstado()=='n'){
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.5;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
+        else{
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.25;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
+        vendedor.setValorTotalVendas(passado);
+        vendedor.adicionaFatura(nova);
+        comprador.adicionaFatura(nova);
+        return custo;
+    }
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.
@@ -436,6 +482,13 @@ public class Vintage {
         String[] enc = input.split("@");
         String[] artigos = enc[0].split("]");
 
+        String[] infoFinal = enc[1].split(",");
+        int dimensao = Integer.getInteger(infoFinal[0]);
+        char estado = infoFinal[1].charAt(0);
+        String[] auxData = infoFinal[2].split("/");
+        LocalDate dataFinal = LocalDate.of(Integer.getInteger(auxData[0]),Integer.getInteger(auxData[2]),Integer.getInteger(auxData[3]));
+        String codComprador = infoFinal[3];
+
         List<Artigo> artigosList = new ArrayList<>();
 
         for (String line : artigos) {
@@ -445,33 +498,36 @@ public class Vintage {
                 case "Sapatilha" -> {
                     Sapatilha s = parseSapatilha(separatedLines[1]);
                     artigosList.add(s);
+                    this.emiteFaturaParse(dataFinal,s,this.getUtilizadorByCodigo(s.getVendedor()),
+                                          this.getUtilizadorByCodigo(codComprador));
                 }
                 case "SapatilhaPremium" -> {
                     SapatilhaPremium sp = parseSapatilhaPremium(separatedLines[1]);
                     artigosList.add(sp);
+                    this.emiteFaturaParse(dataFinal,sp,this.getUtilizadorByCodigo(sp.getVendedor()),
+                                                      this.getUtilizadorByCodigo(codComprador));
                 }
                 case "Tshirt" -> {
                     Tshirt t = parseTshirt(separatedLines[1]);
                     artigosList.add(t);
+                    this.emiteFaturaParse(dataFinal,t,this.getUtilizadorByCodigo(t.getVendedor()),
+                                                      this.getUtilizadorByCodigo(codComprador));
                 }
                 case "Mala" -> {
                     Mala m = parseMala(separatedLines[1]);
                     artigosList.add(m);
+                    this.emiteFaturaParse(dataFinal,m,this.getUtilizadorByCodigo(m.getVendedor()),
+                                                      this.getUtilizadorByCodigo(codComprador));
                 }
                 case "MalaPremium" -> {
                     MalaPremium mp = parseMalaPremium(separatedLines[1]);
                     artigosList.add(mp);
+                    this.emiteFaturaParse(dataFinal,mp,this.getUtilizadorByCodigo(mp.getVendedor()),
+                                                       this.getUtilizadorByCodigo(codComprador));
                 }
                 default -> System.out.println("Linha invalida.");
             }
         }
-
-        String[] infoFinal = enc[1].split(",");
-        int dimensao = Integer.getInteger(infoFinal[0]);
-        char estado = infoFinal[1].charAt(0);
-        String[] auxData = infoFinal[2].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.getInteger(auxData[0]),Integer.getInteger(auxData[2]),Integer.getInteger(auxData[3]));
-        String codComprador = infoFinal[3];
 
         return new Encomenda(artigosList,dimensao,estado,dataFinal,codComprador);
     }
@@ -484,6 +540,9 @@ public class Vintage {
 
                Utilizador u = getUtilizadorByCodigo(codUser);
                u.adicionaArtigoLoja(s);
+
+                Transportadora t = getTransportdoraByName(s.getTransportadora());
+                t.addArtigo(s);
             }
 
             case 'c' -> {
@@ -495,6 +554,7 @@ public class Vintage {
 
                 Transportadora t = getTransportdoraByName(s.getTransportadora());
                 t.addArtigo(s);
+
             }
         }
     }
@@ -507,6 +567,9 @@ public class Vintage {
 
                 Utilizador u = getUtilizadorByCodigo(codUser);
                 u.adicionaArtigoLoja(t);
+
+                Transportadora tr = getTransportdoraByName(t.getTransportadora());
+                tr.addArtigo(t);
             }
 
             case 'c' -> {
@@ -530,6 +593,9 @@ public class Vintage {
 
                 Utilizador u = getUtilizadorByCodigo(codUser);
                 u.adicionaArtigoLoja(m);
+
+                Transportadora t = getTransportdoraByName(m.getTransportadora());
+                t.addArtigo(m);
             }
 
             case 'c' -> {
@@ -555,6 +621,8 @@ public class Vintage {
         }
         return linhas;
     }
+
+
 
     public void salvaEstado(String name) throws IOException {
         ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(name));
