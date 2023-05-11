@@ -95,7 +95,10 @@ public class Transportadora {
         sb.append("Transportadora: {");
         sb.append("Nome: ").append(this.nome);
         sb.append("; Margem de Lucro: ").append(this.lucro);
-        sb.append("; Lista de produtos transportados: ").append(this.artigos);
+        sb.append("; Lista de produtos transportados: ");
+        for (Artigo element : this.artigos) {
+            sb.append(element);
+        }
         sb.append("}");
 
         return sb.toString();

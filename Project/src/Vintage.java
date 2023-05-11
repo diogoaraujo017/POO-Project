@@ -20,8 +20,8 @@ public class Vintage {
     // CONTRUCTORS /////////////////////////////////////////////////////////////////////////////////////
     public Vintage(){
         this.currentUserEmail = "";
-        contas = new HashMap<>();
-        utilizadores = new HashMap<>();
+        this.contas = new HashMap<>();
+        this.utilizadores = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.encomendas = new ArrayList<>();
         this.artigos = new HashMap<>();
@@ -190,11 +190,20 @@ public class Vintage {
         return false;
     }
 
+    public boolean getContaByCodigo(String codigo){
+        for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
+            if(Objects.equals(entry.getValue().getCodigo(), codigo)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Utilizador getUtilizadorByCodigo(String codigo) {
         int key = hash(codigo);
 
-        if(contas.containsKey(key)){
-            return utilizadores.get(key).clone();
+        if(getContaByCodigo(codigo)){
+            return utilizadores.get(key);
         }
         return null;
     }
@@ -203,7 +212,7 @@ public class Vintage {
 
         for(Transportadora value : this.transportadoras) {
             if(value.getNome().equals(nome)){
-                return value.clone();
+                return value;
             }
         }
 
@@ -215,7 +224,7 @@ public class Vintage {
         for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
             Conta conta = entry.getValue().clone();
             if(conta.getEmail().equals(email)){
-                return conta.clone();
+                return conta;
             }
         }
         return null;
@@ -225,7 +234,7 @@ public class Vintage {
         for (Map.Entry<Integer, Utilizador> entry : utilizadores.entrySet()) {
             Utilizador u = entry.getValue().clone();
             if(u.getEmail().equals(email)){
-                return u.clone();
+                return u;
             }
         }
         return null;
@@ -273,34 +282,33 @@ public class Vintage {
         return custo;
     }
 
-    public double emiteFaturaParse(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
-        Fatura nova = new Fatura(dataE,comprador,vendedor,art);
-        double passado = vendedor.getValorTotalVendas() + art.getPrecoFinal();
+    public double emiteFaturaParse(LocalDate dataE,Artigo art, String vendedor, String comprador){
+        Fatura nova = new Fatura(dataE,this.getUtilizadorByCodigo(comprador),this.getUtilizadorByCodigo(vendedor),art);
+        double passado = this.getUtilizadorByCodigo(vendedor).getValorTotalVendas() + art.getPrecoFinal();
         double custo = 0;
         if(art.getEstado()=='n'){
             String nome = art.getTransportadora();
             Transportadora t = this.getTransportdoraByName(nome);
-            custo=art.getPrecoFinal()*t.getLucro()+0.5;
+            custo = art.getPrecoFinal()*t.getLucro()+0.5;
             custo = Math.round(custo * 100.0) / 100.0;
         }
         else{
             String nome = art.getTransportadora();
             Transportadora t = this.getTransportdoraByName(nome);
-            custo=art.getPrecoFinal()*t.getLucro()+0.25;
+            custo = art.getPrecoFinal()*t.getLucro()+0.25;
             custo = Math.round(custo * 100.0) / 100.0;
         }
-        vendedor.setValorTotalVendas(passado);
-        vendedor.adicionaFatura(nova);
-        comprador.adicionaFatura(nova);
+        this.getUtilizadorByCodigo(vendedor).setValorTotalVendas(passado);
+        this.getUtilizadorByCodigo(vendedor).adicionaFatura(nova);
+        this.getUtilizadorByCodigo(comprador).adicionaFatura(nova);
         return custo;
     }
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.
-    public Vintage carregaEstadoCSV(String fileName) {
+    public void carregaEstadoCSV(String fileName) {
         String[] aux;
         String[] info;
-        Vintage vin = new Vintage();
 
         List<String> lines = lerFicheiro(fileName);
 
@@ -313,61 +321,60 @@ public class Vintage {
                 case "Utilizador" -> {
                     Utilizador u = parseUtilizador(separatedLines[1]);
                     //System.out.println(u.toString());
-                    vin.addUser(u);
+                    this.addUser(u);
                 }
                 case "Conta" -> {
                     Conta c = parseConta(separatedLines[1]);
                     //System.out.println(c.toString());
-                    vin.addConta(c);
+                    this.addConta(c);
                 }
                 case "TransportadoraPremium" -> {
                     TransportadoraPremium tp = parseTransportadoraPremium(separatedLines[1]);
                     //System.out.println(tp.toString());
-                    vin.addTransportadora(tp);
+                    this.addTransportadora(tp);
                 }
                 case "Transportadora" -> {
                     Transportadora tr = parseTransportadora(separatedLines[1]);
                     //System.out.println(tr.toString());
-                    vin.addTransportadora(tr);
+                    this.addTransportadora(tr);
                 }
                 case "Sapatilha" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Sapatilha s = parseSapatilha(aux[1]);
-                    vin.addSapatilha(s, info[0], info[1].charAt(0));
+                    this.addSapatilha(s, info[0], info[1].charAt(0));
                 }
                 case "SapatilhaPremium" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     SapatilhaPremium sp = parseSapatilhaPremium(aux[1]);
-                    vin.addSapatilha(sp, info[0], info[1].charAt(0));
+                    this.addSapatilha(sp, info[0], info[1].charAt(0));
                 }
                 case "Tshirt" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Tshirt t = parseTshirt(aux[1]);
-                    vin.addTshirt(t, info[0], info[1].charAt(0));
+                    this.addTshirt(t, info[0], info[1].charAt(0));
                 }
                 case "Mala" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Mala m = parseMala(aux[1]);
-                    vin.addMala(m, info[0], info[1].charAt(0));
+                    this.addMala(m, info[0], info[1].charAt(0));
                 }
                 case "MalaPremium" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     MalaPremium mp = parseMalaPremium(aux[1]);
-                    vin.addMala(mp, info[0], info[1].charAt(0));
+                    this.addMala(mp, info[0], info[1].charAt(0));
                 }
                 case "Encomenda" -> {
                     Encomenda e = parseEncomenda(separatedLines[1]);
-                    vin.addEncomenda(e);
+                    this.addEncomenda(e);
                 }
                 default -> System.out.println("Linha invalida.");
             }
         }
-        return vin;
     }
 
     public Utilizador parseUtilizador(String input) {
@@ -496,7 +503,7 @@ public class Vintage {
         return new MalaPremium(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,comprimento, largura,altura,material,data);
     }
 
-    public Encomenda parseEncomenda(String input, Vintage vin) {
+    public Encomenda parseEncomenda(String input) {
 
         String[] enc = input.split("@");
         String[] artigos = enc[0].split("]");
@@ -505,7 +512,7 @@ public class Vintage {
         int dimensao = Integer.parseInt(infoFinal[0]);
         char estado = infoFinal[1].charAt(0);
         String[] auxData = infoFinal[2].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.parseInt(auxData[0]),Integer.parseInt(auxData[2]),Integer.parseInt(auxData[3]));
+        LocalDate dataFinal = LocalDate.of(Integer.parseInt(auxData[0]),Integer.parseInt(auxData[1]),Integer.parseInt(auxData[2]));
         String codComprador = infoFinal[3];
 
         List<Artigo> artigosList = new ArrayList<>();
@@ -517,32 +524,27 @@ public class Vintage {
                 case "Sapatilha" -> {
                     Sapatilha s = parseSapatilha(separatedLines[1]);
                     artigosList.add(s);
-                    vin.emiteFaturaParse(dataFinal,s,vin.getUtilizadorByCodigo(s.getVendedor()),
-                                          vin.getUtilizadorByCodigo(codComprador));
+                    this.emiteFaturaParse(dataFinal,s,s.getVendedor(),codComprador);
                 }
                 case "SapatilhaPremium" -> {
                     SapatilhaPremium sp = parseSapatilhaPremium(separatedLines[1]);
                     artigosList.add(sp);
-                    vin.emiteFaturaParse(dataFinal,sp,vin.getUtilizadorByCodigo(sp.getVendedor()),
-                                                      vin.getUtilizadorByCodigo(codComprador));
+                    this.emiteFaturaParse(dataFinal,sp,sp.getVendedor(),codComprador);
                 }
                 case "Tshirt" -> {
                     Tshirt t = parseTshirt(separatedLines[1]);
                     artigosList.add(t);
-                    vin.emiteFaturaParse(dataFinal,t,vin.getUtilizadorByCodigo(t.getVendedor()),
-                                                      vin.getUtilizadorByCodigo(codComprador));
+                    this.emiteFaturaParse(dataFinal,t,t.getVendedor(),codComprador);
                 }
                 case "Mala" -> {
                     Mala m = parseMala(separatedLines[1]);
                     artigosList.add(m);
-                    vin.emiteFaturaParse(dataFinal,m,vin.getUtilizadorByCodigo(m.getVendedor()),
-                                                      vin.getUtilizadorByCodigo(codComprador));
+                    this.emiteFaturaParse(dataFinal,m,m.getVendedor(),codComprador);
                 }
                 case "MalaPremium" -> {
                     MalaPremium mp = parseMalaPremium(separatedLines[1]);
                     artigosList.add(mp);
-                    vin.emiteFaturaParse(dataFinal,mp,vin.getUtilizadorByCodigo(mp.getVendedor()),
-                                                       vin.getUtilizadorByCodigo(codComprador));
+                    this.emiteFaturaParse(dataFinal,mp,mp.getVendedor(),codComprador);
                 }
                 default -> System.out.println("Linha invalida.");
             }
@@ -551,27 +553,19 @@ public class Vintage {
         return new Encomenda(artigosList,dimensao,estado,dataFinal,codComprador);
     }
 
-    public void addSapatilha(Sapatilha s, String codUser, char flag, Vintage vin){
+    public void addSapatilha(Sapatilha s, String codUser, char flag){
         switch (flag){
 
             case 'l' -> {
                this.addArtigo(s);
-
-               
                this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(s);
-
                this.getTransportdoraByName(s.getTransportadora()).addArtigo(s);
-
             }
 
             case 'c' -> {
-
                 this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(s);
-
                 this.getUtilizadorByCodigo(s.getVendedor()).adicionaArtigoVendido(s);
-
                 this.getTransportdoraByName(s.getTransportadora()).addArtigo(s);
-
             }
         }
     }
@@ -581,18 +575,13 @@ public class Vintage {
 
             case 'l' -> {
                 this.addArtigo(t);
-
                 this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(t);
-
                 this.getTransportdoraByName(t.getTransportadora()).addArtigo(t);
             }
 
             case 'c' -> {
-
                 this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(t);
-
                 this.getUtilizadorByCodigo(t.getVendedor()).adicionaArtigoVendido(t);
-
                 this.getTransportdoraByName(t.getTransportadora()).addArtigo(t);
             }
         }
@@ -603,18 +592,13 @@ public class Vintage {
 
             case 'l' -> {
                 this.addArtigo(m);
-
                 this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(m);
-
                 this.getTransportdoraByName(m.getTransportadora()).addArtigo(m);
             }
 
             case 'c' -> {
-
                 this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(m);
-
                 this.getUtilizadorByCodigo(m.getVendedor()).adicionaArtigoVendido(m);
-
                 this.getTransportdoraByName(m.getTransportadora()).addArtigo(m);
             }
         }
@@ -630,8 +614,6 @@ public class Vintage {
         }
         return linhas;
     }
-
-
 
     public void salvaEstado(String name) throws IOException {
         ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(name));
@@ -653,4 +635,25 @@ public class Vintage {
         this.artigos = v.getArtigos();
     }
 
+
+    public String toString() {
+
+        for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        for (Map.Entry<Integer, Utilizador> entry : utilizadores.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        for (Transportadora element1 : transportadoras) {
+            System.out.println(element1);
+        }
+        for (Encomenda element : encomendas) {
+            System.out.println(element);
+        }
+        for (Map.Entry<Integer, Artigo> entry : artigos.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+
+        return null;
+    }
 }

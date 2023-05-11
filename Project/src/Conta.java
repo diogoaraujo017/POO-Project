@@ -72,9 +72,9 @@ public class Conta {
     //ToString
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Codigo da conta: '").append(this.codigo).append("'\n");
-        sb.append("Email: '").append(this.email).append("'\n");
-        sb.append("Password: '").append(this.password.replaceAll("\\S","*")).append("'\n");
+        sb.append("Codigo da conta: ").append(this.codigo).append("\n");
+        sb.append("Email: ").append(this.email).append("\n");
+        sb.append("Password: ").append(this.password).append("\n");
         return sb.toString();
     }
 

@@ -9,18 +9,10 @@ public class Menu{
 
     private LocalDate data;
     private Conta conta;
-    private Vintage vin;
-
-    
-    public Menu(){
-        this.data= LocalDate.now();
-        this.vin=new Vintage();
-        this.conta=new Conta();
-    }
-
 
     public void inicio (LocalDate data_atual){
         setData(data_atual);
+        Vintage vin = new Vintage();
         List<Artigo> todos = vin.getListaArtigos();
         for(Artigo art : todos){
             if(art instanceof Mala){
@@ -734,7 +726,9 @@ public class Menu{
             Path path = Paths.get(file_path);
             if(Files.exists(path) && !Files.isDirectory(path)){
                 flag=true;
-                vin=vin.carregaEstadoCSV(file_path);
+                vin.carregaEstadoCSV(file_path);
+                vin.toString();
+                abreMenuInicial(vin);
             } 
             else {
                 System.out.println("\n\nO path é inválido. Por favor insira novamente:");
