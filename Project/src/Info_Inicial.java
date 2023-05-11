@@ -234,28 +234,28 @@ public class Info_Inicial {
         vintage.addConta(c10);
 
         //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s1, user1, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s2, user3, user9);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s8, user5, user4);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s9, user6, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s10, user9, user10);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s11, user10, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m11, user3, user6);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m10, user7, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t2, user1, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t3, user1, user7);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m14, user6, user5);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s14, user9, user7);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t20, user1, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m17, user7, user9);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),s15, user2, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t16, user7, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m1, user1, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),m2, user1, user9);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t9, user9, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t10, user4, user1);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t11, user1, user3);
-        vintage.emiteFatura(LocalDate.of(2022,4,2),t12, user1, user7);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s1, user1, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s2, user3, user9);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s8, user5, user4);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s9, user6, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s10, user9, user10);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s11, user10, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m11, user3, user6);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m10, user7, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t2, user1, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t3, user1, user7);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m14, user6, user5);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s14, user9, user7);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t20, user1, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m17, user7, user9);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),s15, user2, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t16, user7, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m1, user1, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),m2, user1, user9);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t9, user9, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t10, user4, user1);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t11, user1, user3);
+        // vintage.emiteFatura(LocalDate.of(2022,4,2),t12, user1, user7);
 
         user1.setListaVenda(conj_artigos2);
 

@@ -297,9 +297,10 @@ public class Vintage {
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.
-    public void carregaEstadoCSV(String fileName) {
+    public Vintage carregaEstadoCSV(String fileName) {
         String[] aux;
         String[] info;
+        Vintage vin = new Vintage();
 
         List<String> lines = lerFicheiro(fileName);
 
@@ -312,60 +313,61 @@ public class Vintage {
                 case "Utilizador" -> {
                     Utilizador u = parseUtilizador(separatedLines[1]);
                     //System.out.println(u.toString());
-                    this.addUser(u);
+                    vin.addUser(u);
                 }
                 case "Conta" -> {
                     Conta c = parseConta(separatedLines[1]);
-                    //System.out.println(l.toString());
-                    this.addConta(c);
+                    //System.out.println(c.toString());
+                    vin.addConta(c);
                 }
                 case "TransportadoraPremium" -> {
                     TransportadoraPremium tp = parseTransportadoraPremium(separatedLines[1]);
-                    //System.out.println(v.toString());
-                    this.addTransportadora(tp);
+                    //System.out.println(tp.toString());
+                    vin.addTransportadora(tp);
                 }
                 case "Transportadora" -> {
                     Transportadora tr = parseTransportadora(separatedLines[1]);
-                    //System.out.println(t.toString());
-                    this.addTransportadora(tr);
+                    //System.out.println(tr.toString());
+                    vin.addTransportadora(tr);
                 }
                 case "Sapatilha" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Sapatilha s = parseSapatilha(aux[1]);
-                    this.addSapatilha(s, info[0], info[1].charAt(0));
+                    vin.addSapatilha(s, info[0], info[1].charAt(0));
                 }
                 case "SapatilhaPremium" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     SapatilhaPremium sp = parseSapatilhaPremium(aux[1]);
-                    this.addSapatilha(sp, info[0], info[1].charAt(0));
+                    vin.addSapatilha(sp, info[0], info[1].charAt(0));
                 }
                 case "Tshirt" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Tshirt t = parseTshirt(aux[1]);
-                    this.addTshirt(t, info[0], info[1].charAt(0));
+                    vin.addTshirt(t, info[0], info[1].charAt(0));
                 }
                 case "Mala" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     Mala m = parseMala(aux[1]);
-                    this.addMala(m, info[0], info[1].charAt(0));
+                    vin.addMala(m, info[0], info[1].charAt(0));
                 }
                 case "MalaPremium" -> {
                     aux = separatedLines[1].split("=", 2);
                     info = aux[0].split(",", 2);
                     MalaPremium mp = parseMalaPremium(aux[1]);
-                    this.addMala(mp, info[0], info[1].charAt(0));
+                    vin.addMala(mp, info[0], info[1].charAt(0));
                 }
                 case "Encomenda" -> {
                     Encomenda e = parseEncomenda(separatedLines[1]);
-                    this.addEncomenda(e);
+                    vin.addEncomenda(e);
                 }
                 default -> System.out.println("Linha invalida.");
             }
         }
+        return vin;
     }
 
     public Utilizador parseUtilizador(String input) {
@@ -434,7 +436,7 @@ public class Vintage {
         boolean temAtacadores = Boolean.parseBoolean(info[9]);
         String cor = info[10];
         String[] aux = info[11].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.parseInt(aux[0]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]));
+        LocalDate dataFinal = LocalDate.of(Integer.parseInt(aux[0]),Integer.parseInt(aux[1]),Integer.parseInt(aux[2]));
         double desconto = Double.parseDouble(info[12]);
 
         return new SapatilhaPremium(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,tamanho,temAtacadores,cor,dataFinal,desconto);
@@ -494,7 +496,7 @@ public class Vintage {
         return new MalaPremium(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,comprimento, largura,altura,material,data);
     }
 
-    public Encomenda parseEncomenda(String input) {
+    public Encomenda parseEncomenda(String input, Vintage vin) {
 
         String[] enc = input.split("@");
         String[] artigos = enc[0].split("]");
@@ -515,32 +517,32 @@ public class Vintage {
                 case "Sapatilha" -> {
                     Sapatilha s = parseSapatilha(separatedLines[1]);
                     artigosList.add(s);
-                    this.emiteFaturaParse(dataFinal,s,this.getUtilizadorByCodigo(s.getVendedor()),
-                                          this.getUtilizadorByCodigo(codComprador));
+                    vin.emiteFaturaParse(dataFinal,s,vin.getUtilizadorByCodigo(s.getVendedor()),
+                                          vin.getUtilizadorByCodigo(codComprador));
                 }
                 case "SapatilhaPremium" -> {
                     SapatilhaPremium sp = parseSapatilhaPremium(separatedLines[1]);
                     artigosList.add(sp);
-                    this.emiteFaturaParse(dataFinal,sp,this.getUtilizadorByCodigo(sp.getVendedor()),
-                                                      this.getUtilizadorByCodigo(codComprador));
+                    vin.emiteFaturaParse(dataFinal,sp,vin.getUtilizadorByCodigo(sp.getVendedor()),
+                                                      vin.getUtilizadorByCodigo(codComprador));
                 }
                 case "Tshirt" -> {
                     Tshirt t = parseTshirt(separatedLines[1]);
                     artigosList.add(t);
-                    this.emiteFaturaParse(dataFinal,t,this.getUtilizadorByCodigo(t.getVendedor()),
-                                                      this.getUtilizadorByCodigo(codComprador));
+                    vin.emiteFaturaParse(dataFinal,t,vin.getUtilizadorByCodigo(t.getVendedor()),
+                                                      vin.getUtilizadorByCodigo(codComprador));
                 }
                 case "Mala" -> {
                     Mala m = parseMala(separatedLines[1]);
                     artigosList.add(m);
-                    this.emiteFaturaParse(dataFinal,m,this.getUtilizadorByCodigo(m.getVendedor()),
-                                                      this.getUtilizadorByCodigo(codComprador));
+                    vin.emiteFaturaParse(dataFinal,m,vin.getUtilizadorByCodigo(m.getVendedor()),
+                                                      vin.getUtilizadorByCodigo(codComprador));
                 }
                 case "MalaPremium" -> {
                     MalaPremium mp = parseMalaPremium(separatedLines[1]);
                     artigosList.add(mp);
-                    this.emiteFaturaParse(dataFinal,mp,this.getUtilizadorByCodigo(mp.getVendedor()),
-                                                       this.getUtilizadorByCodigo(codComprador));
+                    vin.emiteFaturaParse(dataFinal,mp,vin.getUtilizadorByCodigo(mp.getVendedor()),
+                                                       vin.getUtilizadorByCodigo(codComprador));
                 }
                 default -> System.out.println("Linha invalida.");
             }
@@ -549,28 +551,26 @@ public class Vintage {
         return new Encomenda(artigosList,dimensao,estado,dataFinal,codComprador);
     }
 
-    public void addSapatilha(Sapatilha s, String codUser, char flag){
+    public void addSapatilha(Sapatilha s, String codUser, char flag, Vintage vin){
         switch (flag){
 
             case 'l' -> {
                this.addArtigo(s);
 
-               Utilizador u = this.getUtilizadorByCodigo(codUser);
-               u.adicionaArtigoLoja(s);
+               
+               this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(s);
 
-                Transportadora t = this.getTransportdoraByName(s.getTransportadora());
-                t.addArtigo(s);
+               this.getTransportdoraByName(s.getTransportadora()).addArtigo(s);
+
             }
 
             case 'c' -> {
-                Utilizador u = getUtilizadorByCodigo(codUser);
-                u.adicionaArtigoComprado(s);
 
-                Utilizador u1 = getUtilizadorByCodigo(s.getVendedor());
-                u1.adicionaArtigoVendido(s);
+                this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(s);
 
-                Transportadora t = getTransportdoraByName(s.getTransportadora());
-                t.addArtigo(s);
+                this.getUtilizadorByCodigo(s.getVendedor()).adicionaArtigoVendido(s);
+
+                this.getTransportdoraByName(s.getTransportadora()).addArtigo(s);
 
             }
         }
@@ -582,22 +582,18 @@ public class Vintage {
             case 'l' -> {
                 this.addArtigo(t);
 
-                Utilizador u = getUtilizadorByCodigo(codUser);
-                u.adicionaArtigoLoja(t);
+                this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(t);
 
-                Transportadora tr = getTransportdoraByName(t.getTransportadora());
-                tr.addArtigo(t);
+                this.getTransportdoraByName(t.getTransportadora()).addArtigo(t);
             }
 
             case 'c' -> {
-                Utilizador u = getUtilizadorByCodigo(codUser);
-                u.adicionaArtigoComprado(t);
 
-                Utilizador u1 = getUtilizadorByCodigo(t.getVendedor());
-                u1.adicionaArtigoVendido(t);
+                this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(t);
 
-                Transportadora tr = getTransportdoraByName(t.getTransportadora());
-                tr.addArtigo(t);
+                this.getUtilizadorByCodigo(t.getVendedor()).adicionaArtigoVendido(t);
+
+                this.getTransportdoraByName(t.getTransportadora()).addArtigo(t);
             }
         }
     }
@@ -608,22 +604,18 @@ public class Vintage {
             case 'l' -> {
                 this.addArtigo(m);
 
-                Utilizador u = getUtilizadorByCodigo(codUser);
-                u.adicionaArtigoLoja(m);
+                this.getUtilizadorByCodigo(codUser).adicionaArtigoLoja(m);
 
-                Transportadora t = getTransportdoraByName(m.getTransportadora());
-                t.addArtigo(m);
+                this.getTransportdoraByName(m.getTransportadora()).addArtigo(m);
             }
 
             case 'c' -> {
-                Utilizador u = getUtilizadorByCodigo(codUser);
-                u.adicionaArtigoComprado(m);
 
-                Utilizador u1 = getUtilizadorByCodigo(m.getVendedor());
-                u1.adicionaArtigoVendido(m);
+                this.getUtilizadorByCodigo(codUser).adicionaArtigoComprado(m);
 
-                Transportadora t = getTransportdoraByName(m.getTransportadora());
-                t.addArtigo(m);
+                this.getUtilizadorByCodigo(m.getVendedor()).adicionaArtigoVendido(m);
+
+                this.getTransportdoraByName(m.getTransportadora()).addArtigo(m);
             }
         }
     }
