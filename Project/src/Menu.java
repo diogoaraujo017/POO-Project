@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.Year;
 import java.util.*;
 import java.lang.Thread;
 
@@ -11,6 +13,15 @@ public class Menu{
 
     public void inicio (Vintage vin, LocalDate data_atual){
         setData(data_atual);
+        List<Artigo> todos = vin.getListaArtigos();
+        for(Artigo art : todos){
+            if(art instanceof Mala){
+                recalculaValorFinalMala((Mala)art);
+            }
+            if(art instanceof Sapatilha){
+                recalculaValorFinalSapatilhas((Sapatilha) art);
+            }
+        }
         abreMenuInicial(vin);
     }
 
@@ -61,6 +72,7 @@ public class Menu{
         String email = input.nextLine();
         if(!verificaEmail(email)){
             System.out.println("O email que escreveu não segue o formato correto, por favor tente novamente");
+            System.out.print("->");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -107,6 +119,17 @@ public class Menu{
             System.out.print("O email introduzido não é válido.\n\nPor favor introduza novamente:");
             email = input.nextLine();
         }
+        if(!(vin.getUtilizadorByEmail(email)==null)){
+            System.out.print("O email introduzido já se encontra utilizado no sistema, tente novamente");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                input.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuRegister(vin);
+        }
         System.out.print("Password:");
         String pass = input.nextLine();
         System.out.print("Morada:");
@@ -123,23 +146,23 @@ public class Menu{
     }
     public void abreMenuData(Vintage vin){
         System.out.println("Menu de Data");
-        System.out.print("Dia:");
-        int diaa = 0;
-        boolean check = false;
+        System.out.print("Ano:");
         Scanner input = new Scanner(System.in);
+        int anoo = 0;
+        boolean check2 = false;
 
-        while (!check) {
-            String dia = input.nextLine();
+        while (!check2) {
+            String ano = input.nextLine();
             try {
-                diaa = Integer.parseInt(dia);
-                if(diaa>=1&&diaa<=31){
-                    check = true;
+                anoo = Integer.parseInt(ano);
+                if(anoo>=1){
+                    check2= true;
                 }
                 else{
-                    System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                    System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
         System.out.print("Mês:");
@@ -160,22 +183,23 @@ public class Menu{
                 System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.print("Ano:");
-        int anoo = 0;
-        boolean check2 = false;
 
-        while (!check2) {
-            String ano = input.nextLine();
+        System.out.print("Dia:");
+        int diaa = 0;
+        boolean check = false;
+
+        while (!check) {
+            String dia = input.nextLine();
             try {
-                anoo = Integer.parseInt(ano);
-                if(anoo>=1){
-                    check2= true;
+                diaa = Integer.parseInt(dia);
+                if (diaa >= 1 && diaa <= getDiasMes(mess, anoo)) {
+                    check = true;
                 }
                 else{
-                    System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                    System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
@@ -202,6 +226,15 @@ public class Menu{
             }
             clearTerminal();
             abreMenuData(vin);
+        }
+        List<Artigo> todos = vin.getListaArtigos();
+        for(Artigo art : todos){
+            if(art instanceof Mala){
+                recalculaValorFinalMala((Mala)art);
+            }
+            if(art instanceof Sapatilha){
+                recalculaValorFinalSapatilhas((Sapatilha) art);
+            }
         }
         input.close();
     }
@@ -263,17 +296,30 @@ public class Menu{
             }
         }
         int num=0;
-        System.out.print("-> Introduza o número dos produtos que pretende comprar: ");
+        System.out.print("\nSe desejar voltar para o menu anterior escreva 0\nIntroduza o número dos produtos que pretende comprar: ");
         Scanner input = new Scanner(System.in);
         String linha = input.nextLine();
+        if(linha.equals("0")){
+            System.out.println("Voltando para o menu inicial");
+            try {
+                Thread.sleep(3000);
+                clearTerminal();
+            } catch (InterruptedException e) {
+                input.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuIntermedio(vin);
+            input.close();
+        }
         String[] partes = linha.split(",");
 
         for (String parte : partes) {
             try {
                 num = Integer.parseInt(parte) - 1;
             } catch (NumberFormatException e) {
-                System.out.println("Erro: " + parte + " não pode ser convertido para um inteiro. Tente novamente.");
-                abreMenuIntermedio(vin);
+                System.out.println("Erro: " + parte + " não pode ser convertido para um inteiro. Tente novamente.\n\n\n");
+                abreMenuCompras(vin);
             }
             if (num >= 0 && num <= (contador - 2)) {
                 String codigo = artigos_disponiveis.get(num).getCodigo();
@@ -286,7 +332,6 @@ public class Menu{
             } else {
                 System.out.println("Erro: " + parte + " não existe");
             }
-
         }
 
         if(flag){
@@ -295,9 +340,10 @@ public class Menu{
             vin.addEncomenda(enc);
             System.out.println("Total da sua compra = "+ enc.valorFinalEncomenda(enc,vin) + "€");
             System.out.println("Confirmar a encomenda: Sim | Não");
+            System.out.print("->");
             boolean aux = false;
             String conf = input.nextLine();
-            while (aux) {
+            while (!aux) {
                 conf = input.nextLine();
                 try {
                     if(conf.equals("Sim") || conf.equals("Não")) aux = true;
@@ -380,11 +426,14 @@ public class Menu{
     public void abreMenuVendasTShirts(Vintage vin){
         System.out.println("Menu de venda de TShirts\n\n");
         System.out.println("Descreva a sua tshirt");
+        System.out.print("->");
         Scanner input = new Scanner(System.in);
         String desc = input.nextLine();
         System.out.println("Qual a marca da TShirt?");
+        System.out.print("->");
         String marca = input.nextLine();
         System.out.println("A qual preço deseja listar a sua TShirt?");
+        System.out.print("->");
         double preco = 0.0;
         boolean precoValido = false;
 
@@ -399,26 +448,36 @@ public class Menu{
             }
         }
         System.out.println("A que estado corresponde a sua TShirt?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
-        String est = input.nextLine();
+        System.out.print("->");
+        String est ;
         char estado='o';
-        switch (est) {
-            case "a" -> estado = 'a';
-            case "b" -> estado = 'b';
-            case "c" -> estado = 'c';
-            case "n" -> estado = 'n';
-            default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    input.close();
-                    throw new RuntimeException(e);
+        boolean scheck=false;
+        while (!scheck) {
+            est = input.nextLine();
+            switch (est) {
+                case "a" -> {
+                    estado = 'a';
+                    scheck=true;
                 }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
+                case "b" -> {
+                    estado = 'b';
+                    scheck=true;
+                }
+                case "c" -> {
+                    estado = 'c';
+                    scheck=true;
+                }
+                case "n" -> {
+                    estado = 'n';
+                    scheck=true;
+                }
+                default -> {
+                    System.out.println("Opção inválida. Por favor, insira a, b, c ou n, de acordo com o estado da suas sapatilhas");
+                    System.out.print("->");
+                    scheck=false;
+                }
             }
         }
-
         System.out.println("Quantos donos já teve a TShirt?");
         int donos = 0;
         boolean check = false;
@@ -427,13 +486,18 @@ public class Menu{
             String dono = input.nextLine();
             try {
                 donos = Integer.parseInt(dono);
-                check = true;
+                if(donos>=0) check = true;
+                else{
+                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
-
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        System.out.print("->");
         List<Transportadora> tran = vin.getTransportadoras();
 
         int contador = 1;
@@ -456,54 +520,46 @@ public class Menu{
                 }
                 else{
                     System.out.println("Erro: " + trans + " não corresponde a nenhuma das transportadoras. Tente novamente.");
+                    System.out.print("->");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + trans + " não segue as normas de seleção de transportadora. Tente novamente.");
+                System.out.print("->");
             }
         }
         Transportadora transp = tran.get(v-1);
         String trans = transp.getNome();
 
-        System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
-        String tam = input.nextLine();
         char tamanho = 'o';
-        switch (tam) {
-            case "s" -> tamanho = 's';
-            case "m" -> tamanho = 'm';
-            case "l" -> tamanho = 'l';
-            case "x" -> tamanho = 'x';
-            default -> {
-                System.out.println("O tamanho não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    input.close();
-                    throw new RuntimeException(e);
-                }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
+
+        while (tamanho == 'o') {
+            System.out.println("Qual o tamanho da sua TShirt?\ns-S\nm-M\nl-L\nx-XL");
+            System.out.print("->");
+            String tam = input.nextLine();
+
+            switch (tam) {
+                case "s" -> tamanho = 's';
+                case "m" -> tamanho = 'm';
+                case "l" -> tamanho = 'l';
+                case "x" -> tamanho = 'x';
+                default -> System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+        char padrao = 'o';
+
+        while (padrao == 'o') {
+            System.out.println("Qual o padrão da sua TShirt?\np-Palmeiras\nr-Riscas\nl-Liso");
+            System.out.print("->");
+            String entrada = input.nextLine();
+
+            switch (entrada) {
+                case "p" -> padrao = 'p';
+                case "r" -> padrao = 'r';
+                case "l" -> padrao = 'l';
+                default -> System.out.println("Opção inválida. Tente novamente.");
             }
         }
 
-        System.out.println("Qual o padrão da sua TShirt?\np-Palmeiras\nr-Riscas\nl-Liso");
-        String pad = input.nextLine();
-        char padrao='o';
-        switch (pad) {
-            case "p" -> padrao = 'p';
-            case "r" -> padrao = 'r';
-            case "l" -> padrao = 'l';
-            default -> {
-                System.out.println("O padrão não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    input.close();
-                    throw new RuntimeException(e);
-                }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
-            }
-        }
 
         System.out.println("TShirt registada, obrigado pela preferência!");
         try {
@@ -525,11 +581,14 @@ public class Menu{
     public void abreMenuVendasMalas(Vintage vin){
         System.out.println("Menu de venda de Malas\n\n");
         System.out.println("Descreva a sua mala");
+        System.out.print("->");
         Scanner input = new Scanner(System.in);
         String desc = input.nextLine();
         System.out.println("Qual a marca da mala");
+        System.out.print("->");
         String marca = input.nextLine();
         System.out.println("A qual preço deseja listar a sua mala?");
+        System.out.print("->");
         double preco = 0.0;
         boolean precoValido = false;
 
@@ -537,32 +596,48 @@ public class Menu{
             String pre = input.nextLine();
             try {
                 preco = Double.parseDouble(pre);
-                precoValido = true;
+                if(preco>=5) precoValido = true;
+                else {
+                    System.out.println("Valor inválido. Preço mínimo é de 5€");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
             }
         }
         System.out.println("A que estado corresponde a sua Mala?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
-        String est = input.nextLine();
+        System.out.print("->");
+        String est;
         char estado='o';
-        switch (est) {
-            case "a" -> estado = 'a';
-            case "b" -> estado = 'b';
-            case "c" -> estado = 'c';
-            case "n" -> estado = 'n';
-            default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    input.close();
-                    throw new RuntimeException(e);
+        boolean scheck=false;
+        while (!scheck) {
+            est = input.nextLine();
+            switch (est) {
+                case "a" -> {
+                    estado = 'a';
+                    scheck=true;
                 }
-                clearTerminal();
-                abreMenuVendasMalas(vin);
+                case "b" -> {
+                    estado = 'b';
+                    scheck=true;
+                }
+                case "c" -> {
+                    estado = 'c';
+                    scheck=true;
+                }
+                case "n" -> {
+                    estado = 'n';
+                    scheck=true;
+                }
+                default -> {
+                    System.out.println("Opção inválida. Por favor, insira a, b, c ou n, de acordo com o estado da suas sapatilhas");
+                    System.out.print("->");
+                    scheck=false;
+                }
             }
         }
         System.out.println("Quantos donos já teve a Mala?");
+        System.out.print("->");
         int donos = 0;
         boolean check = false;
 
@@ -570,9 +645,14 @@ public class Menu{
             String dono = input.nextLine();
             try {
                 donos = Integer.parseInt(dono);
-                check = true;
+                if(donos>=0) check = true;
+                else{
+                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Malas?");
@@ -583,6 +663,7 @@ public class Menu{
             System.out.println(contador +"-"+ nome);
             contador++;
         }
+        System.out.print("->");
         int v=1;
         boolean checkk1 = false;
 
@@ -604,6 +685,7 @@ public class Menu{
         String trans = transp.getNome();
 
         System.out.println("Qual o comprimento da sua Mala?");
+        System.out.print("->");
         int comprimento = 0;
         boolean check1 = false;
 
@@ -611,12 +693,18 @@ public class Menu{
             String comp = input.nextLine();
             try {
                 comprimento = Integer.parseInt(comp);
-                check1 = true;
+                if(comprimento > 0)check1 = true;
+                else{
+                    System.out.println("O comprimento tem de ser maior que 0, tente novamente.");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + comp + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
         System.out.println("Qual a largura da sua Mala?");
+        System.out.print("->");
         int largura = 0;
         boolean check2 = false;
 
@@ -624,12 +712,18 @@ public class Menu{
             String larg = input.nextLine();
             try {
                 largura = Integer.parseInt(larg);
-                check2 = true;
+                if(largura > 0) check2 = true;
+                else{
+                    System.out.println("A largura tem de ser maior que 0, tente novamente.");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + larg + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
         System.out.println("Qual a altura da sua Mala?");
+        System.out.print("->");
         int altura = 0;
         boolean check3 = false;
 
@@ -637,14 +731,21 @@ public class Menu{
             String alt = input.nextLine();
             try {
                 altura = Integer.parseInt(alt);
-                check3 = true;
+                if(altura > 0)check3 = true;
+                else{
+                    System.out.println("A altura tem de ser maior que 0, tente novamente.");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + alt + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
         System.out.println("Qual o material da sua Mala?");
+        System.out.print("->");
         String material = input.nextLine();
         System.out.println("Qual o ano de lançamento da sua Mala?");
+        System.out.print("->");
         int ano = 0;
         boolean check4 = false;
 
@@ -657,29 +758,29 @@ public class Menu{
                 }
                 else{
                     System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                    System.out.print("->");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + anoo + " não pode ser convertido para um inteiro. Tente novamente.");
             }
         }
-        System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
-        String prem = input.nextLine();
         boolean premium = false;
-        if(prem.equals("1")){
-            premium=true;
-        }
-        else if(!prem.equals("2")){
-            System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
-            }
-            clearTerminal();
-            abreMenuVendasMalas(vin);
-        }
 
+        while (true) {
+            System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
+            System.out.print("->");
+            String prem = input.nextLine();
+
+            if (prem.equals("1")) {
+                premium = true;
+                break; // sai do loop while
+            } else if (prem.equals("2")) {
+                premium = false;
+                break; // sai do loop while
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
         if(!premium && trans.equals("USPS")){
             System.out.println("A transportadora que selecionou apenas transporta artigos premium e o seu artigo não o é, por favor selecione outra transportadora.");
             try {
@@ -721,11 +822,14 @@ public class Menu{
     public void abreMenuVendaSapatilhas(Vintage vin){
         System.out.println("Menu de venda de Sapatilhas\n\n");
         System.out.println("Descreva as suas Sapatilhas");
+        System.out.print("->");
         Scanner input = new Scanner(System.in);
         String desc = input.nextLine();
         System.out.println("Qual a marca das Sapatilhas?");
+        System.out.print("->");
         String marca = input.nextLine();
         System.out.println("A qual preço deseja listar as suas Sapatilhas?");
+        System.out.print("->");
         double preco = 0.0;
         boolean precoValido = false;
 
@@ -733,34 +837,48 @@ public class Menu{
             String pre = input.nextLine();
             try {
                 preco = Double.parseDouble(pre);
-                precoValido = true;
+                if(preco>=5) precoValido = true;
+                else{
+                    System.out.println("Valor inválido. Preço mínimo é de 5€");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
             }
         }
         System.out.println("A que estado correspondem as suas Sapatilhas?\nn-Nova\na-Como Nova\nb-Bom Estado\nc-Mau/Médio");
-        String est = input.nextLine();
+        System.out.print("->");
+        String est ;
         char estado='o';
-        switch (est) {
-            case "a" -> estado = 'a';
-            case "b" -> estado = 'b';
-            case "c" -> estado = 'c';
-            case "n" -> estado = 'n';
-            default -> {
-                System.out.println("O estado não corresponde a nenhuma das opções, tente novamente.");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    input.close();
-                    throw new RuntimeException(e);
+        boolean scheck=false;
+        while (!scheck) {
+            est = input.nextLine();
+            switch (est) {
+                case "a" -> {
+                    estado = 'a';
+                    scheck=true;
                 }
-                clearTerminal();
-                abreMenuVendasTShirts(vin);
+                case "b" -> {
+                    estado = 'b';
+                    scheck=true;
+                }
+                case "c" -> {
+                    estado = 'c';
+                    scheck=true;
+                }
+                case "n" -> {
+                    estado = 'n';
+                    scheck=true;
+                }
+                default -> {
+                    System.out.println("Opção inválida. Por favor, insira a, b, c ou n, de acordo com o estado da suas sapatilhas");
+                    System.out.print("->");
+                    scheck=false;
+                }
             }
         }
-
-
         System.out.println("Quantos donos já tiveram as Sapatilhas?");
+        System.out.print("->");
         int donos = 0;
         boolean check = false;
 
@@ -768,9 +886,14 @@ public class Menu{
             String dono = input.nextLine();
             try {
                 donos = Integer.parseInt(dono);
-                check = true;
+                if(donos>=0) check = true;
+                else{
+                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                    System.out.print("->");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
+                System.out.print("->");
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
@@ -781,6 +904,7 @@ public class Menu{
             System.out.println(contador +"-"+ nome);
             contador++;
         }
+        System.out.print("->");
         int v=1;
         boolean checkk1 = false;
 
@@ -793,14 +917,17 @@ public class Menu{
                 }
                 else{
                     System.out.println("Erro: " + trans + " não corresponde a nenhuma das transportadoras. Tente novamente.");
+                    System.out.print("->");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + trans + " não segue as normas de seleção de transportadora. Tente novamente.");
+                System.out.print("->");
             }
         }
         Transportadora transp = tran.get(v-1);
         String trans = transp.getNome();
         System.out.println("Qual o número (tamanho) das sapatilhas?");
+        System.out.print("->");
         double tamanho = 0.0;
         boolean tamValido = false;
 
@@ -811,29 +938,30 @@ public class Menu{
                 tamValido = true;
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + tam + " não pode ser convertido para um double. Tente novamente.");
+                System.out.print("->");
             }
         }
 
-        System.out.println("A suas sapatilhas têm atacadores?\n1-Sim\n2-Não");
-        String ata = input.nextLine();
         boolean atacadores = false;
 
-        if(ata.equals("1")){
-            atacadores=true;
-        }
-        else if(!ata.equals("2")){
-            System.out.println("A resposta não corresponde a nenhuma das opções, tente novamente.");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
+        while (true) {
+            System.out.println("A suas sapatilhas têm atacadores?\n1-Sim\n2-Não");
+            System.out.print("->");
+            String entrada = input.nextLine();
+
+            if (entrada.equals("1")) {
+                atacadores = true;
+                break;
+            } else if (entrada.equals("2")) {
+                atacadores = false;
+                break;
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
             }
-            clearTerminal();
-            abreMenuVendaSapatilhas(vin);
         }
 
         System.out.println("Qual a cor das suas sapatilhas?");
+        System.out.print("->");
         String cor = input.nextLine();
         System.out.println("Qual a data de lançamento das suas sapatilhas? (Por favor, coloque a data em números)");
         System.out.print("Dia:");
@@ -892,10 +1020,34 @@ public class Menu{
         }
         LocalDate lanc=LocalDate.of(anoo,mess,diaa);
 
-        System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
-        String prem = input.nextLine();
-        boolean premium = prem.equals("1");
+        boolean premium = false;
 
+        while (true) {
+            System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
+            System.out.print("->");
+            String prem = input.nextLine();
+
+            if (prem.equals("1")) {
+                premium = true;
+                break; // sai do loop while
+            } else if (prem.equals("2")) {
+                premium = false;
+                break; // sai do loop while
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+        if(!premium && trans.equals("USPS")){
+            System.out.println("A transportadora que selecionou apenas transporta artigos premium e o seu artigo não o é, por favor selecione outra transportadora.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                input.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuVendaSapatilhas(vin);
+        }
         if((tamanho>45 || donos>0) && premium){
             System.out.println("Qual o desconto que quer aplicar nas sapatilhas (ex: se for 25%, a resposta deve ser 0.25) ?");
             double desconto = 0.0;
@@ -996,9 +1148,11 @@ public class Menu{
     public void abreMenuCreateTrans(Vintage vin){
         System.out.println("Menu de criação de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a adicionar?");
+        System.out.print("->");
         Scanner input = new Scanner(System.in);
         String desc = input.nextLine();
         System.out.println("Qual a margem de lucro da transportadora a adicionar?");
+        System.out.print("->");
         double lucro = 0.0;
         boolean lucroValido = false;
 
@@ -1006,15 +1160,31 @@ public class Menu{
             String pre = input.nextLine();
             try {
                 lucro = Double.parseDouble(pre);
-                lucroValido = true;
+                if(lucro>=1) lucroValido = true;
+                else lucroValido = false;
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+                System.out.print("->");
             }
         }
-        System.out.println("A transportadora é premium? (Sim ou Não)");
-        String premium = input.nextLine();
-        boolean prem= premium.equals("Sim");
-        if(prem){
+        boolean premium = false;
+
+        while (true) {
+            System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
+            System.out.print("->");
+            String prem = input.nextLine();
+
+            if (prem.equals("1")) {
+                premium = true;
+                break; // sai do loop while
+            } else if (prem.equals("2")) {
+                premium = false;
+                break; // sai do loop while
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+        if(premium){
 
             TransportadoraPremium t = new TransportadoraPremium(desc,lucro);
             vin.addTransportadora(t);
@@ -1049,6 +1219,7 @@ public class Menu{
     public void abreMenuGerirTrans(Vintage vin){
         System.out.println("Menu de gestão de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a modificar?");
+        System.out.print("->");
         Scanner input = new Scanner(System.in);
         String nome = input.nextLine();
         Transportadora mudar = vin.getTransportdoraByName(nome);
@@ -1064,11 +1235,13 @@ public class Menu{
         }
 
         System.out.println("O que deseja alterar?\n1-Nome\n2-Margem de Lucro\n\n\n0-Voltar para o Menu de Visão de Administrador");
+        System.out.print("->");
         String opc = input.nextLine();
 
         switch (opc) {
             case "1" -> {
                 System.out.println("Para que nome deseja alterar a transportadora?");
+                System.out.print("->");
                 String novo = input.nextLine();
                 mudar.setNome(novo);
                 System.out.println("Nome alterada para " + novo);
@@ -1077,6 +1250,7 @@ public class Menu{
             }
             case "2" -> {
                 System.out.println("Para que taxa de lucro deseja alterar a transportadora");
+                System.out.print("->");
                 double preco = 0.0;
                 boolean precoValido = false;
                 while (!precoValido) {
@@ -1184,19 +1358,13 @@ public class Menu{
     }
 
     public boolean verificaEmail(String email){
-        if (email == null) {
-            return false;
-        }
-        if (email.equals("admin")){
-            return true;
-        }
+        if (email == null) return false;
+        if (email.equals("admin")) return true;
         boolean arrobaEncontrado = false;
         boolean pontoEncontrado = false;
         for (int i = 0; i < email.length(); i++) {
             char comp = email.charAt(i);
-            if(comp=='@'){
-                arrobaEncontrado=true;
-            }
+            if(comp=='@') arrobaEncontrado=true;
             if(comp=='.'){
                 if(arrobaEncontrado){
                     pontoEncontrado=true;
@@ -1205,4 +1373,85 @@ public class Menu{
         }
         return (arrobaEncontrado && pontoEncontrado);
     }
+
+    public boolean verificaAnoBissexto(int year){
+        // Um ano é bissexto se for divisível por 4, exceto se for divisível por 100, a menos que seja divisível por 400.
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                if (year % 400 == 0) return true;
+                else return false;
+            } else return true;
+        } else return false;
+    }
+
+    public int getDiasMes(int month, int year){
+        if (month == 2) {
+            if (verificaAnoBissexto(year)) return 29;
+            else return 28;
+        }
+        if (month == 4 || month == 6 || month == 9 || month == 11) return 30;
+        return 31;
+    }
+    public int idade_sapatilhas(LocalDate idade){
+
+        LocalDate atual = getData();
+        Period diferenca = Period.between(idade, atual);
+
+        return diferenca.getYears();
+    }
+    public void recalculaValorFinalSapatilhas(Sapatilha sp){
+        double preco_base = sp.getPrecoBase();
+        double preco_final = preco_base;
+        double desconto = sp.getDesconto();
+        char estado = sp.getEstado();
+        int idade = idade_sapatilhas(sp.getDataLancamento());
+        int n_donos = sp.getNDonos();
+
+        if(n_donos > 4) {
+            n_donos = 4;
+        }
+
+
+        if(estado == 'n' && sp.getNTamanho() > 45) {
+            preco_final = (preco_base - sp.getNTamanho() * 0.1)*(1-desconto);
+        }
+
+        if(estado != 'n'){
+            switch(estado){
+                case 'a':
+                    preco_final = (preco_base - (preco_base * n_donos) * 0.1 - idade);
+                    break;
+                case 'b':
+                    preco_final = preco_base - (preco_base * n_donos) * 0.13 - idade;
+                    break;
+                case 'c':
+                    preco_final = preco_base - (preco_base * n_donos) * 0.16 - idade;
+                    break;
+            }
+            if(desconto>0 && desconto<1) preco_final=preco_final*(1-desconto);
+        }
+
+
+        if(preco_final <= 10) {
+            preco_final = 10;
+        }
+        preco_final = Math.round(preco_final * 100.0) / 100.0;
+        sp.setPrecoFinal(preco_final);
+    }
+
+    public void recalculaValorFinalMala(Mala mala){
+        double preco_base = mala.getPrecoBase();
+        double preco_final = preco_base;
+
+        int idade = getData().getYear() - mala.getAnoLancamento();
+        int volume = mala.getComprimento() * mala.getLargura() * mala.getAltura();
+
+        preco_final = preco_base - preco_base * 0.02 * idade - (double) 12000000 / volume;
+
+        if(preco_final <= 15) preco_final = 15;
+
+        preco_final = Math.round(preco_final * 100.0) / 100.0;
+        mala.setPrecoFinal(preco_final);
+    }
+
 }
