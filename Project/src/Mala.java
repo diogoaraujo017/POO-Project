@@ -23,7 +23,7 @@ public class Mala extends Artigo{
     }
 
     public Mala(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora,
-                 int comprimento, int largura, int altura, String material, int ano_lancamento, String vendedor){
+                String vendedor, int comprimento, int largura, int altura, String material, int ano_lancamento){
 
         super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, vendedor);
         this.comprimento = comprimento;

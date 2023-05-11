@@ -10,8 +10,12 @@ public class TransportadoraPremium extends Transportadora implements Premium{
         super(t);
     }
 
-    public TransportadoraPremium(String nome, double taxa, boolean prem, List<Artigo> lista_encomendas) {
-        super(nome, taxa, prem, lista_encomendas);
+    public TransportadoraPremium(String nome, double taxa, List<Artigo> lista_encomendas) {
+        super(nome, taxa, lista_encomendas);
+    }
+
+    public TransportadoraPremium(String nome, double taxa) {
+        super(nome, taxa);
     }
 
 }

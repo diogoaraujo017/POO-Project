@@ -42,6 +42,19 @@ public class Utilizador {
         this.faturas=fat;
     }
 
+    Utilizador(String codigo,String nome, String email, String morada, String nif){
+        this.codigo=codigo;
+        this.email=email;
+        this.nome=nome;
+        this.morada=morada;
+        this.nif=nif;
+        this.produtosVendidos=new ArrayList<>();
+        this.produtosLoja=new ArrayList<>();
+        this.produtosComprou=new ArrayList<>();
+        this.valorTotalVendas=0;
+        this.faturas=new ArrayList<>();
+    }
+
     Utilizador(Utilizador ut){
 
         this.codigo = ut.getCodigo();

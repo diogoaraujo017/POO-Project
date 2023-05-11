@@ -6,8 +6,8 @@ public class MalaPremium extends Mala implements Premium{
         super();
     }
 
-    public MalaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, int comprimento, int largura, int altura, String material, int ano_lancamento, String vendedor) {
-        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, comprimento, largura, altura, material, ano_lancamento, vendedor);
+    public MalaPremium(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos, String transportadora, String vendedor, int comprimento, int largura, int altura, String material, int ano_lancamento) {
+        super(descricao, marca, codigo, preco_base, estado, n_donos, transportadora, vendedor, comprimento, largura, altura, material, ano_lancamento);
     }
 
     public MalaPremium(Mala mala) {

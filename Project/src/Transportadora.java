@@ -12,13 +12,26 @@ public class Transportadora {
         this.lucro=0.00;
         this.artigos= new ArrayList<>();
     }
+
+    public Transportadora(String nome, Double lucro){
+        this.nome = nome;
+        this.lucro = lucro;
+        this.artigos = new ArrayList<>();
+    }
+
+    public Transportadora(String nome, Double lucro, List<Artigo> artigos){
+        this.nome = nome;
+        this.lucro = lucro;
+        this.artigos = new ArrayList<>(artigos);
+    }
+
     public Transportadora(Transportadora t){
         this.nome=t.getNome();
         this.lucro=t.getLucro();
         this.artigos=t.getArtigos();
     }
 
-    public Transportadora(String nome, double taxa, boolean prem, List<Artigo> lista_encomendas) {
+    public Transportadora(String nome, double taxa, List<Artigo> lista_encomendas) {
         this.nome = nome;
         this.lucro=taxa;
         this.artigos= lista_encomendas.stream().map(Artigo::clone).collect(Collectors.toList());

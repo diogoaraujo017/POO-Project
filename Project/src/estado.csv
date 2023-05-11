@@ -1,0 +1,93 @@
+Utilizador=pwzjef5j,João Marcelo,joao@gmail.com,Rua das Oliveiras n32,728842772
+Utilizador=osyxeg0x,Rui António,rui_antonio@outlook.com,Rua da Albufeira n420,112314213
+Utilizador=ldlnzv8v,Ana Santos,anaSantos@gmail.com,Rua da Beira n1,429881734
+Utilizador=dsxcsws1,Maria Silva,msilva@gmail.com,Rua do Sol n4,242532556
+Utilizador=fnsakvs3,António Costa,costaAntonio@gmail.com,Rua da Beira n63,242412525
+Utilizador=jfsakm3f,Mariana Antunes,mant@gmail.com,Rua da Seara n32,352533535
+Utilizador=sdadassd,Clara Manuela,clara@outlook.com,Rua da Praça n23,421433134
+Utilizador=dsdas322,Jorge Silva,jorgesilva@gmail.com,Rua da Praça n7,426633134
+Utilizador=mbksalew,Sara Raquel,raquell@gmail.com,Rua do Santo n32,424244321
+Utilizador=nsd32424,Renato Guedes,renatoG@gmail.com,Rua das Amélias n32,321223332
+Conta=pwzjef5j,joao@gmail.com,joaozito
+Conta=osyxeg0x,rui_antonio@outlook.com,RAnt
+Conta=ldlnzv8v,anaSantos@gmail.com,Santorini
+Conta=dsxcsws1,msilva@gmail.com,masil
+Conta=fnsakvs3,costaAntonio@gmail.com,PrimeiroMinistro
+Conta=jfsakm3f,mant@gmail.com,mantissa
+Conta=sdadassd,clara@outlook.com,clouca
+Conta=dsdas322,jorgesilva@gmail.com,jorje
+Conta=mbksalew,raquell@gmail.com,quelsporting
+Conta=nsd32424,renatoG@gmail.com,renaGOD
+TransportadoraPremium=CTT,1.05
+Transportadora=UPS,1.07
+TransportadoraPremium=USPS,1.09
+Transportadora=DHL,1.03
+Transportadora=FedEx,1.10
+Sapatilha=fnsakvs3,l=Sapatilhas Casuais,Adidas,5ym074315,42.11,a,3,CTT,fnsakvs3,17.0,true,Preto,2020/11/11,1
+Sapatilha=sdadassd,l=Sapatilhas Desportivas,Nike,e86o549ty,113.34,n,0,UPS,sdadassd,55.5,false,Verde,2022/1/9,0.1
+SapatilhaPremium=osyxeg0x,l=Sapatilhas Desportivas,NewBalance,ufp5ylqyu,321.3,c,0,USPS,osyxeg0x,22.0,true,Azul,2023/3/1,1
+SapatilhaPremium=ldlnzv8v,l=Sapatilhas Festivas,Adidas,l2wrqsrcv,45.32,b,3,DHL,ldlnzv8v,34.0,false,Amarelo,2021/4/29,1
+Sapatilha=fnsakvs3,l=Sapatilhas Desportivas,NewBalance,nfr950f07,123.34,b,2,UPS,fnsakvs3,54.0,true,Azul,2022/3/12,0.1
+SapatilhaPremium=osyxeg0x,l=Sapatilhas Festivas,Puma,l3zmopumj,58.43,c,1,FedEx,osyxeg0x,46.0,true,Preto,2022/4/20,1
+Sapatilha=ldlnzv8v,l=Sapatilhas Desportivas,NewBalance,u6upqoiei,63.32,n,2,UPS,ldlnzv8v,33.0,false,Azul,2022/10/12,1
+Sapatilha=jfsakm3f,l=Sapatilhas Casuais,Decathlon,pok2jtbnz,12.24,a,2,FedEx,jfsakm3f,14.5,true,Azul,2020/4/14,1
+Sapatilha=mbksalew,l=Sapatilhas Casuais,Adidas,f9pe5mg8g,54.64,c,0,USPS,mbksalew,23.5,true,Amarelo,2020/12/7,1
+Sapatilha=sdadassd,l=Sapatilhas Festivas,Puma,e544js8of,154.04,n,2,FedEx,sdadassd,11.5,true,Verde,2020/4/17,1
+Sapatilha=mbksalew,l=Sapatilhas Casuais,Decathlon,cw9nn67a1,184.00,b,1,DHL,mbksalew,28.5,false,Azul,2023/1/30,1
+Sapatilha=nsd32424,l=Sapatilhas Casuais,Puma,jaxh72hoe,15.99,b,6,FedEx,nsd32424,23.0,false,Verde,2021/4/1,1
+Sapatilha=pwzjef5j,c=Sapatilhas Desportivas,Nike,cd5xo1fp6,154.34,a,3,UPS,osyxeg0x,43.0,false,Amarelo,2023/4/12,1
+SapatilhaPremium=osyxeg0x,c=Sapatilhas Casuais,Adidas,wgvupmumg,94.23,a,1,DHL,ldlnzv8v,42.5,true,Azul,2021/4/14,1
+SapatilhaPremium=dsxcsws1,c=Sapatilhas Festivas,Puma,9g7repv37,44.45,n,2,FedEx,fnsakvs3,39.0,false,Preto,2021/1/17,1
+SapatilhaPremium=fnsakvs3,c=Sapatilhas Casuais,Puma,z21za7v4q,431.36,n,1,DHL,jfsakm3f,42.0,true,Vermelho,2021/2/1,1
+SapatilhaPremium=dsdas322,c=Sapatilhas Casuais,Nike,qwrrjgv6v,55.99,c,1,FedEx,sdadassd,33.0,false,Roxo,2021/4/8,1
+SapatilhaPremium=sdadassd,c=Sapatilhas Festivas,Adidas,4mss7ngdf,34.64,b,3,DHL,mbksalew,43.0,true,Azul,2023/4/19,1
+SapatilhaPremium=nsd32424,c=Sapatilhas Festivas,NewBalance,e2unr4d7s,13.34,a,2,UPS,jfsakm3f,22.5,false,Azul,2023/4/2,1
+Sapatilha=sdadassd,c=Sapatilhas Desportivas,Adidas,dg7v5w65k,18.34,a,4,CTT,nsd32424,31.0,true,Amarelo,2022/9/30,1
+Tshirt=sdadassd,l=T-shirt vermelha,NewBalance,ybsh1gwj5d,70.28,c,9,USPS,sdadassd,X,R
+Tshirt=nsd32424,l=T-shirt preta,Asics,s19l5rc3t3,35.75,n,1,USPS,nsd32424,X,R
+Tshirt=osyxeg0x,l=T-shirt branca,NewBalance,dvj7mtk4fe,78.99,c,4,CTT,osyxeg0x,S,L
+Tshirt=ldlnzv8v,l=T-shirt verde,Fila,z40ewicx54,7.82,c,9,CTT,ldlnzv8v,X,R
+Tshirt=fnsakvs3,l=T-shirt azul,Converse,8owzklu2ya,15.36,a,9,DHL,fnsakvs3,X,P
+Tshirt=osyxeg0x,l=T-shirt roxa,UnderArmour,uuug14cioo,92.52,n,3,FedEx,osyxeg0x,S,P
+Tshirt=fnsakvs3,l=T-shirt preta,Converse,70jfsf0cnh,76.95,a,4,USPS,fnsakvs3,M,L
+Tshirt=jfsakm3f,l=T-shirta marela,Nike,dwq5pygvl8,5.94,b,1,DHL,jfsakm3f,S,L
+Tshirt=mbksalew,l=T-shirta marela,Converse,594pohir93,41.76,b,6,DHL,mbksalew,S,R
+Tshirt=jfsakm3f,l=T-shirt preta,NewBalance,0ay74og76l,96.43,c,4,CTT,jfsakm3f,M,P
+Tshirt=mbksalew,l=T-shirt laranja,Asics,18nq9h95xk,34.44,b,1,DHL,mbksalew,S,L
+Tshirt=nsd32424,l=T-shirt azul,Nike,8vk2vfcrgb,99.19,a,8,USPS,nsd32424,L,P
+Tshirt=dsdas322,c=T-shirt preta,Reebok,corkhvcko8,72.05,n,4,FedEx,osyxeg0x,X,R
+Tshirt=dsxcsws1,c=T-shirt branca,Fila,xw4d1cdm0l,99.66,a,0,DHL,ldlnzv8v,L,P
+Tshirt=osyxeg0x,c=T-shirt rosa,Adidas,gm0rccojyy,57.50,b,9,FedEx,fnsakvs3,X,L
+Tshirt=sdadassd,c=T-shirt branca,Converse,mdwvlwr2wv,78.97,n,0,UPS,jfsakm3f,L,L
+Tshirt=fnsakvs3,c=T-shirta marela,Converse,h8xu05b6u8,62.97,n,3,FedEx,sdadassd,M,P
+Tshirt=osyxeg0x,c=T-shirt roxa,NewBalance,8gontks1mx,68.67,n,6,FedEx,mbksalew,X,L
+Tshirt=pwzjef5j,c=T-shirt amarela,Reebok,9qjuxkz8zk,69.95,a,0,CTT,ldlnzv8v,S,P
+Tshirt=nsd32424,c=T-shirt laranja,Reebok,nspqjdmoxe,93.27,b,6,UPS,sdadassd,S,P
+Mala=nsd32424,l=Malade viagem,Tumi,oa5ejl8t5hy,70.73,c,4,DHL,nsd32424,79,59,33,Nylon,2020
+Mala=osyxeg0x,l=Mala de mão,Rimowa,jm2xe5dvn1y,487.46,c,3,CTT,osyxeg0x,83,38,55,PVC,2015
+Mala=ldlnzv8v,l=Mala de mão,AmericanTourister,8080fuwtvgk,258.82,c,4,FedEx,ldlnzv8v,40,41,13,ABS,1977
+MalaPremium=fnsakvs3,l=Mala de viagem,Samsonite,ehj4dvtia1i,471.24,c,7,USPS,fnsakvs3,80,39,23,PVC,1963
+MalaPremium=osyxeg0x,l=Mala de rodinhas,AmericanTourister,40jxcbdy2gj,511.93,a,0,UPS,osyxeg0x,118,36,12,Nylon,2022
+MalaPremium=ldlnzv8v,l=Mala de mão,Rimowa,vq473dk0sxt,633.61,n,2,FedEx,ldlnzv8v,101,38,57,Couro,1988
+Mala=fnsakvs3,l=Mala executiva,Tumi,qq0gqh99gde,833.13,c,6,CTT,fnsakvs3,48,44,54,Couro,2010
+Mala=sdadassd,l=Mala grande,Delsey,de8xr9z405s,1048.01,c,0,USPS,sdadassd,25,43,52,Nylon,2010
+MalaPremium=mbksalew,l=Mala grande,Delsey,q8917kwpkut,273.01,c,4,CTT,mbksalew,107,55,36,Poliéster,2022
+MalaPremium=sdadassd,l=Mala executiva,AmericanTourister,78qyama7mhj,795.88,a,1,USPS,sdadassd,39,10,29,ABS,2022
+Mala=mbksalew,l=Mala de mão,Delsey,8pmu0qm3knp,876.98,a,5,UPS,mbksalew,111,29,20,PVC,1999
+Mala=sdadassd,c=Mala grande,Tumi,972gpqkshxj,103.96,b,6,UPS,nsd32424,62,57,54,PVC,2020
+MalaPremium=nsd32424,c=Mala grande,Rimowa,das3das3das,554.08,b,8,FedEx,pwzjef5j,103,38,27,Nylon,2010
+Mala=pwzjef5j,c=Mala grande,Samsonite,gafdas3das312,983.98,a,4,UPS,osyxeg0x,43,29,16,Couro,2020
+Mala=dsxcsws1,c=Mala grande,Delsey,o8jl4lziyrj,1010.10,n,8,DHL,ldlnzv8v,66,29,21,Couro,1963
+Mala=fnsakvs3,c=Mala executiva,Samsonite,wxrozjuwqkr,464.77,b,9,DHL,nsd32424,64,37,15,Nylon,2022
+Mala=dsdas322,c=Mala executiva,Tumi,x6ielo02wnk,513.25,n,3,CTT,jfsakm3f,82,45,10,Couro,1963
+MalaPremium=pwzjef5j,c=Mala de rodinhas,Rimowa,ni39w92416r,734.43,a,5,DHL,sdadassd,95,12,42,PVC,2011
+Mala=osyxeg0x,c=Mala grande,Samsonite,zg2fpgl1m3w,110.75,a,8,FedEx,jfsakm3f,74,24,47,Couro,2010
+Encomenda=Sapatilha'Sapatilhas Desportivas,Nike,cd5xo1fp6,154.34,a,3,UPS,osyxeg0x,43.0,false,Amarelo,2023/4/12,1]Tshirt'T-shirt amarela,Reebok,9qjuxkz8zk,69.95,a,0,CTT,ldlnzv8v,S,P]Mala'Mala grande,Samsonite,gafdas3das312,983.98,a,4,UPS,osyxeg0x,43,29,16,Couro,2020]MalaPremium'Mala de rodinhas,Rimowa,ni39w92416r,734.43,a,5,DHL,sdadassd,95,12,42,PVC,2011@4,e,2022/4/2,pwzjef5j
+Encomenda=SapatilhaPremium'Sapatilhas Festivas,NewBalance,e2unr4d7s,13.34,a,2,UPS,jfsakm3f,22.5,false,Azul,2023/4/2,1]Tshirt'T-shirt laranja,Reebok,nspqjdmoxe,93.27,b,6,UPS,sdadassd,S,P]MalaPremium'Mala grande,Rimowa,das3das3das,554.08,b,8,FedEx,pwzjef5j,103,38,27,Nylon,2010@3,e,2022/12/1,nsd32424
+Encomenda=SapatilhaPremium'Sapatilhas Festivas,Puma,9g7repv37,44.45,n,2,FedEx,fnsakvs3,39.0,false,Preto,2021/1/17,1]Tshirt'T-shirt branca,Fila,xw4d1cdm0l,99.66,a,0,DHL,ldlnzv8v,L,P]Mala'Mala grande,Delsey,o8jl4lziyrj,1010.10,n,8,DHL,ldlnzv8v,66,29,21,Couro,1963@3,e,2022/1/23,dsxcsws1
+Encomenda=SapatilhaPremium'Sapatilhas Casuais,Puma,z21za7v4q,431.36,n,1,DHL,jfsakm3f,42.0,true,Vermelho,2021/2/1,1]Tshirt'T-shirta marela,Converse,h8xu05b6u8,62.97,n,3,FedEx,sdadassd,M,P]Mala'Mala executiva,Samsonite,wxrozjuwqkr,464.77,b,9,DHL,nsd32424,64,37,15,Nylon,2022@3,f,2020/3/15,fnsakvs3
+Encomenda=SapatilhaPremium'Sapatilhas Casuais,Nike,qwrrjgv6v,55.99,c,1,FedEx,sdadassd,33.0,false,Roxo,2021/4/8,1]Tshirt'T-shirt preta,Reebok,corkhvcko8,72.05,n,4,FedEx,osyxeg0x,X,R]Mala'Mala executiva,Tumi,x6ielo02wnk,513.25,n,3,CTT,jfsakm3f,82,45,10,Couro,1963@3,f,2022/12/16,dsdas322
+Encomenda=SapatilhaPremium'Sapatilhas Casuais,Adidas,wgvupmumg,94.23,a,1,DHL,ldlnzv8v,42.5,true,Azul,2021/4/14,1]Tshirt'T-shirt rosa,Adidas,gm0rccojyy,57.50,b,9,FedEx,fnsakvs3,X,L]Tshirt'T-shirt roxa,NewBalance,8gontks1mx,68.67,n,6,FedEx,mbksalew,X,L]Mala'Mala grande,Samsonite,zg2fpgl1m3w,110.75,a,8,FedEx,jfsakm3f,74,24,47,Couro,2010@4,e,2022/10/3,osyxeg0x
+Encomenda=SapatilhaPremium'Sapatilhas Festivas,Adidas,4mss7ngdf,34.64,b,3,DHL,mbksalew,43.0,true,Azul,2023/4/19,1]Sapatilha'Sapatilhas Desportivas,Adidas,dg7v5w65k,18.34,a,4,CTT,nsd32424,31.0,true,Amarelo,2022/9/30,1]Tshirt'T-shirt branca,Converse,mdwvlwr2wv,78.97,n,0,UPS,jfsakm3f,L,L]Mala'Mala grande,Tumi,972gpqkshxj,103.96,b,6,UPS,nsd32424,62,57,54,PVC,2020@4,f,2021/9/1,sdadassd
+
+//FALTA VERIFICAR AS DATAS DAS ENCOMENDAS, URGENTE

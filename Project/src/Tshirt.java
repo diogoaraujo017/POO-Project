@@ -16,7 +16,7 @@ public class Tshirt extends Artigo{
     }
 
     public Tshirt(String descricao, String marca, String codigo, double preco_base, char estado, int n_donos,
-                   String transportadora, char tamanho, char padrao, String vendedor){
+                   String transportadora,String vendedor, char tamanho, char padrao){
                     
         super(descricao, marca, codigo, preco_base, estado, n_donos,transportadora, vendedor);
         this.tamanho=tamanho;
