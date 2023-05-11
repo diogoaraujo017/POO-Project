@@ -1,7 +1,6 @@
- import jdk.jshell.execution.Util;
-
  import java.time.LocalDate;
  import java.util.*;
+ import java.util.AbstractMap.SimpleEntry;
 
  public class Queries {
      public boolean intervalaDatas(LocalDate depois, LocalDate antes, LocalDate compara){
@@ -53,25 +52,69 @@
          return resposta;
      }
 
-     public double getLucroUtilizador(Vintage vin, String email) {
+     public double getLucroUtilizador(Vintage vin, String email, LocalDate antes, LocalDate depois) {
          double r = 0;
          String codigo = vin.getContaByEmail(email).getCodigo();
          Utilizador verificar = vin.getUtilizadorByCodigo(codigo);
-         List<Artigo> vendidos = verificar.getProdutosVendidos();
-         for (Artigo art : vendidos) {
-            r+=art.getPrecoFinal();
+         List<Fatura> faturas = verificar.getFaturas();
+         for(Fatura f : faturas){
+
          }
          return r;
      }
 
-     public void topVendedores(Vintage vin){
+     public void topCompradores(Vintage vin, LocalDate depoisde, LocalDate antesde){
          List<Utilizador> users = new ArrayList<>();
          Map<Integer, Utilizador> t = vin.getUtilizadores();
+         double soma=0;
          for (Map.Entry<Integer, Utilizador> value : t.entrySet()){
             users.add(value.getValue());
          }
-         users.sort(Comparator.comparingDouble(Utilizador::getValorTotalVendas).reversed());
+         List<SimpleEntry<Double, Utilizador>> pares= new ArrayList<>();
+         for(Utilizador user : users){
+             List<Fatura> faturas = user.getFaturas();
+             for(Fatura fat : faturas){
+                 if(intervalaDatas(depoisde,antesde,fat.getData())) {
+                     if (fat.eComprador(fat, user)) {
+                        soma+=vin.valFatura(fat);
+                     }
+                 }
+             }
+             pares.add(new SimpleEntry<>(soma,user));
+         }
+         pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
+         for (SimpleEntry<Double, Utilizador> entry : pares) {
+             Utilizador user = entry.getValue();
+             String nome = user.getNome();
+             System.out.println(entry.getKey() + " : " + nome);
+         }
+     }
 
+     public void topVendedores(Vintage vin, LocalDate depoisde, LocalDate antesde){
+         List<Utilizador> users = new ArrayList<>();
+         Map<Integer, Utilizador> t = vin.getUtilizadores();
+         double soma=0;
+         for (Map.Entry<Integer, Utilizador> value : t.entrySet()){
+             users.add(value.getValue());
+         }
+         List<SimpleEntry<Double, Utilizador>> pares= new ArrayList<>();
+         for(Utilizador user : users){
+             List<Fatura> faturas = user.getFaturas();
+             for(Fatura fat : faturas){
+                 if(intervalaDatas(depoisde,antesde,fat.getData())) {
+                     if (!fat.eComprador(fat, user)) {
+                         soma+=vin.valFatura(fat);
+                     }
+                 }
+             }
+             pares.add(new SimpleEntry<>(soma,user));
+         }
+         pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
+         for (SimpleEntry<Double, Utilizador> entry : pares) {
+             Utilizador user = entry.getValue();
+             String nome = user.getNome();
+             System.out.println(entry.getKey() + " : " + nome);
+         }
      }
 
      public double lucroVintage(Vintage vin) {

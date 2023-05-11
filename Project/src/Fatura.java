@@ -1,3 +1,5 @@
+import jdk.jshell.execution.Util;
+
 import java.time.LocalDate;
 
 public class Fatura {
@@ -35,6 +37,13 @@ public class Fatura {
         double val = art.getPrecoFinal();
         setCusto(art.getPrecoFinal());
         return val;
+    }
+
+    public boolean eComprador(Fatura fat, Utilizador user){
+        Utilizador teste = fat.getComprador();
+        String nomeComprador = teste.getNome();
+        String nomeUser = user.getNome();
+        return nomeComprador.equals(nomeUser);
     }
 
     public Utilizador getComprador() {

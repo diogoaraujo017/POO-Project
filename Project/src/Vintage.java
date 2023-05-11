@@ -231,7 +231,7 @@ public class Vintage {
         return null;
     }
 
-    public double emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
+    public void emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
         Fatura nova = new Fatura(dataE,comprador,vendedor,art);
         double passado = vendedor.getValorTotalVendas() + art.getPrecoFinal();
         double custo = 0;
@@ -253,6 +253,23 @@ public class Vintage {
         vendedor.setValorTotalVendas(passado);
         vendedor.adicionaFatura(nova);
         comprador.adicionaFatura(nova);
+    }
+
+    public double valFatura(Fatura fat){
+        double custo = 0;
+        Artigo art = fat.getArtigo();
+        if(art.getEstado()=='n'){
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.5;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
+        else{
+            String nome = art.getTransportadora();
+            Transportadora t = this.getTransportdoraByName(nome);
+            custo=art.getPrecoFinal()*t.getLucro()+0.25;
+            custo = Math.round(custo * 100.0) / 100.0;
+        }
         return custo;
     }
 
