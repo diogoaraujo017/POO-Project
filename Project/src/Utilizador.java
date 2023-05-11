@@ -70,12 +70,12 @@ public class Utilizador {
     }
 
     public void valorTotalVendas(List<Artigo> list, double vendidoPassado){
-        double taxa_vintage=1.03;
+
         double valortotal=vendidoPassado;
         for(Artigo art : list){
             valortotal+=art.getPrecoFinal();
         }
-        valortotal=valortotal/taxa_vintage;
+
         valortotal=Math.round(valortotal * 100.0) / 100.0;;
         setValorTotalVendas(valortotal);
     }
@@ -164,19 +164,23 @@ public class Utilizador {
         this.faturas=new ArrayList<>(faturas);
     }
 
+    public void adicionaArtigoLoja(Artigo art){
+        this.produtosLoja.add(art.clone());
+    }
+
     public void adicionaArtigoVendido(Artigo art){
-        this.produtosVendidos.add(art);
+        this.produtosVendidos.add(art.clone());
     }
 
     public void adicionaArtigoComprado(Artigo art){
-        this.produtosComprou.add(art);
+        this.produtosComprou.add(art.clone());
     }
 
     public void removeArtigoAVenda(Artigo art){
         this.produtosLoja.remove(art);
     }
     public void adicionaFatura(Fatura fat){
-        this.faturas.add(fat);
+        this.faturas.add(fat.clone());
     }
     public void removeFatura(Fatura fat){
         this.faturas.remove(fat);

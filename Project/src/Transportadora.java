@@ -62,6 +62,10 @@ public class Transportadora {
         this.artigos=new ArrayList<>(lista_encomendas);
     }
 
+    public void addArtigo(Artigo a){
+        this.artigos.add(a.clone());
+    }
+
     /*public double precoExpedido(Transportadora transporte){
         List <Artigo> lartigos = transporte.getArtigos();
         double valor_bruto=0.00;

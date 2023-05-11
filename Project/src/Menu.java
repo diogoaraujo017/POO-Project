@@ -357,7 +357,7 @@ public class Menu{
                 for(i=0;i<encomenda.size();i++){
                     Fatura fatura = new Fatura();
                     Artigo art = encomenda.get(i);
-                    fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByEmail(conta.getEmail()));
+                    fatura.emiteFatura(art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByCodigo(conta.getCodigo()));
                     vin.removeArtigo(art);
                 }
             }
@@ -570,8 +570,8 @@ public class Menu{
         }
         String codigoTShirt=geraCodigo(10);
         Tshirt t = new Tshirt(desc,marca,codigoTShirt,preco,estado,donos,trans,conta.getCodigo(),tamanho,padrao);
-        String codigo = conta.getCodigo();
-        Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+        Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
         vin.addArtigo(t);
         atual.getProdutosLoja().add(t);
         clearTerminal();
@@ -803,15 +803,15 @@ public class Menu{
 
         if(premium) {
             MalaPremium t = new MalaPremium(desc, marca, codigoMala, preco, estado, donos, trans,conta.getCodigo(), comprimento, largura, altura, material, ano);
-            String codigo = conta.getCodigo();
-            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             atual.getProdutosLoja().add(t);
         }
         else{
             Mala t = new Mala(desc, marca, codigoMala, preco, estado, donos, trans, conta.getCodigo(), comprimento, largura, altura, material, ano);
-            String codigo = conta.getCodigo();
-            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             atual.getProdutosLoja().add(t);
         }
@@ -1072,15 +1072,15 @@ public class Menu{
             String codigoSapatilhas=geraCodigo(9);
             if(premium){
                 SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, desconto);
-                String codigo = conta.getCodigo();
-                Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+                Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
                 vin.addArtigo(t);
                 atual.getProdutosLoja().add(t);
             }
             else {
                 Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, desconto);
-                String codigo = conta.getCodigo();
-                Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+                Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
                 vin.addArtigo(t);
                 atual.getProdutosLoja().add(t);
             }
@@ -1098,15 +1098,15 @@ public class Menu{
         String codigoSapatilhas=geraCodigo(9);
         if(premium){
             SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, 1.00);
-            String codigo = conta.getCodigo();
-            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             atual.getProdutosLoja().add(t);
         }
         else {
             Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, 1.00);
-            String codigo = conta.getCodigo();
-            Utilizador atual = vin.getUtilizadorByCodigo(codigo);
+
+            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             atual.getProdutosLoja().add(t);
         }
@@ -1281,10 +1281,10 @@ public class Menu{
     public void abreMenuDevolucao(Vintage vin){
         LocalDate agora = getData();
         agora.plusDays(2);
-        Conta atual = getConta();
+
         System.out.println();
 
-        Utilizador novo = vin.getUtilizadorByEmail(atual.getEmail());
+        Utilizador novo = vin.getUtilizadorByCodigo(conta.getCodigo());
         System.out.println(novo.toString());
     }
 
