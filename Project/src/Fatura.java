@@ -1,12 +1,14 @@
+import java.time.LocalDate;
 
 public class Fatura {
-
+    private LocalDate data;
     private Utilizador comprador;
     private Utilizador vendedor;
     private Artigo artigo;
     private double custo;
 
     public Fatura(){
+        this.data=LocalDate.now();
         this.comprador=null;
         this.vendedor=null;
         this.artigo=null;
@@ -14,13 +16,15 @@ public class Fatura {
     }
 
     public Fatura(Fatura fat){
+        this.data=fat.data;
         this.comprador=fat.comprador;
         this.vendedor=fat.vendedor;
         this.artigo=fat.artigo;
         this.custo=fat.custo;
     }
 
-    public Fatura(Utilizador comprador, Utilizador vendedor, Artigo artigo) {
+    public Fatura(LocalDate dataD, Utilizador comprador, Utilizador vendedor, Artigo artigo) {
+        this.data = dataD;
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.artigo = artigo;
@@ -29,8 +33,8 @@ public class Fatura {
 
 
 
-    public void emiteFatura(Artigo art, Utilizador vendedor, Utilizador comprador){
-        Fatura nova = new Fatura(comprador,vendedor,art);
+    public void emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
+        Fatura nova = new Fatura(dataE,comprador,vendedor,art);
         double passado = vendedor.getValorTotalVendas();
         double custo = valorCusto(art);
         vendedor.adicionaArtigoVendido(art);
@@ -79,6 +83,13 @@ public class Fatura {
         this.custo = cust;
     }
 
+    public LocalDate getData() {
+        return this.data;
+    }
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
     public Fatura clone(){
         return new Fatura(this);
     }
@@ -88,6 +99,7 @@ public class Fatura {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fatura: {");
+        sb.append("Data de emissão:").append(this.getData());
         sb.append("Comprador: ").append(this.getComprador().getCodigo());
         sb.append("; Vendedor: ").append(this.getVendedor().getCodigo());
         sb.append("; Artigo: ").append(this.getArtigo());
