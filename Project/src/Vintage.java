@@ -407,14 +407,14 @@ public class Vintage {
         String codigo = info[2];
         double precoBase = Double.parseDouble(info[3]);
         char estado = info[4].charAt(0);
-        int numeroDonos = Integer.getInteger(info[5]);
+        int numeroDonos = Integer.parseInt(info[5]);
         String transportadora = info[6];
         String codVendedor = info[7];
         double tamanho = Double.parseDouble(info[8]);
         boolean temAtacadores = Boolean.parseBoolean(info[9]);
         String cor = info[10];
         String[] aux = info[11].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.getInteger(aux[0]),Integer.getInteger(aux[2]),Integer.getInteger(aux[3]));
+        LocalDate dataFinal = LocalDate.of(Integer.parseInt(aux[0]),Integer.parseInt(aux[1]),Integer.parseInt(aux[2]));
         double desconto = Double.parseDouble(info[12]);
 
         return new Sapatilha(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,tamanho,temAtacadores,cor,dataFinal,desconto);
@@ -427,14 +427,14 @@ public class Vintage {
         String codigo = info[2];
         double precoBase = Double.parseDouble(info[3]);
         char estado = info[4].charAt(0);
-        int numeroDonos = Integer.getInteger(info[5]);
+        int numeroDonos = Integer.parseInt(info[5]);
         String transportadora = info[6];
         String codVendedor = info[7];
         double tamanho = Double.parseDouble(info[8]);
         boolean temAtacadores = Boolean.parseBoolean(info[9]);
         String cor = info[10];
         String[] aux = info[11].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.getInteger(aux[0]),Integer.getInteger(aux[2]),Integer.getInteger(aux[3]));
+        LocalDate dataFinal = LocalDate.of(Integer.parseInt(aux[0]),Integer.parseInt(aux[2]),Integer.parseInt(aux[3]));
         double desconto = Double.parseDouble(info[12]);
 
         return new SapatilhaPremium(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,tamanho,temAtacadores,cor,dataFinal,desconto);
@@ -447,7 +447,7 @@ public class Vintage {
         String codigo = info[2];
         double precoBase = Double.parseDouble(info[3]);
         char estado = info[4].charAt(0);
-        int numeroDonos = Integer.getInteger(info[5]);
+        int numeroDonos = Integer.parseInt(info[5]);
         String transportadora = info[6];
         String codVendedor = info[7];
         char tamanho = info[8].charAt(0);
@@ -463,14 +463,14 @@ public class Vintage {
         String codigo = info[2];
         double precoBase = Double.parseDouble(info[3]);
         char estado = info[4].charAt(0);
-        int numeroDonos = Integer.getInteger(info[5]);
+        int numeroDonos = Integer.parseInt(info[5]);
         String transportadora = info[6];
         String codVendedor = info[7];
-        int comprimento = Integer.getInteger(info[8]);
-        int largura = Integer.getInteger(info[9]);
-        int altura = Integer.getInteger(info[10]);
+        int comprimento = Integer.parseInt(info[8]);
+        int largura = Integer.parseInt(info[9]);
+        int altura = Integer.parseInt(info[10]);
         String material = info[11];
-        int data = Integer.getInteger(info[12]);
+        int data = Integer.parseInt(info[12]);
 
         return new Mala(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,comprimento, largura,altura,material,data);
     }
@@ -482,14 +482,14 @@ public class Vintage {
         String codigo = info[2];
         double precoBase = Double.parseDouble(info[3]);
         char estado = info[4].charAt(0);
-        int numeroDonos = Integer.getInteger(info[5]);
+        int numeroDonos = Integer.parseInt(info[5]);
         String transportadora = info[6];
         String codVendedor = info[7];
-        int comprimento = Integer.getInteger(info[8]);
-        int largura = Integer.getInteger(info[9]);
-        int altura = Integer.getInteger(info[10]);
+        int comprimento = Integer.parseInt(info[8]);
+        int largura = Integer.parseInt(info[9]);
+        int altura = Integer.parseInt(info[10]);
         String material = info[11];
-        int data = Integer.getInteger(info[12]);
+        int data = Integer.parseInt(info[12]);
 
         return new MalaPremium(descricao,marca,codigo,precoBase,estado,numeroDonos,transportadora,codVendedor,comprimento, largura,altura,material,data);
     }
@@ -500,10 +500,10 @@ public class Vintage {
         String[] artigos = enc[0].split("]");
 
         String[] infoFinal = enc[1].split(",");
-        int dimensao = Integer.getInteger(infoFinal[0]);
+        int dimensao = Integer.parseInt(infoFinal[0]);
         char estado = infoFinal[1].charAt(0);
         String[] auxData = infoFinal[2].split("/");
-        LocalDate dataFinal = LocalDate.of(Integer.getInteger(auxData[0]),Integer.getInteger(auxData[2]),Integer.getInteger(auxData[3]));
+        LocalDate dataFinal = LocalDate.of(Integer.parseInt(auxData[0]),Integer.parseInt(auxData[2]),Integer.parseInt(auxData[3]));
         String codComprador = infoFinal[3];
 
         List<Artigo> artigosList = new ArrayList<>();
@@ -555,10 +555,10 @@ public class Vintage {
             case 'l' -> {
                this.addArtigo(s);
 
-               Utilizador u = getUtilizadorByCodigo(codUser);
+               Utilizador u = this.getUtilizadorByCodigo(codUser);
                u.adicionaArtigoLoja(s);
 
-                Transportadora t = getTransportdoraByName(s.getTransportadora());
+                Transportadora t = this.getTransportdoraByName(s.getTransportadora());
                 t.addArtigo(s);
             }
 

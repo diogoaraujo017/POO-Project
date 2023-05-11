@@ -1,5 +1,3 @@
-import jdk.jshell.execution.Util;
-
 import java.time.LocalDate;
 
 public class Fatura {
