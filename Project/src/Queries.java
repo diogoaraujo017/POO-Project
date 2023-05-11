@@ -6,17 +6,6 @@
      public boolean intervalaDatas(LocalDate depois, LocalDate antes, LocalDate compara){
          return compara.isAfter(depois) && compara.isBefore(antes);
      }
-     public double lucroTransportadora(LocalDate depois, LocalDate antes, Transportadora trans, Vintage vin){
-         double r = 0, re = 0;
-         for(Artigo art : trans.getArtigos()){
-             double taxa = trans.getLucro();
-             re = art.getPrecoFinal() - art.getPrecoFinal()/taxa;
-             r += re;
-         }
-         r = Math.round(r * 100.0) / 100.0;
-         return r;
-     }
-
      public String transMaiorLucro(Vintage vin){
          double somatorio=0;
          double maior=0;
@@ -52,15 +41,12 @@
          return resposta;
      }
 
-     public double getLucroUtilizador(Vintage vin, String email, LocalDate antes, LocalDate depois) {
-         double r = 0;
-         String codigo = vin.getContaByEmail(email).getCodigo();
-         Utilizador verificar = vin.getUtilizadorByCodigo(codigo);
-         List<Fatura> faturas = verificar.getFaturas();
-         for(Fatura f : faturas){
-
-         }
-         return r;
+     public void listaEncomendas(Vintage vin, String email){
+         Conta conta = vin.getContaByEmail(email);
+         String code = conta.getCodigo();
+         Utilizador user = vin.getUtilizadorByCodigo(code);
+         System.out.println("COMING SOON");
+         return;
      }
 
      public void topCompradores(Vintage vin, LocalDate depoisde, LocalDate antesde){
@@ -89,7 +75,35 @@
              Utilizador user = entry.getValue();
              String nome = user.getNome();
              System.out.print(contador + "°- ");
-             System.out.println( nome + " com " +entry.getKey() + " €");
+             System.out.println( nome + " com " +Math.round(entry.getKey() * 100.0) / 100.0 + " €");
+             contador++;
+         }
+     }
+     public void topVendedor(Vintage vin, LocalDate depoisde, LocalDate antesde){
+         List<Utilizador> users = new ArrayList<>();
+         Map<Integer, Utilizador> t = vin.getUtilizadores();
+         double soma=0;
+         for (Map.Entry<Integer, Utilizador> value : t.entrySet()){
+             users.add(value.getValue());
+         }
+         List<SimpleEntry<Double, Utilizador>> pares= new ArrayList<>();
+         for(Utilizador user : users){
+             List<Fatura> faturas = user.getFaturas();
+             for(Fatura fat : faturas){
+                 if(intervalaDatas(depoisde,antesde,fat.getData())) {
+                     if (!fat.eComprador(fat, user)) {
+                         soma+=vin.valFatura(fat);
+                     }
+                 }
+             }
+             pares.add(new SimpleEntry<>(soma,user));
+         }
+         pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
+         for (SimpleEntry<Double, Utilizador> entry : pares){
+             Utilizador user = entry.getValue();
+             String nome = user.getNome();
+             System.out.println( "Melhor vendedor entre " + depoisde + " e " + antesde + " é " + nome + " com " +Math.round(entry.getKey() * 100.0) / 100.0 + " €");
+             break;
          }
      }
 
@@ -119,7 +133,8 @@
              Utilizador user = entry.getValue();
              String nome = user.getNome();
              System.out.print(contador + "°- ");
-             System.out.println( nome + " com " +entry.getKey() + " €");
+             System.out.println( nome + " com " + Math.round(entry.getKey() * 100.0) / 100.0 + " €");
+             contador++;
          }
      }
 

@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.Year;
 import java.util.*;
 import java.lang.Thread;
 
@@ -16,10 +15,11 @@ public class Menu{
         List<Artigo> todos = vin.getListaArtigos();
         for(Artigo art : todos){
             if(art instanceof Mala){
-                recalculaValorFinalMala((Mala)art);
+                if(!(art instanceof Premium))recalculaValorFinalMala((Mala)art,data_atual);
+                else art.calculaValorMalaPremium(art);
             }
-            if(art instanceof Sapatilha){
-                recalculaValorFinalSapatilhas((Sapatilha) art);
+            else if(art instanceof Sapatilha && !(art instanceof Premium)){
+                recalculaValorFinalSapatilhas((Sapatilha)art,data_atual);
             }
         }
         abreMenuInicial(vin);
@@ -206,6 +206,15 @@ public class Menu{
         if(mudada.isAfter(getData())) {
             setData(mudada);
             System.out.println("Data alterada com sucesso");
+            List<Artigo> todos = vin.getListaArtigos();
+            for(Artigo art : todos){
+                if(art instanceof Mala && !(art instanceof Premium)){
+                    recalculaValorFinalMala((Mala)art,mudada);
+                }
+                if(art instanceof Sapatilha && !(art instanceof Premium)){
+                    recalculaValorFinalSapatilhas((Sapatilha) art,mudada);
+                }
+            }
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -227,20 +236,458 @@ public class Menu{
             clearTerminal();
             abreMenuData(vin);
         }
-        List<Artigo> todos = vin.getListaArtigos();
-        for(Artigo art : todos){
-            if(art instanceof Mala){
-                recalculaValorFinalMala((Mala)art);
-            }
-            if(art instanceof Sapatilha){
-                recalculaValorFinalSapatilhas((Sapatilha) art);
-            }
-        }
-        input.close();
     }
     public void abreMenuQueries(Vintage vin){
-        System.out.println("Coming soon");
-        abreMenuInicial(vin);
+        System.out.println("Bem vindo ao menu das Queries\nQual Querie deseja executar?\n\n\n1-Maior vendedor num intervalo de tempo\n2-Transportadora com maior volume de faturação\n3-Ver encomenda emitidas por um utilizador\n4-Ver o ranking de vendedores num intervalo de tempo\n5-Ver o ranking de compradores num intervalo de tempo\n6-Ver quanto ganhou a Vintage\n\n\n\n0-Voltar para o Menu Inicial");
+        System.out.print("->");
+        Scanner input = new Scanner(System.in);
+        String entrada = input.nextLine();
+        switch (entrada) {
+            case "1" -> {
+                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anoo = 0;
+                boolean check2 = false;
+
+                while (!check2) {
+                    String ano = input.nextLine();
+                    try {
+                        anoo = Integer.parseInt(ano);
+                        if(anoo>=1){
+                            check2= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int mess = 0;
+                boolean check1 = false;
+
+                while (!check1) {
+                    String mes = input.nextLine();
+                    try {
+                        mess = Integer.parseInt(mes);
+                        if(mess>=1&&mess<=12){
+                            check1 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaa = 0;
+                boolean check = false;
+
+                while (!check) {
+                    String dia = input.nextLine();
+                    try {
+                        diaa = Integer.parseInt(dia);
+                        if (diaa >= 1 && diaa <= getDiasMes(mess, anoo)) {
+                            check = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate depois=LocalDate.of(anoo,mess,diaa);
+                System.out.println("Qual a data de fim do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anooo = 0;
+                boolean check20 = false;
+
+                while (!check20) {
+                    String ano = input.nextLine();
+                    try {
+                        anooo = Integer.parseInt(ano);
+                        if(anooo>=1){
+                            check20= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int messs = 0;
+                boolean check10 = false;
+
+                while (!check10) {
+                    String mes = input.nextLine();
+                    try {
+                        messs = Integer.parseInt(mes);
+                        if(messs>=1&&messs<=12){
+                            check10 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaaa = 0;
+                boolean check0 = false;
+
+                while (!check0) {
+                    String dia = input.nextLine();
+                    try {
+                        diaaa = Integer.parseInt(dia);
+                        if (diaaa >= 1 && diaa <= getDiasMes(messs, anooo)) {
+                            check0 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate antes=LocalDate.of(anooo,messs,diaaa);
+                Queries querie = new Queries();
+                querie.topVendedor(vin,depois,antes);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "2" -> {
+                Queries querie = new Queries();
+                String mais = querie.transMaiorLucro(vin);
+                System.out.println(mais + " é a transportadora que mais facturou com a Vintage");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "3" -> {
+                System.out.print("Digite o email que deseja verificar.\n->");
+                String email = input.nextLine();
+                if(vin.getContaByEmail(email)==null){
+                    System.out.println("O email que está a utilizar não corresponde a nenhum email da nossa base de dados, tente novamente!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        input.close();
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    abreMenuQueries(vin);
+                }
+                Queries querie = new Queries();
+                querie.listaEncomendas(vin,email);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "4" -> {
+                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anoo = 0;
+                boolean check2 = false;
+
+                while (!check2) {
+                    String ano = input.nextLine();
+                    try {
+                        anoo = Integer.parseInt(ano);
+                        if(anoo>=1){
+                            check2= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int mess = 0;
+                boolean check1 = false;
+
+                while (!check1) {
+                    String mes = input.nextLine();
+                    try {
+                        mess = Integer.parseInt(mes);
+                        if(mess>=1&&mess<=12){
+                            check1 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaa = 0;
+                boolean check = false;
+
+                while (!check) {
+                    String dia = input.nextLine();
+                    try {
+                        diaa = Integer.parseInt(dia);
+                        if (diaa >= 1 && diaa <= getDiasMes(mess, anoo)) {
+                            check = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate depois=LocalDate.of(anoo,mess,diaa);
+                System.out.println("Qual a data de fim do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anooo = 0;
+                boolean check20 = false;
+
+                while (!check20) {
+                    String ano = input.nextLine();
+                    try {
+                        anooo = Integer.parseInt(ano);
+                        if(anooo>=1){
+                            check20= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int messs = 0;
+                boolean check10 = false;
+
+                while (!check10) {
+                    String mes = input.nextLine();
+                    try {
+                        messs = Integer.parseInt(mes);
+                        if(messs>=1&&messs<=12){
+                            check10 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaaa = 0;
+                boolean check0 = false;
+
+                while (!check0) {
+                    String dia = input.nextLine();
+                    try {
+                        diaaa = Integer.parseInt(dia);
+                        if (diaaa >= 1 && diaa <= getDiasMes(messs, anooo)) {
+                            check0 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate antes=LocalDate.of(anooo,messs,diaaa);
+                Queries querie = new Queries();
+                querie.topVendedores(vin,depois,antes);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "5" -> {
+                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anoo = 0;
+                boolean check2 = false;
+
+                while (!check2) {
+                    String ano = input.nextLine();
+                    try {
+                        anoo = Integer.parseInt(ano);
+                        if(anoo>=1){
+                            check2= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int mess = 0;
+                boolean check1 = false;
+
+                while (!check1) {
+                    String mes = input.nextLine();
+                    try {
+                        mess = Integer.parseInt(mes);
+                        if(mess>=1&&mess<=12){
+                            check1 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaa = 0;
+                boolean check = false;
+
+                while (!check) {
+                    String dia = input.nextLine();
+                    try {
+                        diaa = Integer.parseInt(dia);
+                        if (diaa >= 1 && diaa <= getDiasMes(mess, anoo)) {
+                            check = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate depois=LocalDate.of(anoo,mess,diaa);
+                System.out.println("Qual a data de fim do intervalo de tempo?");
+                System.out.print("Ano:");
+                int anooo = 0;
+                boolean check20 = false;
+
+                while (!check20) {
+                    String ano = input.nextLine();
+                    try {
+                        anooo = Integer.parseInt(ano);
+                        if(anooo>=1){
+                            check20= true;
+                        }
+                        else{
+                            System.out.println("Erro: " + ano + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + ano + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                System.out.print("Mês:");
+                int messs = 0;
+                boolean check10 = false;
+
+                while (!check10) {
+                    String mes = input.nextLine();
+                    try {
+                        messs = Integer.parseInt(mes);
+                        if(messs>=1&&messs<=12){
+                            check10 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + mes + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + mes + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+
+                System.out.print("Dia:");
+                int diaaa = 0;
+                boolean check0 = false;
+
+                while (!check0) {
+                    String dia = input.nextLine();
+                    try {
+                        diaaa = Integer.parseInt(dia);
+                        if (diaaa >= 1 && diaa <= getDiasMes(messs, anooo)) {
+                            check0 = true;
+                        }
+                        else{
+                            System.out.println("Erro: " + dia + " não é válido. Tente novamente.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erro: " + dia + " não pode ser convertido para um inteiro. Tente novamente.");
+                    }
+                }
+                LocalDate antes=LocalDate.of(anooo,messs,diaaa);
+                Queries querie = new Queries();
+                querie.topCompradores(vin,depois,antes);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "6" -> {
+                Queries querie = new Queries();
+                double toPrint = querie.lucroVintage(vin);
+                System.out.println("A Vintage já ganhou " + toPrint + "€ desde o começo da sua atividade");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+            case "0" -> {
+                clearTerminal();
+                abreMenuInicial(vin);
+            }
+            default -> {
+                System.out.println("O seu input não vai de acordo às opções, tente novamente");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+                abreMenuQueries(vin);
+            }
+        }
     }
     public void abreMenuIntermedio(Vintage vin){
         System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n9-Menu Inicial\n0-Sair");
@@ -1392,19 +1839,17 @@ public class Menu{
         if (month == 4 || month == 6 || month == 9 || month == 11) return 30;
         return 31;
     }
-    public int idade_sapatilhas(LocalDate idade){
-
-        LocalDate atual = getData();
-        Period diferenca = Period.between(idade, atual);
+    public int idade_sapatilhas(LocalDate idade, LocalDate date){
+        Period diferenca = Period.between(idade, date);
 
         return diferenca.getYears();
     }
-    public void recalculaValorFinalSapatilhas(Sapatilha sp){
+    public void recalculaValorFinalSapatilhas(Sapatilha sp, LocalDate date){
         double preco_base = sp.getPrecoBase();
         double preco_final = preco_base;
         double desconto = sp.getDesconto();
         char estado = sp.getEstado();
-        int idade = idade_sapatilhas(sp.getDataLancamento());
+        int idade =idade_sapatilhas(sp.getDataLancamento(), date);
         int n_donos = sp.getNDonos();
 
         if(n_donos > 4) {
@@ -1439,11 +1884,11 @@ public class Menu{
         sp.setPrecoFinal(preco_final);
     }
 
-    public void recalculaValorFinalMala(Mala mala){
+    public void recalculaValorFinalMala(Mala mala, LocalDate date){
         double preco_base = mala.getPrecoBase();
         double preco_final = preco_base;
 
-        int idade = getData().getYear() - mala.getAnoLancamento();
+        int idade = date.getYear() - mala.getAnoLancamento();
         int volume = mala.getComprimento() * mala.getLargura() * mala.getAltura();
 
         preco_final = preco_base - preco_base * 0.02 * idade - (double) 12000000 / volume;
