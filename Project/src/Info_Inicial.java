@@ -8,33 +8,33 @@ public class Info_Inicial {
 
     // SAPATILHAS
         Sapatilha s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15;
-        s1 = new Sapatilha("Sapatilhas Desportivas","Nike", "cd5xo1fp6", 154.34, 'a', 3, "UPS", 43.0, false, "Amarelo", LocalDate.of(2023,6,12),"pwzjef5j",0);
-        s2 = new SapatilhaPremium("Sapatilhas Casuais","Adidas", "wgvupmumg", 94.23, 'a', 1, "DHL", 42.5, true, "Azul", LocalDate.of(2021,4,14),"ldlnzv8v",0);
-        s3 = new SapatilhaPremium("Sapatilhas Festivas","Puma", "9g7repv37", 44.45, 'n', 2, "FedEx", 39.0, false, "Preto", LocalDate.of(2021,1,17),"pwzjef5j",0);
-        s4 = new SapatilhaPremium("Sapatilhas Desportivas","NewBalance", "ufp5ylqyu", 321.3, 'c', 0, "USPS", 22.0, true, "Azul", LocalDate.of(2023,8,1),"pwzjef5j",0);
-        s5 = new SapatilhaPremium("Sapatilhas Festivas","Adidas", "l2wrqsrcv", 45.32, 'b', 3, "DHL", 34.0, false, "Amarelo", LocalDate.of(2021,4,29),"pwzjef5j",0);
-        s6 = new Sapatilha("Sapatilhas Desportivas","NewBalance", "nfr950f07", 123.34, 'b', 2, "UPS", 54.0, true, "Azul", LocalDate.of(2023,3,12),"pwzjef5j",0.1);
-        s7 = new SapatilhaPremium("Sapatilhas Casuais","Puma", "z21za7v4q", 431.36, 'n', 1, "DHL", 42.0, true, "Vermelho", LocalDate.of(2021,2,1),"pwzjef5j",0);
-        s8 = new SapatilhaPremium("Sapatilhas Casuais","Nike", "qwrrjgv6v", 55.99, 'c', 1, "FedEx", 33.0, false, "Roxo", LocalDate.of(2021,4,8),"fnsakvs3",0);
-        s9 = new SapatilhaPremium("Sapatilhas Festivas","Adidas", "4mss7ngdf", 34.64, 'b', 3, "DHL", 43.0, true, "Azul", LocalDate.of(2023,4,19),"jfsakm3f",0);
-        s10 = new SapatilhaPremium("Sapatilhas Festivas","Puma", "l3zmopumj", 58.43, 'c', 1, "FedEx", 46.0, true, "Preto", LocalDate.of(2022,4,20),"nsd32424",0);
-        s11 = new Sapatilha("Sapatilhas Desportivas","NewBalance", "u6upqoiei", 63.32, 'n', 2, "UPS", 33.0, false, "Azul", LocalDate.of(2022,10,12),"pwzjef5j",0.5);
-        s12 = new Sapatilha("Sapatilhas Casuais","Adidas", "5ym074315", 42.11, 'a', 3, "CTT", 17.0, true, "Preto", LocalDate.of(2020,11,11),"osyxeg0x",0.7);
-        s13 = new Sapatilha("Sapatilhas Casuais","Decathlon", "pok2jtbnz", 12.24, 'a', 2, "FedEx", 14.5, true, "Azul", LocalDate.of(2020,4,14),"osyxeg0x",0.65);
-        s14 = new Sapatilha("Sapatilhas Desportivas","Nike", "e86o549ty", 113.34, 'n', 0, "UPS", 55.5, false, "Verde", LocalDate.of(2023,1,9),"mbksalew",0);
-        s15 = new Sapatilha("Sapatilhas Casuais","Adidas", "f9pe5mg8g", 54.64, 'c', 0, "USPS", 23.5, true, "Amarelo", LocalDate.of(2020,12,7),"osyxeg0x",0.1);
+        s1 = new Sapatilha("Sapatilhas Desportivas","Nike", "cd5xo1fp6", 154.34, 'a', 3, "UPS","pwzjef5j", 43.0, false, "Amarelo", LocalDate.of(2023,6,12),0);
+        s2 = new SapatilhaPremium("Sapatilhas Casuais","Adidas", "wgvupmumg", 94.23, 'a', 1, "DHL","ldlnzv8v", 42.5, true, "Azul", LocalDate.of(2021,4,14),0);
+        s3 = new SapatilhaPremium("Sapatilhas Festivas","Puma", "9g7repv37", 44.45, 'n', 2, "FedEx", "pwzjef5j",39.0, false, "Preto", LocalDate.of(2021,1,17),0);
+        s4 = new SapatilhaPremium("Sapatilhas Desportivas","NewBalance", "ufp5ylqyu", 321.3, 'c', 0, "USPS","pwzjef5j", 22.0, true, "Azul", LocalDate.of(2023,8,1),0);
+        s5 = new SapatilhaPremium("Sapatilhas Festivas","Adidas", "l2wrqsrcv", 45.32, 'b', 3, "DHL","pwzjef5j", 34.0, false, "Amarelo", LocalDate.of(2021,4,29),0);
+        s6 = new Sapatilha("Sapatilhas Desportivas","NewBalance", "nfr950f07", 123.34, 'b', 2, "UPS","pwzjef5j", 54.0, true, "Azul", LocalDate.of(2023,3,12),0.1);
+        s7 = new SapatilhaPremium("Sapatilhas Casuais","Puma", "z21za7v4q", 431.36, 'n', 1, "DHL","pwzjef5j", 42.0, true, "Vermelho", LocalDate.of(2021,2,1),0);
+        s8 = new SapatilhaPremium("Sapatilhas Casuais","Nike", "qwrrjgv6v", 55.99, 'c', 1, "FedEx","fnsakvs3", 33.0, false, "Roxo", LocalDate.of(2021,4,8),0);
+        s9 = new SapatilhaPremium("Sapatilhas Festivas","Adidas", "4mss7ngdf", 34.64, 'b', 3, "DHL","jfsakm3f", 43.0, true, "Azul", LocalDate.of(2023,4,19),0);
+        s10 = new SapatilhaPremium("Sapatilhas Festivas","Puma", "l3zmopumj", 58.43, 'c', 1, "FedEx","nsd32424", 46.0, true, "Preto", LocalDate.of(2022,4,20),0);
+        s11 = new Sapatilha("Sapatilhas Desportivas","NewBalance", "u6upqoiei", 63.32, 'n', 2, "UPS","pwzjef5j", 33.0, false, "Azul", LocalDate.of(2022,10,12),0.5);
+        s12 = new Sapatilha("Sapatilhas Casuais","Adidas", "5ym074315", 42.11, 'a', 3, "CTT","osyxeg0x", 17.0, true, "Preto", LocalDate.of(2020,11,11),0.7);
+        s13 = new Sapatilha("Sapatilhas Casuais","Decathlon", "pok2jtbnz", 12.24, 'a', 2, "FedEx","osyxeg0x", 14.5, true, "Azul", LocalDate.of(2020,4,14),0.65);
+        s14 = new Sapatilha("Sapatilhas Desportivas","Nike", "e86o549ty", 113.34, 'n', 0, "UPS","mbksalew", 55.5, false, "Verde", LocalDate.of(2023,1,9),0);
+        s15 = new Sapatilha("Sapatilhas Casuais","Adidas", "f9pe5mg8g", 54.64, 'c', 0, "USPS","osyxeg0x", 23.5, true, "Amarelo", LocalDate.of(2020,12,7),0.1);
 
 
         // TSHIRTS
         Tshirt t2,t3,t9,t10,t11,t12,t16,t20;
-        t2 = new Tshirt("T-shirt branca", "Fila", "xw4d1cdm0l", 99.66, 'a', 0, "DHL", 'L', 'P',"pwzjef5j");
-        t3 = new Tshirt("T-shirt rosa", "Adidas", "gm0rccojyy", 57.50, 'b', 9, "FedEx", 'X', 'L',"pwzjef5j");
-        t9 = new Tshirt("T-shirt roxa", "New Balance", "8gontks1mx", 68.67, 'n', 6, "FedEx", 'X', 'L',"mbksalew");
-        t10 = new Tshirt("T-shirt roxa", "Under Armour", "uuug14cioo", 92.52, 'n', 3, "FedEx", 'S', 'P',"dsxcsws1");
-        t11 = new Tshirt("T-shirt amarela", "Reebok", "9qjuxkz8zk", 69.95, 'a', 0, "CTT", 'S', 'P',"pwzjef5j");
-        t12 = new Tshirt("T-shirt preta", "Converse", "70jfsf0cnh", 76.95, 'a', 4, "USPS", 'M', 'L',"pwzjef5j");
-        t16 = new Tshirt("T-shirt preta", "New Balance", "0ay74og76l", 96.43, 'c', 4, "CTT", 'M', 'P',"sdadassd");
-        t20 = new Tshirt("T-shirt azul", "Nike", "8vk2vfcrgb", 99.19, 'a', 8, "USPS", 'L', 'P',"pwzjef5j");
+        t2 = new Tshirt("T-shirt branca", "Fila", "xw4d1cdm0l", 99.66, 'a', 0, "DHL","pwzjef5j", 'l', 'p');
+        t3 = new Tshirt("T-shirt rosa", "Adidas", "gm0rccojyy", 57.50, 'b', 9, "FedEx","pwzjef5j", 'x', 'l');
+        t9 = new Tshirt("T-shirt roxa", "New Balance", "8gontks1mx", 68.67, 'n', 6, "FedEx","mbksalew", 'x', 'l');
+        t10 = new Tshirt("T-shirt roxa", "Under Armour", "uuug14cioo", 92.52, 'n', 3, "FedEx","dsxcsws1", 's', 'p');
+        t11 = new Tshirt("T-shirt amarela", "Reebok", "9qjuxkz8zk", 69.95, 'a', 0, "CTT","pwzjef5j", 's', 'p');
+        t12 = new Tshirt("T-shirt preta", "Converse", "70jfsf0cnh", 76.95, 'a', 4, "USPS","pwzjef5j", 'm', 'l');
+        t16 = new Tshirt("T-shirt preta", "New Balance", "0ay74og76l", 96.43, 'c', 4, "CTT", "sdadassd",'m', 'p');
+        t20 = new Tshirt("T-shirt azul", "Nike", "8vk2vfcrgb", 99.19, 'a', 8, "USPS","pwzjef5j", 'l', 'p');
 
 
 
@@ -42,13 +42,13 @@ public class Info_Inicial {
 
         // MALAS
         Mala m1, m2, m10, m11, m13, m14, m17;
-        m1 = new MalaPremium("Mala grande", "Rimowa", "das3das3das", 554.08, 'b', 8, "FedEx", 103, 38, 27, "Nylon", 2010,"pwzjef5j");
-        m2 = new Mala("Mala grande", "Samsonite", "gafdas3das312", 983.98, 'a', 4, "UPS", 43, 29, 16, "Couro", 2020,"pwzjef5j");
-        m10 = new MalaPremium("Mala de rodinhas", "American Tourister", "40jxcbdy2gj", 511.93, 'a', 0, "UPS", 118, 36, 12, "Nylon", 2022,"sdadassd");
-        m11 = new MalaPremium("Mala de mão", "Rimowa", "vq473dk0sxt", 633.61, 'n', 2, "FedEx", 101, 38, 57, "Couro", 1988,"ldlnzv8v");
-        m13 = new Mala("Mala executiva", "American Tourister", "a1znelm5x3z", 788.35, 'c', 5, "FedEx", 69, 46, 28, "PVC", 2022,"osyxeg0x");
-        m14 = new Mala("Mala grande", "Delsey", "de8xr9z405s", 1048.01, 'c', 0, "USPS", 25, 43, 52, "Nylon", 2010,"jfsakm3f");
-        m17 = new MalaPremium("Mala executiva", "American Tourister", "78qyama7mhj", 795.88, 'a', 1, "USPS", 39, 10, 29, "ABS", 2022,"sdadassd");
+        m1 = new MalaPremium("Mala grande", "Rimowa", "das3das3das", 554.08, 'b', 8, "FedEx","pwzjef5j", 103, 38, 27, "Nylon", 2010);
+        m2 = new Mala("Mala grande", "Samsonite", "gafdas3das312", 983.98, 'a', 4, "UPS","pwzjef5j", 43, 29, 16, "Couro", 2020);
+        m10 = new MalaPremium("Mala de rodinhas", "American Tourister", "40jxcbdy2gj", 511.93, 'a', 0, "UPS","sdadassd", 118, 36, 12, "Nylon", 2022);
+        m11 = new MalaPremium("Mala de mão", "Rimowa", "vq473dk0sxt", 633.61, 'n', 2, "FedEx","ldlnzv8v", 101, 38, 57, "Couro", 1988);
+        m13 = new Mala("Mala executiva", "American Tourister", "a1znelm5x3z", 788.35, 'c', 5, "FedEx","osyxeg0x", 69, 46, 28, "PVC", 2022);
+        m14 = new Mala("Mala grande", "Delsey", "de8xr9z405s", 1048.01, 'c', 0, "USPS","jfsakm3f", 25, 43, 52, "Nylon", 2010);
+        m17 = new MalaPremium("Mala executiva", "American Tourister", "78qyama7mhj", 795.88, 'a', 1, "USPS","sdadassd", 39, 10, 29, "ABS", 2022);
 
 
         vintage.addArtigo(s3);
@@ -173,11 +173,11 @@ public class Info_Inicial {
         ctt.add(t16);
         ctt.add(t11);
 
-        tr1= new Transportadora("CTT",1.05,false,ctt);
-        tr2= new Transportadora("UPS",1.07,false,ups);
-        tr3= new Transportadora("USPS",1.09,true,usps);
-        tr4= new Transportadora("DHL",1.03,false,dhl);
-        tr5= new Transportadora("FedEx",1.10,false,fedex);
+        tr1= new Transportadora("CTT",1.05,ctt);
+        tr2= new Transportadora("UPS",1.07,ups);
+        tr3= new TransportadoraPremium("USPS",1.09,usps);
+        tr4= new Transportadora("DHL",1.03,dhl);
+        tr5= new Transportadora("FedEx",1.10,fedex);
 
         vintage.addTransportadora(tr1);
         vintage.addTransportadora(tr2);
@@ -234,29 +234,28 @@ public class Info_Inicial {
         vintage.addConta(c10);
 
         //emiteFatura(Encomenda enc, Utilizadores vendedor, Utilizadores comprador)
-        Fatura fatura = new Fatura();
-        fatura.emiteFatura(s1, user1, user3);
-        fatura.emiteFatura(s2, user3, user9);
-        fatura.emiteFatura(s8, user5, user4);
-        fatura.emiteFatura(s9, user6, user3);
-        fatura.emiteFatura(s10, user9, user10);
-        fatura.emiteFatura(s11, user10, user3);
-        fatura.emiteFatura(m11, user3, user6);
-        fatura.emiteFatura(m10, user7, user3);
-        fatura.emiteFatura(t2, user1, user3);
-        fatura.emiteFatura(t3, user1, user7);
-        fatura.emiteFatura(m14, user6, user5);
-        fatura.emiteFatura(s14, user9, user7);
-        fatura.emiteFatura(t20, user1, user3);
-        fatura.emiteFatura(m17, user7, user9);
-        fatura.emiteFatura(s15, user2, user3);
-        fatura.emiteFatura(t16, user7, user3);
-        fatura.emiteFatura(m1, user1, user3);
-        fatura.emiteFatura(m2, user1, user9);
-        fatura.emiteFatura(t9, user9, user3);
-        fatura.emiteFatura(t10, user4, user1);
-        fatura.emiteFatura(t11, user1, user3);
-        fatura.emiteFatura(t12, user1, user7);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s1, user1, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s2, user3, user9);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s8, user5, user4);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s9, user6, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s10, user9, user10);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s11, user10, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m11, user3, user6);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m10, user7, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t2, user1, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t3, user1, user7);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m14, user6, user5);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s14, user9, user7);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t20, user1, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m17, user7, user9);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),s15, user2, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t16, user7, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m1, user1, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),m2, user1, user9);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t9, user9, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t10, user4, user1);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t11, user1, user3);
+        vintage.emiteFatura(LocalDate.of(2022,4,2),t12, user1, user7);
 
         user1.setListaVenda(conj_artigos2);
 
