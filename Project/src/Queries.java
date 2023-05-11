@@ -83,10 +83,13 @@
              pares.add(new SimpleEntry<>(soma,user));
          }
          pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
+         System.out.println("Top Compradores entre " + depoisde + " e " + antesde);
+         int contador=1;
          for (SimpleEntry<Double, Utilizador> entry : pares) {
              Utilizador user = entry.getValue();
              String nome = user.getNome();
-             System.out.println(entry.getKey() + " : " + nome);
+             System.out.print(contador + "°- ");
+             System.out.println( nome + " com " +entry.getKey() + " €");
          }
      }
 
@@ -110,10 +113,13 @@
              pares.add(new SimpleEntry<>(soma,user));
          }
          pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
+         System.out.println("Top Vendedores entre " + depoisde + " e " + antesde);
+         int contador=1;
          for (SimpleEntry<Double, Utilizador> entry : pares) {
              Utilizador user = entry.getValue();
              String nome = user.getNome();
-             System.out.println(entry.getKey() + " : " + nome);
+             System.out.print(contador + "°- ");
+             System.out.println( nome + " com " +entry.getKey() + " €");
          }
      }
 
