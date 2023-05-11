@@ -31,20 +31,6 @@ public class Fatura {
         this.custo = valorCusto(artigo);
     }
 
-
-
-    public void emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
-        Fatura nova = new Fatura(dataE,comprador,vendedor,art);
-        double passado = vendedor.getValorTotalVendas();
-        double custo = valorCusto(art);
-        vendedor.adicionaArtigoVendido(art);
-        comprador.adicionaArtigoComprado(art);
-        vendedor.removeArtigoAVenda(art);
-        vendedor.setValorTotalVendas(passado+custo);
-        vendedor.adicionaFatura(nova);
-        comprador.adicionaFatura(nova);
-    }
-
     public double valorCusto(Artigo art){
         double val = art.getPrecoFinal();
         setCusto(art.getPrecoFinal());

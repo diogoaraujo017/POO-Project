@@ -357,7 +357,7 @@ public class Menu{
                 for(i=0;i<encomenda.size();i++){
                     Fatura fatura = new Fatura();
                     Artigo art = encomenda.get(i);
-                    fatura.emiteFatura(data,art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByCodigo(conta.getCodigo()));
+                    vin.emiteFatura(data,art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByCodigo(conta.getCodigo()));
                     vin.removeArtigo(art);
                 }
             }
