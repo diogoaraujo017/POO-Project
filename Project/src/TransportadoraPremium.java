@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class TransportadoraPremium extends Transportadora implements Premium{
+public class TransportadoraPremium extends Transportadora implements Premium, Serializable {
 
     public TransportadoraPremium() {
         super();

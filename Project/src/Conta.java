@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
 
-public class Conta {
+public class Conta implements Serializable {
 
     private String codigo;
     private String email;

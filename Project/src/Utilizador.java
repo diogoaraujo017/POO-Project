@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Utilizador {
+public class Utilizador implements Serializable {
     
     private String codigo; // código identificador de cada user de 8 digitos
     private String email; // usado para login

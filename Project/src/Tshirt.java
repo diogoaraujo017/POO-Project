@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Tshirt extends Artigo{
+public class Tshirt extends Artigo implements Serializable {
     
     private char tamanho; // s=S // m=M // l=L // x=XL
     private char padrao; // l=liso // r=riscas // p=palmeiras

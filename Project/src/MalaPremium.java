@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.Year;
 
-public class MalaPremium extends Mala implements Premium{
+public class MalaPremium extends Mala implements Premium, Serializable {
 
     public MalaPremium() {
         super();

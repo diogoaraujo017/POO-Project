@@ -1,8 +1,9 @@
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Sapatilha extends Artigo{
+public class Sapatilha extends Artigo implements Serializable {
 
     private double n_tamanho;
 

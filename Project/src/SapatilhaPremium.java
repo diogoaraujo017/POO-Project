@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class SapatilhaPremium extends Sapatilha implements Premium {
+public class SapatilhaPremium extends Sapatilha implements Premium , Serializable {
 
     public SapatilhaPremium() {
         super();

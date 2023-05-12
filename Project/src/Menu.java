@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -11,20 +12,15 @@ public class Menu{
     private Conta conta;
     private boolean flag;
 
-    
     public Menu(){
         this.flag=false;
     }
     public boolean getFlag (){
         return this.flag;
     }
-
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
-
-
-
     public void inicio (LocalDate data_atual){
         setData(data_atual);
         Vintage vin = new Vintage();
@@ -40,7 +36,6 @@ public class Menu{
         }
         abreMenuInicial(vin);
     }
-
     public void abreMenuInicial(Vintage vin){
 
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
@@ -50,7 +45,7 @@ public class Menu{
         String entrada = input.nextLine();
         switch (entrada) {
             case "1" -> {
-                if(this.flag==true){
+                if(this.flag){
                     clearTerminal();
                     abreMenuLogin(vin);
                 }
@@ -67,7 +62,7 @@ public class Menu{
                 }
             }
             case "2" -> {
-                if(this.flag==true){
+                if(this.flag){
                     clearTerminal();
                     abreMenuRegister(vin);
                 }
@@ -84,7 +79,7 @@ public class Menu{
                 }
             }
             case "3" -> {
-                if(this.flag==true){
+                if(this.flag){
                     clearTerminal();
                     abreMenuData(vin);
                 }
@@ -101,7 +96,7 @@ public class Menu{
                 }
             }
             case "4" -> {
-                if(this.flag==true){
+                if(this.flag){
                     clearTerminal();
                     abreMenuQueries(vin);
                 }
@@ -123,9 +118,14 @@ public class Menu{
                 abreMenuCarregarEstado(vin);
             }
             case "6" -> {
-                if(this.flag==true){
+                if(this.flag){
                     clearTerminal();
-                    //abreguardarEstado();
+                    try {
+                        vin.salvaEstado();
+                        abreMenuInicial(vin);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 else{
                     System.out.println("Carregue um estado primeiro!");
@@ -157,7 +157,7 @@ public class Menu{
 
     public void abreMenuLogin(Vintage vin){
         System.out.println("Menu de Login\n");
-        System.out.print("Email de Utilizador:");
+        System.out.print("Insira o Email:");
         Scanner input = new Scanner(System.in);
         String email = input.nextLine();
         if(!verificaEmail(email)){
@@ -180,10 +180,18 @@ public class Menu{
         }
         if(vin.loginCorreto(email,pass)){
             Conta conta = vin.getContaByEmail(email);
-            Conta conta_atual = new Conta(conta.getCodigo(),email,pass);
-            setConta(conta_atual);
-            clearTerminal();
-            abreMenuIntermedio(vin);
+            if(conta instanceof ContaTransportadora) {
+                ContaTransportadora conta_atual = new ContaTransportadora(conta.getCodigo(), email, pass);
+                setConta(conta_atual);
+                clearTerminal();
+                abreMenuIntermedioTransportadora(vin);
+            }
+            else{
+                Conta conta_atual = new Conta(conta.getCodigo(), email, pass);
+                setConta(conta_atual);
+                clearTerminal();
+                abreMenuIntermedioUser(vin);
+            }
         }
         else{
             System.out.println("Dados de Login incorretos, tente novamente");
@@ -197,8 +205,8 @@ public class Menu{
             abreMenuLogin(vin);
         }
         input.close();
-    }
-    public void abreMenuRegister(Vintage vin){
+    }                      ///
+    public void abreMenuRegisterUser(Vintage vin){
         System.out.println("Menu de Registo\n");
         System.out.print("Nome de Utilizador:");
         Scanner input = new Scanner(System.in);
@@ -218,7 +226,7 @@ public class Menu{
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuRegister(vin);
+            abreMenuRegisterUser(vin);
         }
         System.out.print("Password:");
         String pass = input.nextLine();
@@ -231,9 +239,58 @@ public class Menu{
         Conta nova = new Conta(code,email,pass);
         vin.addConta(nova);
         clearTerminal();
-        abreMenuIntermedio(vin);
+        abreMenuIntermedioUser(vin);
         input.close();
-    }
+    }               ///
+    public void abreMenuRegisterTransportadora(Vintage vin) {
+        System.out.println("Menu de Registo\n");
+        System.out.print("Nome da Transportadora:");
+        Scanner input = new Scanner(System.in);
+        String nome = input.nextLine();
+        System.out.print("Email:");
+        String email = input.nextLine();
+        while (!verificaEmail(email)) {
+            System.out.print("O email introduzido não é válido.\n\nPor favor introduza novamente:");
+            email = input.nextLine();
+        }
+        if (!(vin.getContaByEmail(email) == null)) {
+            System.out.print("O email introduzido já se encontra utilizado no sistema, tente novamente");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                input.close();
+                throw new RuntimeException(e);
+            }
+            clearTerminal();
+            abreMenuRegisterUser(vin);
+        }
+        System.out.print("Password:");
+        String pass = input.nextLine();
+        System.out.print("Lucro:");
+        boolean precoValido = false;
+        double lucro = 0;
+        while (!precoValido) {
+            lucro = 0;
+            try {
+                lucro = Double.parseDouble(input.nextLine());
+                if (lucro > 1) {
+                    precoValido = true;
+                } else {
+                    System.out.print("O lucro tem de ser maior do que 1!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: " + lucro + " não pode ser convertido para um double. Tente novamente.");
+            }
+        }
+        String code = geraCodigo(8);
+        Transportadora t = new Transportadora(nome, lucro);
+        Conta nova = new ContaTransportadora(code, email, pass);
+        vin.addConta(nova);
+        vin.addTransportadora(t);
+        clearTerminal();
+        abreMenuIntermedioUser(vin);
+        input.close();
+    }    ///
     public void abreMenuData(Vintage vin){
         System.out.println("Menu de Data");
         System.out.print("Ano:");
@@ -784,7 +841,7 @@ public class Menu{
 
     public void abreMenuCarregarEstado(Vintage vin){
         boolean flag = false;
-        Scanner input = new Scanner(System.in);;
+        Scanner input = new Scanner(System.in);
 
         while(!flag){
             System.out.print("Indique o path do ficheiro que pretende carrregar: ");
@@ -792,17 +849,25 @@ public class Menu{
             Path path = Paths.get(file_path);
             if(Files.exists(path) && !Files.isDirectory(path)){
                 flag=true;
-                vin.carregaEstadoCSV(file_path);
-                abreMenuInicial(vin);
-            } 
-            else {
-                System.out.println("\n\nO path é inválido. Por favor insira novamente:");
+                try {
+                    vin.handleEstado(file_path);
+                    System.out.println("\n\nDados carregados com sucesso!");
+                    Thread.sleep(4000);
+                    abreMenuInicial(vin);
+                } catch (IOException | InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
             }
-    }
+            else {
+                System.out.print("\n\nO path é inválido. Por favor insira novamente:");
+            }
+       }
     input.close();
-    }
-    public void abreMenuIntermedio(Vintage vin){
-        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n9-Menu Inicial\n0-Sair");
+    }             ///
+
+    public void abreMenuIntermedioUser(Vintage vin){
+        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n4-Informações sobre conta\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
@@ -819,6 +884,10 @@ public class Menu{
                 clearTerminal();
                 abreMenuDevolucao(vin);
             }
+            case "4" -> {
+                clearTerminal();
+                System.out.println(vin.getUtilizadorByCodigo(conta.getCodigo()).toString());
+            }
             case "0" -> System.exit(0);
             case "9" -> {
                 clearTerminal();
@@ -833,11 +902,53 @@ public class Menu{
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuIntermedio(vin);
+                abreMenuIntermedioUser(vin);
             }
         }
         input.close();
     }
+    public void abreMenuIntermedioTransportadora(Vintage vin){
+        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n4-Informações sobre conta\n9-Menu Inicial\n0-Sair");
+        System.out.print("->");
+        Scanner input = new Scanner(System.in);
+        String entrada = input.nextLine();
+        switch (entrada) {
+            case "1" -> {
+                clearTerminal();
+                abreMenuCompras(vin);
+            }
+            case "2" -> {
+                clearTerminal();
+                abreMenuVendas(vin);
+            }
+            case "3" -> {
+                clearTerminal();
+                abreMenuDevolucao(vin);
+            }
+            case "4" -> {
+                clearTerminal();
+                System.out.println(vin.getUtilizadorByCodigo(conta.getCodigo()).toString());
+            }
+            case "0" -> System.exit(0);
+            case "9" -> {
+                clearTerminal();
+                abreMenuInicial(vin);
+            }
+            default -> {
+                System.out.println("O seu input não vai de acordo às opções, tente novamente");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    input.close();
+                    throw new RuntimeException(e);
+                }
+                clearTerminal();
+
+            }
+        }
+        input.close();
+    }
+
     public void abreMenuCompras(Vintage vin){
         System.out.println("Menu de Compras");
         List<Artigo> artvenda = vin.getListaArtigos();
@@ -1673,7 +1784,6 @@ public class Menu{
         abreMenuIntermedio(vin);
         input.close();
     }
-
     public void abreMenuVisaoAdmin(Vintage vin){
 
         System.out.println("Menu de Administração\n\n");
@@ -1703,7 +1813,6 @@ public class Menu{
         }
         input.close();
     }
-
     public void abreMenuCreateTrans(Vintage vin){
         System.out.println("Menu de criação de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a adicionar?");
@@ -1777,7 +1886,6 @@ public class Menu{
             input.close();
         }
     }
-
     public void abreMenuGerirTrans(Vintage vin){
         System.out.println("Menu de gestão de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a modificar?");
@@ -1839,7 +1947,6 @@ public class Menu{
             }
         }
     }
-
     public void abreMenuDevolucao(Vintage vin){
         LocalDate agora = getData();
         agora.plusDays(2);

@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Transportadora {
+public class Transportadora  implements Serializable {
     private String nome; // CTT, USPS, UPS, DHL, FedEx
     private double lucro;
     private List<Artigo> artigos;

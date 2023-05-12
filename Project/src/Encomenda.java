@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Encomenda {
+public class Encomenda implements Serializable {
 
     private List <Artigo> artigos; // coleção do artigo
     private int dimensao; // 1 artigo - encomenda pequena // 2 a 5 artigos - encomenda média // > 5 artigos - encomenda grande

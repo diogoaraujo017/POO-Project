@@ -1,7 +1,8 @@
 
+import java.io.Serializable;
 import java.time.Year;
 
-public class Mala extends Artigo{
+public class Mala extends Artigo implements Serializable {
 
     private int comprimento;
 

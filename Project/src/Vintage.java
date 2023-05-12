@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
-public class Vintage {
+public class Vintage implements Serializable{
 
     private String currentUserEmail;
     private Map<Integer,Conta> contas;
@@ -329,6 +329,11 @@ public class Vintage {
                     //System.out.println(c.toString());
                     this.addConta(c);
                 }
+                case "ContaTransportadora" -> {
+                    Conta c = parseContaTransportadora(separatedLines[1]);
+                    //System.out.println(c.toString());
+                    this.addConta(c);
+                }
                 case "TransportadoraPremium" -> {
                     TransportadoraPremium tp = parseTransportadoraPremium(separatedLines[1]);
                     //System.out.println(tp.toString());
@@ -394,6 +399,14 @@ public class Vintage {
         String email = info[1];
         String password = info[2];
         return new Conta(codigoUser,email,password);
+    }
+
+    public Conta parseContaTransportadora(String input) {
+        String[] info = input.split(",");
+        String codigoUser = info[0];
+        String email = info[1];
+        String password = info[2];
+        return new ContaTransportadora(codigoUser,email,password);
     }
 
     public Transportadora parseTransportadora(String input) {
@@ -616,16 +629,33 @@ public class Vintage {
         return linhas;
     }
 
-    public void salvaEstado(String name) throws IOException {
-        ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(name));
-        s.writeObject(this);
-        s.flush();
-        s.close();
+    public void handleEstado(String file) throws IOException{
+
+        if(file.charAt((file.length()-1))=='j'){
+            this.carregaEstadoObj(file);
+        }
+        else{
+            this.carregaEstadoCSV(file);
+        }
     }
 
-    public void carregaEstadoObj(String file) throws IOException, ClassNotFoundException {
+    public void salvaEstado() throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Estado.obj"));
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
+    }
+
+
+    //carregar de ficheiro objeto
+    public void carregaEstadoObj(String file) throws IOException{
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-        Vintage v = (Vintage) ois.readObject();
+        Vintage v = null;
+        try {
+            v = (Vintage) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         ois.close();
 
         this.currentUserEmail = v.getCurrentUserEmail();
@@ -635,7 +665,6 @@ public class Vintage {
         this.encomendas = v.getEncomendas();
         this.artigos = v.getArtigos();
     }
-
 
     public String toString() {
 
