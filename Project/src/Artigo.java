@@ -140,7 +140,7 @@ public abstract class Artigo {
 
         if(obj==null || obj.getClass()!=this.getClass()) return false;
 
-        Sapatilha e = (Sapatilha) obj;
+        Artigo e = (Artigo) obj;
         return  e.getDescricao().equals(this.descricao) &&
                 e.getMarca().equals(this.marca) &&
                 e.getCodigo().equals(this.codigo) &&

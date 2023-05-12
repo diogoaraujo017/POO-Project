@@ -9,6 +9,21 @@ public class Menu{
 
     private LocalDate data;
     private Conta conta;
+    private boolean flag;
+
+    
+    public Menu(){
+        this.flag=false;
+    }
+    public boolean getFlag (){
+        return this.flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+
 
     public void inicio (LocalDate data_atual){
         setData(data_atual);
@@ -33,31 +48,82 @@ public class Menu{
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
-        boolean flag = false;
         switch (entrada) {
             case "1" -> {
-                clearTerminal();
-                abreMenuLogin(vin);
+                if(this.flag==true){
+                    clearTerminal();
+                    abreMenuLogin(vin);
+                }
+                else{
+                    System.out.println("Carregue um estado primeiro!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        input.close();
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    abreMenuInicial(vin);
+                }
             }
             case "2" -> {
-                clearTerminal();
-                abreMenuRegister(vin);
+                if(this.flag==true){
+                    clearTerminal();
+                    abreMenuRegister(vin);
+                }
+                else{
+                    System.out.println("Carregue um estado primeiro!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        input.close();
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    abreMenuInicial(vin);
+                }
             }
             case "3" -> {
-                clearTerminal();
-                abreMenuData(vin);
+                if(this.flag==true){
+                    clearTerminal();
+                    abreMenuData(vin);
+                }
+                else{
+                    System.out.println("Carregue um estado primeiro!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        input.close();
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    abreMenuInicial(vin);
+                }
             }
             case "4" -> {
-                clearTerminal();
-                abreMenuQueries(vin);
+                if(this.flag==true){
+                    clearTerminal();
+                    abreMenuQueries(vin);
+                }
+                else{
+                    System.out.println("Carregue um estado primeiro!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        input.close();
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    abreMenuInicial(vin);
+                }
             }
             case "5" -> {
-                flag=true;
+                this.setFlag(true);
                 clearTerminal();
                 abreMenuCarregarEstado(vin);
             }
             case "6" -> {
-                if(flag==true){
+                if(this.flag==true){
                     clearTerminal();
                     //abreguardarEstado();
                 }
@@ -727,7 +793,6 @@ public class Menu{
             if(Files.exists(path) && !Files.isDirectory(path)){
                 flag=true;
                 vin.carregaEstadoCSV(file_path);
-                vin.toString();
                 abreMenuInicial(vin);
             } 
             else {
@@ -794,7 +859,7 @@ public class Menu{
         Scanner input = new Scanner(System.in);
         String linha = input.nextLine();
         if(linha.equals("0")){
-            System.out.println("Voltando para o menu inicial");
+            System.out.println("\nVoltando para o menu anterior...");
             try {
                 Thread.sleep(3000);
                 clearTerminal();
@@ -828,7 +893,7 @@ public class Menu{
             }
         }
 
-        if(flag){
+        if(flag){ // Se existir pelo menor um produto na encomenda procede para o checkout
             System.out.print("\n\n");
             Encomenda enc = new Encomenda(encomenda,encomenda.size(),'p',LocalDate.now(),conta.getCodigo());
             vin.addEncomenda(enc);
@@ -836,7 +901,7 @@ public class Menu{
             System.out.println("Confirmar a encomenda: Sim | Não");
             System.out.print("->");
             boolean aux = false;
-            String conf = input.nextLine();
+            String conf = "";
             while (!aux) {
                 conf = input.nextLine();
                 try {
@@ -846,7 +911,8 @@ public class Menu{
                 }
             }
             if(conf.equals("Sim")){
-                enc.setEstado('e');
+                System.out.println("\nCompra efetuada com sucesso!");
+                enc.setEstado('f');
                 int i;
                 for(i=0;i<encomenda.size();i++){
                     Fatura fatura = new Fatura();
@@ -856,8 +922,8 @@ public class Menu{
                 }
             }
             else if(conf.equals("Não")){
-                System.out.println("Encomenda cancelada");
-                enc.setArtigos(new ArrayList<>());
+                System.out.println("\nEncomenda cancelada");
+                enc.clearArtigos();
                 enc.setComprador("");
                 enc.setDimensao(0);
                 enc.setEstado('x');
@@ -874,7 +940,6 @@ public class Menu{
         }
 
 
-        clearTerminal();
         abreMenuIntermedio(vin);
         input.close();
 
@@ -1517,7 +1582,7 @@ public class Menu{
         boolean premium = false;
 
         while (true) {
-            System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
+            System.out.println("As suas sapatilhas são Premium?\n1-Sim\n2-Não");
             System.out.print("->");
             String prem = input.nextLine();
 
@@ -1542,7 +1607,7 @@ public class Menu{
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
         }
-        if((tamanho>45 || donos>0) && premium){
+        if((tamanho>45 || donos>0) && !premium){
             System.out.println("Qual o desconto que quer aplicar nas sapatilhas (ex: se for 25%, a resposta deve ser 0.25) ?");
             double desconto = 0.0;
             boolean dValido = false;

@@ -262,6 +262,7 @@ public class Vintage {
         vendedor.setValorTotalVendas(passado);
         vendedor.adicionaFatura(nova);
         comprador.adicionaFatura(nova);
+        nova.setCusto(custo);
     }
 
     public double valFatura(Fatura fat){

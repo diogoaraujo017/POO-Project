@@ -134,7 +134,7 @@ public class Mala extends Artigo{
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
-        sb.append(" Comprimento: ").append(this.getComprimento());
+        sb.append("; Comprimento: ").append(this.getComprimento());
         sb.append("; Largura: ").append(this.getLargura());
         sb.append("; Altura: ").append(this.getAltura());
         sb.append("; Material: ").append(this.getMaterial());
