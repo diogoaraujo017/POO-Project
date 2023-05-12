@@ -1719,8 +1719,11 @@ public class Menu{
             String pre = input.nextLine();
             try {
                 lucro = Double.parseDouble(pre);
-                if(lucro>=1) lucroValido = true;
-                else lucroValido = false;
+                if(lucro>1) lucroValido = true;
+                else {
+                    lucroValido = false;
+                    System.out.println("O lucro inserido tem de ser maior do que 1!");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
                 System.out.print("->");
@@ -1729,7 +1732,7 @@ public class Menu{
         boolean premium = false;
 
         while (true) {
-            System.out.println("A sua mala é Premium?\n1-Sim\n2-Não");
+            System.out.println("A transportadora é Premium?\n1-Sim\n2-Não");
             System.out.print("->");
             String prem = input.nextLine();
 
