@@ -129,7 +129,7 @@ public class Mala extends Artigo implements Serializable {
         sb.append("; Marca: ").append(this.getMarca());
         sb.append("; Código: ").append(this.getCodigo());
         sb.append("; Preço Base: ").append(this.getPrecoBase());
-        sb.append("; Preço c/desconto: ").append(this.getPrecoFinal());
+        sb.append("; Preço s/taxas: ").append(this.getPrecoFinal());
         if(this instanceof Premium) sb.append("; Premium: Sim");
         else sb.append("; Premium: Não");
         sb.append("; Estado: ").append(this.getEstado());

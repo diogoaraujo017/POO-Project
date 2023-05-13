@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,21 +47,6 @@ public class Encomenda implements Serializable {
         int dim = getDimensao();
         setDimensao(dim--);
     }
-
-    public void devolverEncomenda(Encomenda enc){
-        long dias_diferenca = ChronoUnit.DAYS.between(enc.getData(), LocalDate.now());
-        List <Artigo> list = enc.getArtigos();
-        if(enc.estado=='e' && dias_diferenca>=2){ // pode devolver a encomenda
-            clearArtigos();
-            setDimensao(0);
-            setEstado('d');
-
-            for(Artigo art : list){
-                art.setEstado('d');
-            }
-        }
-    }
-
 
     public List<Artigo> getArtigos() {
         return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());

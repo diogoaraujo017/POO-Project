@@ -17,11 +17,11 @@ public class Fatura implements Serializable {
     }
 
     public Fatura(Fatura fat){
-        this.data=fat.data;
-        this.comprador=fat.comprador;
-        this.vendedor=fat.vendedor;
-        this.artigo=fat.artigo;
-        this.custo=fat.custo;
+        this.data=fat.getData();
+        this.comprador=fat.getComprador();
+        this.vendedor=fat.getVendedor();
+        this.artigo=fat.getArtigo();
+        this.custo=fat.getCusto();
     }
 
     public Fatura(LocalDate dataD, Utilizador comprador, Utilizador vendedor, Artigo artigo) {
@@ -29,13 +29,12 @@ public class Fatura implements Serializable {
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.artigo = artigo;
-        this.custo = valorCusto(artigo);
+        valorCusto(artigo);
     }
 
-    public double valorCusto(Artigo art){
+    public void valorCusto(Artigo art){
         double val = art.getPrecoFinal();
         setCusto(art.getPrecoFinal());
-        return val;
     }
 
     public boolean eComprador(Fatura fat, Utilizador user){
@@ -83,18 +82,29 @@ public class Fatura implements Serializable {
     public void setData(LocalDate data) {
         this.data = data;
     }
-
+    
     public Fatura clone(){
         return new Fatura(this);
     }
 
+    public boolean equals(Object obj){
 
+        if(obj==this) return true;
+
+        if(obj==null || obj.getClass()!=this.getClass()) return false;
+
+        Fatura e = (Fatura) obj;
+        return e.getData().equals(this.data) &&
+               e.getComprador().equals(this.comprador) &&
+               e.getVendedor().equals(this.vendedor) &&
+               e.getArtigo().equals(this.artigo);
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fatura: {");
         sb.append("Data de emissão:").append(this.getData());
-        sb.append("Comprador: ").append(this.getComprador().getCodigo());
+        sb.append("; Comprador: ").append(this.getComprador().getCodigo());
         sb.append("; Vendedor: ").append(this.getVendedor().getCodigo());
         sb.append("; Artigo: ").append(this.getArtigo());
         sb.append("; Custo Final: ").append(this.getCusto());

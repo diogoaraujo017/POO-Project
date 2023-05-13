@@ -17,11 +17,11 @@ public class Utilizador implements Serializable {
     private List<Fatura> faturas;
 
     Utilizador(){
-        this.codigo=null;
-        this.email=null;
-        this.nome=null;
-        this.morada=null;
-        this.nif=null;
+        this.codigo="";
+        this.email="";
+        this.nome="";
+        this.morada="";
+        this.nif="";
         this.produtosVendidos=new ArrayList<>();
         this.produtosLoja=new ArrayList<>();
         this.produtosComprou=new ArrayList<>();
@@ -67,7 +67,7 @@ public class Utilizador implements Serializable {
         this.produtosLoja = ut.getProdutosLoja();
         this.produtosComprou = ut.getProdutosComprou();
         valorTotalVendas(getProdutosVendidos(),0);
-        this.faturas=ut.faturas;
+        this.faturas=ut.getFaturas();
     }
 
     public void valorTotalVendas(List<Artigo> list, double vendidoPassado){
@@ -117,7 +117,7 @@ public class Utilizador implements Serializable {
         return this.produtosComprou.stream().map(Artigo::clone).collect(Collectors.toList());
     }
     public List<Fatura> getFaturas() {
-        return faturas.stream().map(Fatura::clone).collect(Collectors.toList());
+        return this.faturas.stream().map(Fatura::clone).collect(Collectors.toList());
     }
 
     public void setCodigo(String codigo) {
@@ -180,9 +180,19 @@ public class Utilizador implements Serializable {
     public void removeArtigoAVenda(Artigo art){
         this.produtosLoja.remove(art);
     }
+
+    public void removeArtigoVendeu(Artigo art){
+        this.produtosVendidos.remove(art);
+    }
+
+    public void removeArtigoComprou(Artigo art){
+        this.produtosComprou.remove(art);
+    }
+
     public void adicionaFatura(Fatura fat){
         this.faturas.add(fat.clone());
     }
+    
     public void removeFatura(Fatura fat){
         this.faturas.remove(fat);
     }
@@ -218,7 +228,9 @@ public class Utilizador implements Serializable {
 
         sb.append("\n\nLista de produtos vendidos: ");
         sb.append("\n");
+        double valortotal = 0;
         for (Artigo art : this.getProdutosVendidos()){
+            valortotal += art.getPrecoFinal();
             sb.append("\n->Artigo" + cont+ ": ");
             if(art.getEstado()=='d') sb.append("*DEVOLVIDO* ");
             sb.append(art);
@@ -259,7 +271,7 @@ public class Utilizador implements Serializable {
         sb.append("\n\n");
         
 
-        sb.append("Valor total das vendas: ").append(this.getValorTotalVendas());
+        sb.append("Valor total das vendas: ").append(valortotal).append("€");
         sb.append("\n");
         return sb.toString();
     }

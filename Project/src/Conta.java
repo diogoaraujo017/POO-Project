@@ -10,9 +10,9 @@ public class Conta implements Serializable {
 
 
     public Conta() {
-        this.codigo = null;
-        this.email = null;
-        this.password = null;
+        this.codigo = "";
+        this.email = "";
+        this.password = "";
     }
 
     public Conta(String codigo, String email, String password) {
@@ -23,9 +23,9 @@ public class Conta implements Serializable {
 
 
     public Conta(Conta c){
-        this.codigo = c.codigo;
-        this.email = c.email;
-        this.password = c.password;
+        this.codigo = c.getCodigo();
+        this.email = c.getEmail();
+        this.password = c.getPassword();
     }
 
     // GETTERS
