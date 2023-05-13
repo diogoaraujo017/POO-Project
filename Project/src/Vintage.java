@@ -335,19 +335,7 @@ public class Vintage implements Serializable,Decoy{
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.
-    public void carregaEstadoCSV(String name) {
-        String fileName = name;
-        String path = getPathToDecoy();
-        File directory = new File(path);
-        File[] contents = directory.listFiles();
-        if(contents!=null) {
-            for (File f : contents) {
-                if(Objects.equals(fileName, f.getName())){
-                    fileName = path + fileName;
-                }
-            }
-        }
-
+    public void carregaEstadoCSV(String fileName) {
         String[] aux;
         String[] info;
 
@@ -682,8 +670,7 @@ public class Vintage implements Serializable,Decoy{
     }
 
     public void salvaEstado(String fileName) throws IOException {
-        String path = getPathToDecoy();
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path+fileName));
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName));
         oos.writeObject(this);
         oos.flush();
         oos.close();
@@ -692,23 +679,11 @@ public class Vintage implements Serializable,Decoy{
 
     //carregar de ficheiro objeto
     public void carregaEstadoObj(String fileName) throws IOException{
-        String file = fileName;
-        String path = getPathToDecoy();
-        File directory = new File(path);
-        File[] contents = directory.listFiles();
-        if(contents!=null) {
-            for (File f : contents) {
-                if(Objects.equals(file, f.getName())){
-                    file = path + file;
-                }
-            }
-        }
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
         Vintage v = null;
         try {
             v = (Vintage) ois.readObject();
         } catch (ClassNotFoundException e) {
-            ois.close();
             throw new RuntimeException(e);
         }
         ois.close();

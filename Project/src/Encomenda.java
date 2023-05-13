@@ -131,17 +131,4 @@ public class Encomenda implements Serializable {
 
         return sb.toString();
     }
-
-    //Custo total encomenda
-    public double valorFinalEncomenda(Encomenda enc, Vintage vin){
-        double total = 0;
-        for(Artigo a : enc.getArtigos()){
-            Transportadora transportadora = vin.getTransportdoraByName(a.getTransportadora());
-            total+=a.getPrecoFinal()*transportadora.getLucro();
-            if(a.getEstado()=='n')total+=0.5;
-            else total+=0.25;
-        }
-        total = Math.round(total * 100.0) / 100.0;
-        return total;
-    }
 }

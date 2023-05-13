@@ -31,7 +31,7 @@ public class Menu implements Decoy{
     public void abreMenuInicial(Vintage vin) throws InterruptedException {
 
         System.out.println("\nMenu Inicial\nBem vindo à Vintage!\nAo seu dispor temos várias opções, por favor digite para aceder às diferentes opções\n\n");
-        System.out.println("1-Login\n2-Registar User\n3-Registar Transportadora\n4-Mudança de Data\n5-Queries\n6-Carregar Estado\n7-Guardar Estado\n\n\n\n0-Sair\n");
+        System.out.println("1-Login\n2-Registar User\n3-Mudança de Data\n4-Queries\n5-Carregar Estado\n6-Guardar Estado\n\n\n\n0-Sair\n");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
@@ -73,7 +73,7 @@ public class Menu implements Decoy{
             case "3" -> {
                 if(this.flag){
                     clearTerminal();
-                    abreMenuRegisterTransportadora(vin);
+                    abreMenuData(vin);
                 }
                 else{
                     System.out.println("Carregue um estado primeiro!");
@@ -90,23 +90,6 @@ public class Menu implements Decoy{
             case "4" -> {
                 if(this.flag){
                     clearTerminal();
-                    abreMenuData(vin);
-                }
-                else{
-                    System.out.println("Carregue um estado primeiro!");
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        input.close();
-                        throw new RuntimeException(e);
-                    }
-                    clearTerminal();
-                    abreMenuInicial(vin);
-                }
-            }
-            case "5" -> {
-                if(this.flag){
-                    clearTerminal();
                     abreMenuQueries(vin);
                 }
                 else{
@@ -121,15 +104,23 @@ public class Menu implements Decoy{
                     abreMenuInicial(vin);
                 }
             }
-            case "6" -> {
+            case "5" -> {
                 this.setFlag(true);
                 clearTerminal();
                 abreMenuCarregarEstado(vin);
             }
-            case "7" -> {
+            case "6" -> {
                 if(this.flag){
                     clearTerminal();
-                    abreMenuGuardaEstado(vin);
+                    try {
+                        vin.salvaEstado("Estado.obj");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    clearTerminal();
+                    System.out.println("\n\nDados guardados com sucesso!");
+                    System.out.println("\nVoltando ao Menu Principal!");
+                    Thread.sleep(3000);
                     abreMenuInicial(vin);
 
                 }
@@ -290,6 +281,16 @@ public class Menu implements Decoy{
                 throw new RuntimeException(e);
 
             }
+            List<Encomenda> todas = vin.getEncomendas();
+            for(Encomenda enc : todas) {
+                if (enc.getEstado() == 'f') {
+                    LocalDate daEnc = enc.getData();
+                    LocalDate atual = getData();
+                    if(ChronoUnit.DAYS.between(daEnc, atual) >= 5) {
+                        enc.setEstado('e');
+                    }
+                }
+            }
             clearTerminal();
             abreMenuInicial(vin);
         }
@@ -313,22 +314,10 @@ public class Menu implements Decoy{
         Scanner input = new Scanner(System.in);
 
         while(!flag){
-            String path = getPathToDecoy();
-            System.out.print(path);
-            File directory = new File(path);
-            File[] contents = directory.listFiles();
-            if(contents!=null) {
-                System.out.println("Lista de estados guardados interiormente no programa:\n");
-                for (File f : contents) {
-                    if(!f.getName().equals("decoy.txt")) {
-                        System.out.println(f.getName());
-                    }
-                }
-            }
-            System.out.print("\n\nIndique o path do ficheiro que pretende carregar: ");
+            System.out.print("\n\nIndique o path do ficheiro que pretende carrregar: ");
             String file_path = input.nextLine();
             Path path2 = Paths.get(file_path);
-            if((Files.exists(path2) && !Files.isDirectory(path2)) || pertenceInternos(file_path,path)){
+            if((Files.exists(path2) && !Files.isDirectory(path2))){
                 flag=true;
                 try {
                     vin.handleEstado(file_path);
@@ -346,8 +335,8 @@ public class Menu implements Decoy{
                 clearTerminal();
                 System.out.print("\n\nO path é inválido. Por favor insira novamente:\n\n");
             }
-       }
-    input.close();
+        }
+        input.close();
     }
     public void abreMenuGuardaEstado(Vintage vin){
         Scanner input = new Scanner(System.in);
@@ -676,7 +665,7 @@ public class Menu implements Decoy{
                 Queries querie = new Queries();
                 querie.topVendedores(vin,depois,antes);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(7000);
                 } catch (InterruptedException e) {
                     input.close();
                     throw new RuntimeException(e);
@@ -802,7 +791,7 @@ public class Menu implements Decoy{
                 Queries querie = new Queries();
                 querie.topCompradores(vin,depois,antes);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(7000);
                 } catch (InterruptedException e) {
                     input.close();
                     throw new RuntimeException(e);
@@ -936,7 +925,7 @@ public class Menu implements Decoy{
         input.close();
     }
 
-    public void abreMenuRegisterTransportadora(Vintage vin) throws InterruptedException {
+    /*public void abreMenuRegisterTransportadora(Vintage vin) throws InterruptedException {
         System.out.println("Menu de Registo\n");
         System.out.print("Nome da Transportadora:");
         Scanner input = new Scanner(System.in);
@@ -992,6 +981,7 @@ public class Menu implements Decoy{
         abreMenuIntermedioTransportadora(vin);
         input.close();
     }
+     */
     private void abreMenuMudarNome(Vintage vin) throws InterruptedException {
         System.out.println("Para que nome deseja alterar a transportadora?");
         System.out.print("->");
@@ -1029,7 +1019,6 @@ public class Menu implements Decoy{
         input.close();
     }
 
-
     //////////////////////// MENUS PARA USER ///////////////////////////////////////////////////////////////////////////
     public void abreMenuRegisterUser(Vintage vin) throws InterruptedException {
         System.out.println("Menu de Registo\n");
@@ -1060,11 +1049,19 @@ public class Menu implements Decoy{
         System.out.print("NIF:");
         String nif = input.nextLine();
         String code= geraCodigo(8);
-        new Utilizador(code,nome,email,morada,nif);
+        Utilizador user = new Utilizador(code,nome,email,morada,nif);
         Conta nova = new Conta(code,email,pass);
         vin.addConta(nova);
+        vin.addUser(user);
         clearTerminal();
-        abreMenuIntermedioUser(vin);
+        System.out.println("Registo efetuado com sucesso, faça login");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            input.close();
+            throw new RuntimeException(e);
+        }
+        abreMenuInicial(vin);
         input.close();
     }
     public void abreMenuIntermedioUser(Vintage vin) throws InterruptedException {
@@ -1166,7 +1163,8 @@ public class Menu implements Decoy{
         if(flag){ // Se existir pelo menor um produto na encomenda procede para o checkout
             System.out.print("\n\n");
             Encomenda enc = new Encomenda(encomenda,encomenda.size(),'p',LocalDate.now(),conta.getCodigo());
-            System.out.println("Total da sua compra = "+ enc.valorFinalEncomenda(enc,vin) + "€");
+            Transportadora t = new Transportadora();
+            System.out.println("Total da sua compra = "+ t.precoExpedido(enc,vin) + "€");
             System.out.println("Confirmar a encomenda: Sim | Não");
             System.out.print("->");
             boolean aux = false;
@@ -1181,7 +1179,7 @@ public class Menu implements Decoy{
             }
             if(conf.equals("Sim")){
                 System.out.println("\nCompra efetuada com sucesso!");
-                enc.setEstado('e');
+                enc.setEstado('f');
                 int i;
                 for(i=0;i<encomenda.size();i++){
                     Artigo art = encomenda.get(i);
@@ -1305,22 +1303,27 @@ public class Menu implements Decoy{
                 }
             }
         }
-        System.out.println("Quantos donos já teve a TShirt?");
-        int donos = 0;
-        boolean check = false;
+        int donos=0;
+        if(estado == 'n'){
+            donos=0;
+        }
+        else {
+            System.out.println("Quantos donos já teve a TShirt?");
+            boolean check = false;
 
-        while (!check) {
-            String dono = input.nextLine();
-            try {
-                donos = Integer.parseInt(dono);
-                if(donos>=0) check = true;
-                else{
-                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+            while (!check) {
+                String dono = input.nextLine();
+                try {
+                    donos = Integer.parseInt(dono);
+                    if (donos >= 0) check = true;
+                    else {
+                        System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                        System.out.print("->");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
                     System.out.print("->");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
-                System.out.print("->");
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
@@ -1463,23 +1466,28 @@ public class Menu implements Decoy{
                 }
             }
         }
-        System.out.println("Quantos donos já teve a Mala?");
-        System.out.print("->");
-        int donos = 0;
-        boolean check = false;
+        int donos=0;
+        if(estado == 'n'){
+            donos=0;
+        }
+        else {
+            System.out.println("Quantos donos já teve a Mala?");
+            donos = 0;
+            boolean check = false;
 
-        while (!check) {
-            String dono = input.nextLine();
-            try {
-                donos = Integer.parseInt(dono);
-                if(donos>=0) check = true;
-                else{
-                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+            while (!check) {
+                String dono = input.nextLine();
+                try {
+                    donos = Integer.parseInt(dono);
+                    if (donos >= 0) check = true;
+                    else {
+                        System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                        System.out.print("->");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
                     System.out.print("->");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
-                System.out.print("->");
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Malas?");
@@ -1704,23 +1712,28 @@ public class Menu implements Decoy{
                 }
             }
         }
-        System.out.println("Quantos donos já tiveram as Sapatilhas?");
-        System.out.print("->");
-        int donos = 0;
-        boolean check = false;
+        int donos=0;
+        if(estado == 'n'){
+            donos=0;
+        }
+        else {
+            System.out.println("Quantos donos já tiveram as Sapatilhas?");
+            donos = 0;
+            boolean check = false;
 
-        while (!check) {
-            String dono = input.nextLine();
-            try {
-                donos = Integer.parseInt(dono);
-                if(donos>=0) check = true;
-                else{
-                    System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+            while (!check) {
+                String dono = input.nextLine();
+                try {
+                    donos = Integer.parseInt(dono);
+                    if (donos >= 0) check = true;
+                    else {
+                        System.out.println("Opção inválida. O número de donos tem de ser um valor positivo");
+                        System.out.print("->");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
                     System.out.print("->");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Erro: " + dono + " não pode ser convertido para um inteiro. Tente novamente.");
-                System.out.print("->");
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
@@ -1942,7 +1955,6 @@ public class Menu implements Decoy{
         input.close();
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Not used anymore
     public void abreMenuVisaoAdmin(Vintage vin) throws InterruptedException {
 
         System.out.println("Menu de Administração\n\n");
@@ -2046,13 +2058,27 @@ public class Menu implements Decoy{
         }
     }
     public void abreMenuGerirTrans(Vintage vin) throws InterruptedException {
-
+        System.out.println("Menu de gestão de transportadoras\n\n");
+        System.out.println("Qual o nome da transportadora a modificar?");
+        System.out.print("->");
+        Scanner input = new Scanner(System.in);
+        String nome = input.nextLine();
+        Transportadora mudar = vin.getTransportdoraByName(nome);
+        if(mudar==null){
+            System.out.println("O nome que digitou não corresponde a nenhuma das transportadoras existentes no sistema, eis a lista de tranportadoras existentes:");
+            List<Transportadora> nova = vin.getTransportadoras();
+            for(Transportadora t : nova){
+                System.out.println(t.getNome());
+            }
+            System.out.println("\n\n=======//=======\n");
+            abreMenuGerirTrans(vin);
+            input.close();
+        }
 
         System.out.println("O que deseja alterar?\n1-Nome\n2-Margem de Lucro\n\n\n0-Voltar para o Menu de Visão de Administrador");
         System.out.print("->");
-        Scanner input = new Scanner(System.in);
         String opc = input.nextLine();
-        Transportadora mudar = null;
+
         switch (opc) {
             case "1" -> {
                 System.out.println("Para que nome deseja alterar a transportadora?");

@@ -77,29 +77,33 @@ public class Transportadora  implements Serializable {
         this.artigos.add(a.clone());
     }
 
-    /*public double precoExpedido(Transportadora transporte){
-        List <Artigo> lartigos = transporte.getArtigos();
+    public double precoExpedido(Encomenda encomenda, Vintage vin){
+        List <Artigo> lartigos = encomenda.getArtigos();
         double valor_bruto=0.00;
         double valor_final=0.00;
         double imposto=0.23;
         double base=0.00;
-        // int tam=encomenda.getDimensao();
-        // if(tam==1) base=1.00;
-        // if((tam>=2)&&(tam<=5)) base=1.10;
-        // if(tam>=6) base=1.20;
-        for(Artigo artigo : lartigos){
-            valor_bruto+=artigo.valorFinalEncomenda(artigos);
-        }
-        if(transporte.getEPremium()) {
-            valor_final=(valor_bruto * this.lucro * (1.0 + imposto) * 0.9)*1.5*base;
-
-        }
-        else {
-            valor_final=valor_bruto * this.lucro * (1.0 + imposto) * 0.9*base;
+        for(Transportadora trans : vin.getTransportadoras()){
+            int contador = 0;
+            int soma = 0;
+            for(Artigo art: lartigos){
+                if(art.getTransportadora().equals(trans.nome)){
+                    contador++;
+                    soma+=art.getPrecoFinal();
+                    if(art.getEstado()=='n'){
+                        soma+=0.5;
+                    }
+                    else soma+=0.25;
+                }
+            }
+            if(contador==1) base=1.20;
+            if((contador>=2)&&(contador<=5)) base=1.10;
+            if(contador>=6) base=1.05;
+            valor_final+=soma * trans.getLucro()*(1.0+imposto)*0.9*base;
         }
         valor_final = Math.round(valor_final * 100.0) / 100.0;
         return valor_final;
-    }*/
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

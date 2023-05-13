@@ -14,18 +14,9 @@
          for(Transportadora t :  todasTrans){
              List<Encomenda> todasEncs = vin.getEncomendas();
              for(Encomenda enc : todasEncs){
-                 char como = enc.getEstado();
-                 if (como == 'f' || como == 'e') {
-                     List<Artigo> arts = enc.getArtigos();
-                     for (Artigo art : arts) {
-                         String nome = art.getTransportadora();
-                         if (t.getNome().equals(nome)) {
-                             double oquesomar = 0;
-                             if (art.getEstado() == 'n') {
-                                 oquesomar = art.getPrecoFinal() - 0.5;
-                             } else oquesomar = art.getPrecoFinal() - 0.25;
-                             somatorio+=oquesomar/t.getLucro();
-                         }
+                 for(Artigo art : enc.getArtigos()) {
+                     if(art.getTransportadora().equals(t.getNome())) {
+                         somatorio += art.getPrecoFinal();
                      }
                  }
              }
@@ -38,6 +29,7 @@
                  somatorio=0;
              }
          }
+         resposta+=" com um lucro de " + Math.round(maior * 100.0) / 100.0 + "€";
          return resposta;
      }
 
