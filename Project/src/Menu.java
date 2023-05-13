@@ -124,6 +124,7 @@ public class Menu{
                         vin.salvaEstado();
                         abreMenuInicial(vin);
                     } catch (IOException e) {
+                        input.close();
                         throw new RuntimeException(e);
                     }
                 }
@@ -190,7 +191,7 @@ public class Menu{
                 Conta conta_atual = new Conta(conta.getCodigo(), email, pass);
                 setConta(conta_atual);
                 clearTerminal();
-                abreMenuIntermedioUser(vin);
+                abreMenuIntermedio(vin);
             }
         }
         else{
@@ -206,7 +207,7 @@ public class Menu{
         }
         input.close();
     }                      ///
-    public void abreMenuRegisterUser(Vintage vin){
+    public void abreMenuRegister(Vintage vin){
         System.out.println("Menu de Registo\n");
         System.out.print("Nome de Utilizador:");
         Scanner input = new Scanner(System.in);
@@ -226,7 +227,7 @@ public class Menu{
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuRegisterUser(vin);
+            abreMenuRegister(vin);
         }
         System.out.print("Password:");
         String pass = input.nextLine();
@@ -239,7 +240,7 @@ public class Menu{
         Conta nova = new Conta(code,email,pass);
         vin.addConta(nova);
         clearTerminal();
-        abreMenuIntermedioUser(vin);
+        abreMenuIntermedio(vin);
         input.close();
     }               ///
     public void abreMenuRegisterTransportadora(Vintage vin) {
@@ -262,7 +263,7 @@ public class Menu{
                 throw new RuntimeException(e);
             }
             clearTerminal();
-            abreMenuRegisterUser(vin);
+            abreMenuRegister(vin);
         }
         System.out.print("Password:");
         String pass = input.nextLine();
@@ -288,7 +289,7 @@ public class Menu{
         vin.addConta(nova);
         vin.addTransportadora(t);
         clearTerminal();
-        abreMenuIntermedioUser(vin);
+        abreMenuIntermedio(vin);
         input.close();
     }    ///
     public void abreMenuData(Vintage vin){
@@ -864,9 +865,9 @@ public class Menu{
             }
        }
     input.close();
-    }             ///
+    }
 
-    public void abreMenuIntermedioUser(Vintage vin){
+    public void abreMenuIntermedio(Vintage vin){
         System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n4-Informações sobre conta\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
@@ -886,7 +887,7 @@ public class Menu{
             }
             case "4" -> {
                 clearTerminal();
-                System.out.println(vin.getUtilizadorByCodigo(conta.getCodigo()).toString());
+                abreMenuInfoConta(vin);
             }
             case "0" -> System.exit(0);
             case "9" -> {
@@ -902,7 +903,7 @@ public class Menu{
                     throw new RuntimeException(e);
                 }
                 clearTerminal();
-                abreMenuIntermedioUser(vin);
+                abreMenuIntermedio(vin);
             }
         }
         input.close();
@@ -993,7 +994,7 @@ public class Menu{
             }
             if (num >= 0 && num <= (contador - 2)) {
                 String codigo = artigos_disponiveis.get(num).getCodigo();
-                if (vin.existeArtigo(codigo)) {
+                if (vin.existeArtigo(codigo) && !(verificaArtigoRepetido(encomenda, vin.getArtigo(codigo)))) {
                     flag = true;
                     Artigo art = vin.getArtigo(codigo);
                     encomenda.add(art);
@@ -1026,7 +1027,6 @@ public class Menu{
                 enc.setEstado('f');
                 int i;
                 for(i=0;i<encomenda.size();i++){
-                    Fatura fatura = new Fatura();
                     Artigo art = encomenda.get(i);
                     vin.emiteFatura(data,art,vin.getUtilizadorByCodigo(art.getVendedor()),vin.getUtilizadorByCodigo(conta.getCodigo()));
                     vin.removeArtigo(art);
@@ -2122,4 +2122,35 @@ public class Menu{
         mala.setPrecoFinal(preco_final);
     }
 
+    public boolean verificaArtigoRepetido (List<Artigo> list, Artigo art){
+        boolean flag = false;
+        for(Artigo aux : list){
+            if(aux.equals(art))
+                flag=true;
+                break;
+        }
+        return flag;
+    }
+
+    void abreMenuInfoConta (Vintage vin){
+        boolean flag = false;
+        Scanner input = new Scanner(System.in);
+        System.out.println(vin.getUtilizadorByCodigo(conta.getCodigo()).toString()+"\n\n");
+        while (!flag){
+            System.out.println("Introduza 0 para regressar ao menu anterior");
+            String pre = input.nextLine();
+            try {
+                if(pre.equals("0")) flag = true;
+                else {
+                    System.out.println("Input inválido.\n\n");
+                }
+            } catch (NumberFormatException e) {
+                input.close();
+                throw new RuntimeException(e); 
+            }
+    }
+    clearTerminal();
+    abreMenuIntermedio(vin);
+    input.close();
+    }
 }

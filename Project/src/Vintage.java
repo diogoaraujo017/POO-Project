@@ -249,12 +249,14 @@ public class Vintage implements Serializable{
             Transportadora t = this.getTransportdoraByName(nome);
             custo=art.getPrecoFinal()*t.getLucro()+0.5;
             custo = Math.round(custo * 100.0) / 100.0;
+            nova.setCusto(custo);
         }
         else{
             String nome = art.getTransportadora();
             Transportadora t = this.getTransportdoraByName(nome);
             custo=art.getPrecoFinal()*t.getLucro()+0.25;
             custo = Math.round(custo * 100.0) / 100.0;
+            nova.setCusto(custo);
         }
         vendedor.adicionaArtigoVendido(art);
         comprador.adicionaArtigoComprado(art);
@@ -292,12 +294,14 @@ public class Vintage implements Serializable{
             Transportadora t = this.getTransportdoraByName(nome);
             custo = art.getPrecoFinal()*t.getLucro()+0.5;
             custo = Math.round(custo * 100.0) / 100.0;
+            nova.setCusto(custo);
         }
         else{
             String nome = art.getTransportadora();
             Transportadora t = this.getTransportdoraByName(nome);
             custo = art.getPrecoFinal()*t.getLucro()+0.25;
             custo = Math.round(custo * 100.0) / 100.0;
+            nova.setCusto(custo);
         }
         this.getUtilizadorByCodigo(vendedor).setValorTotalVendas(passado);
         this.getUtilizadorByCodigo(vendedor).adicionaFatura(nova);

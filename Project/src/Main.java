@@ -5,4 +5,4 @@ public class Main {
         Menu novo = new Menu();
         novo.inicio(LocalDate.now());
     }
-}
+} 

@@ -94,22 +94,3 @@ Encomenda=SapatilhaPremium'Sapatilhas Casuais,Puma,z21za7v4q,431.36,n,1,DHL,jfsa
 Encomenda=SapatilhaPremium'Sapatilhas Casuais,Nike,qwrrjgv6v,55.99,c,1,FedEx,sdadassd,33.0,false,Roxo,2021/4/8,1]Tshirt'T-shirt preta,Reebok,corkhvcko8,72.05,n,4,FedEx,osyxeg0x,X,R]Mala'Mala executiva,Tumi,x6ielo02wnk,513.25,n,3,CTT,jfsakm3f,82,45,10,Couro,1963@3,f,2023/2/16,dsdas322
 Encomenda=SapatilhaPremium'Sapatilhas Casuais,Adidas,wgvupmumg,94.23,a,1,DHL,ldlnzv8v,42.5,true,Azul,2021/4/14,1]Tshirt'T-shirt rosa,Adidas,gm0rccojyy,57.50,b,9,FedEx,fnsakvs3,X,L]Tshirt'T-shirt roxa,NewBalance,8gontks1mx,68.67,n,6,FedEx,mbksalew,X,L]Mala'Mala grande,Samsonite,zg2fpgl1m3w,110.75,a,8,FedEx,jfsakm3f,74,24,47,Couro,2010@4,e,2023/10/3,osyxeg0x
 Encomenda=SapatilhaPremium'Sapatilhas Festivas,Adidas,4mss7ngdf,34.64,b,3,DHL,mbksalew,43.0,true,Azul,2023/4/19,1]Sapatilha'Sapatilhas Desportivas,Adidas,dg7v5w65k,18.34,a,4,CTT,nsd32424,31.0,true,Amarelo,2022/9/30,1]Tshirt'T-shirt branca,Converse,mdwvlwr2wv,78.97,n,0,UPS,jfsakm3f,L,L]Mala'Mala grande,Tumi,972gpqkshxj,103.96,b,6,UPS,nsd32424,62,57,54,PVC,2020@4,f,2023/5/6,sdadassd
-
-
-
-git add Artigo.java
-git add Conta.java
-git add ContaTransportadora.java
-git add Encomenda.java
-git add Fatura.java
-git add Mala.java
-git add MalaPremium.java
-git add Menu.java
-git add Sapatilha.java
-git add SapatilhaPremium.java
-git add Transportadora.java
-git add TransportadoraPremium.java
-git add Tshirt.java
-git add Utilizador.java
-git add Vintage.java
-git add estado.csv

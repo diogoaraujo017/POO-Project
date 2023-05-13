@@ -165,7 +165,7 @@ public class Sapatilha extends Artigo implements Serializable {
         sb.append("; Marca: ").append(this.getMarca());
         sb.append("; Código: ").append(this.getCodigo());
         sb.append("; Preço Base: ").append(this.getPrecoBase());
-        sb.append("; Preço Final: ").append(this.getPrecoFinal());
+        sb.append("; Preço c/desconto: ").append(this.getPrecoFinal());
         sb.append("; Estado: ").append(this.getEstado());
         sb.append("; Número de donos: ").append(this.getNDonos());
         sb.append("; Transportadora: ").append(this.getTransportadora());
@@ -177,7 +177,6 @@ public class Sapatilha extends Artigo implements Serializable {
         else sb.append("; Premium: Não");
         sb.append("; Cor: ").append(this.getCor());
         sb.append("; Data de Lançamento: ").append(this.getDataLancamento());
-        sb.append("; Desconto: ").append(this.getDesconto());
         sb.append("}");
 
         return sb.toString();

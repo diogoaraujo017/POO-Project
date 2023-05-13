@@ -97,7 +97,7 @@ public class Fatura implements Serializable {
         sb.append("Comprador: ").append(this.getComprador().getCodigo());
         sb.append("; Vendedor: ").append(this.getVendedor().getCodigo());
         sb.append("; Artigo: ").append(this.getArtigo());
-        sb.append("; Custo: ").append(this.getCusto());
+        sb.append("; Custo Final: ").append(this.getCusto());
         sb.append("}");
 
         return sb.toString();
