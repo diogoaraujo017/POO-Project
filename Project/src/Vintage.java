@@ -708,6 +708,7 @@ public class Vintage implements Serializable,Decoy{
         try {
             v = (Vintage) ois.readObject();
         } catch (ClassNotFoundException e) {
+            ois.close();
             throw new RuntimeException(e);
         }
         ois.close();

@@ -314,6 +314,7 @@ public class Menu implements Decoy{
 
         while(!flag){
             String path = getPathToDecoy();
+            System.out.print(path);
             File directory = new File(path);
             File[] contents = directory.listFiles();
             if(contents!=null) {
@@ -324,7 +325,7 @@ public class Menu implements Decoy{
                     }
                 }
             }
-            System.out.print("\n\nIndique o path do ficheiro que pretende carrregar: ");
+            System.out.print("\n\nIndique o path do ficheiro que pretende carregar: ");
             String file_path = input.nextLine();
             Path path2 = Paths.get(file_path);
             if((Files.exists(path2) && !Files.isDirectory(path2)) || pertenceInternos(file_path,path)){
@@ -335,7 +336,6 @@ public class Menu implements Decoy{
                     System.out.println("\n\nDados carregados com sucesso!");
                     System.out.println("\nVoltando ao Menu Principal!");
                     Thread.sleep(4000);
-                    System.out.println(vin);
                     abreMenuInicial(vin);
                 } catch (IOException | InterruptedException e) {
                     input.close();
@@ -350,7 +350,6 @@ public class Menu implements Decoy{
     input.close();
     }
     public void abreMenuGuardaEstado(Vintage vin){
-        boolean flag = false;
         Scanner input = new Scanner(System.in);
         String path = getPathToDecoy();
         File directory = new File(path);
@@ -979,6 +978,7 @@ public class Menu implements Decoy{
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + lucro + " não pode ser convertido para um double. Tente novamente.");
             } catch (InterruptedException e) {
+                input.close();
                 throw new RuntimeException(e);
             }
         }
@@ -2050,7 +2050,7 @@ public class Menu implements Decoy{
 
         System.out.println("O que deseja alterar?\n1-Nome\n2-Margem de Lucro\n\n\n0-Voltar para o Menu de Visão de Administrador");
         System.out.print("->");
-        Scanner input = null;
+        Scanner input = new Scanner(System.in);
         String opc = input.nextLine();
         Transportadora mudar = null;
         switch (opc) {
@@ -2292,9 +2292,9 @@ public class Menu implements Decoy{
                         for(Artigo art : enc.getArtigos()){
                             for(Fatura fat : ut.getFaturas()){
                                 if(fat.getArtigo().equals(art)){
-                                    //ut.removeArtigoComprou(art);
+                                    ut.removeArtigoComprou(art);
                                     ut.removeFatura(fat);
-                                    //fat.getVendedor().removeArtigoVendeu(art);
+                                    fat.getVendedor().removeArtigoVendeu(art);
                                     fat.getVendedor().removeFatura(fat);
                                 }
                             }

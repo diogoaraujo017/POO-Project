@@ -33,7 +33,6 @@ public class Fatura implements Serializable {
     }
 
     public void valorCusto(Artigo art){
-        double val = art.getPrecoFinal();
         setCusto(art.getPrecoFinal());
     }
 
