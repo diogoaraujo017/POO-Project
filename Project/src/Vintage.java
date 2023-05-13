@@ -156,6 +156,14 @@ public class Vintage implements Serializable,Decoy{
         this.encomendas.add(e.clone());
     }
 
+    public void setEstadoEncomenda(Encomenda e){
+        for(Encomenda enc : encomendas){
+            if(e.equals(enc)){
+                enc.setEstado('e');
+            }
+        }
+    }
+
     public void removeEncomenda(Encomenda e){
         this.encomendas.remove(e);
     }

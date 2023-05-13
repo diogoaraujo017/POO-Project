@@ -284,10 +284,8 @@ public class Menu implements Decoy{
             List<Encomenda> todas = vin.getEncomendas();
             for(Encomenda enc : todas) {
                 if (enc.getEstado() == 'f') {
-                    LocalDate daEnc = enc.getData();
-                    LocalDate atual = getData();
-                    if(ChronoUnit.DAYS.between(daEnc, atual) >= 5) {
-                        enc.setEstado('e');
+                    if(ChronoUnit.DAYS.between(enc.getData(), mudada) >= 5) {
+                        vin.setEstadoEncomenda(enc);
                     }
                 }
             }
@@ -2281,7 +2279,7 @@ public class Menu implements Decoy{
         List <Encomenda> lista_encomendas = new ArrayList<>();
         for(Encomenda enc : vin.getEncomendas()){
             int contador = 1;
-            if(enc.getComprador().equals(codigoUser) && ChronoUnit.DAYS.between(enc.getData(), this.getData()) >=2 && enc.getEstado()=='e'){
+            if(enc.getComprador().equals(codigoUser) && enc.getEstado()=='e'){
                 lista_encomendas.add(enc);
                 System.out.println("Encomenda nº: " + contador_encomenda +" {\n");
                 for(Artigo art : enc.getArtigos()){
