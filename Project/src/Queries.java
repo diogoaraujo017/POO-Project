@@ -109,7 +109,8 @@
              pares.add(new SimpleEntry<>(soma,user));
          }
          pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
-         System.out.println("Top Compradores entre " + depoisde + " e " + antesde);
+         if(depoisde.equals(LocalDate.of(0,1, 1))) System.out.println("Top Compradores desde o ínicio de funcionamento da Vintage:");
+         else System.out.println("Top Compradores entre " + depoisde + " e " + antesde + " :");
          int contador=1;
          for (SimpleEntry<Double, Utilizador> entry : pares) {
              Utilizador user = entry.getValue();
@@ -142,7 +143,8 @@
          for (SimpleEntry<Double, Utilizador> entry : pares){
              Utilizador user = entry.getValue();
              String nome = user.getNome();
-             System.out.println( "Melhor vendedor entre " + depoisde + " e " + antesde + " é " + nome + " com " +Math.round(entry.getKey() * 100.0) / 100.0 + " €");
+             if(depoisde.equals(LocalDate.of(0,1, 1))) System.out.println( "Melhor vendedor desde o inicio da Vintage é " + nome + " com " +Math.round(entry.getKey() * 100.0) / 100.0 + " €");
+             else System.out.println( "Melhor vendedor entre " + depoisde + " e " + antesde + " é " + nome + " com " +Math.round(entry.getKey() * 100.0) / 100.0 + " €");
              break;
          }
      }
@@ -167,7 +169,8 @@
              pares.add(new SimpleEntry<>(soma,user));
          }
          pares.sort((o1, o2) -> Double.compare(o2.getKey(), o1.getKey()));
-         System.out.println("Top Vendedores entre " + depoisde + " e " + antesde);
+         if(depoisde.equals(LocalDate.of(0,1, 1))) System.out.println("Top Vendedores desde o ínicio de funcionamento da Vintage:");
+         else System.out.println("Top Vendedores entre " + depoisde + " e " + antesde+" :");
          int contador=1;
          for (SimpleEntry<Double, Utilizador> entry : pares) {
              Utilizador user = entry.getValue();
