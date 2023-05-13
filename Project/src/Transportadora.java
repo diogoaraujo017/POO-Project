@@ -4,38 +4,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Transportadora  implements Serializable {
+    private String codigo;
     private String nome; // CTT, USPS, UPS, DHL, FedEx
     private double lucro;
     private List<Artigo> artigos;
 
     public Transportadora(){
+        this.codigo="";
         this.nome="";
         this.lucro=0.00;
         this.artigos= new ArrayList<>();
     }
 
-    public Transportadora(String nome, Double lucro){
+    public Transportadora(String codigo,String nome, Double lucro){
+        this.codigo=codigo;
         this.nome = nome;
         this.lucro = lucro;
         this.artigos = new ArrayList<>();
     }
 
-    public Transportadora(String nome, Double lucro, List<Artigo> artigos){
+    public Transportadora(String nome, Double lucro){
+        this.codigo="";
+        this.nome = nome;
+        this.lucro = lucro;
+        this.artigos = new ArrayList<>();
+    }
+
+    public Transportadora(String codigo,String nome, Double lucro, List<Artigo> artigos){
+        this.codigo=codigo;
         this.nome = nome;
         this.lucro = lucro;
         this.artigos = new ArrayList<>(artigos);
     }
 
     public Transportadora(Transportadora t){
+        this.codigo=t.getCodigo();
         this.nome=t.getNome();
         this.lucro=t.getLucro();
         this.artigos=t.getArtigos();
     }
 
-    public Transportadora(String nome, double taxa, List<Artigo> lista_encomendas) {
-        this.nome = nome;
-        this.lucro=taxa;
-        this.artigos= lista_encomendas.stream().map(Artigo::clone).collect(Collectors.toList());
+    public String getCodigo() {
+        return this.codigo;
     }
 
     public String getNome() {

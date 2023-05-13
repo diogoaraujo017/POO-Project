@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
-public class Vintage implements Serializable{
+public class Vintage implements Serializable,Decoy{
 
     private String currentUserEmail;
     private Map<Integer,Conta> contas;
@@ -199,6 +199,15 @@ public class Vintage implements Serializable{
         return false;
     }
 
+    public Conta getContaByCCodigo(String codigo){
+        for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
+            if(Objects.equals(entry.getValue().getCodigo(), codigo)){
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
     public Utilizador getUtilizadorByCodigo(String codigo) {
         int key = hash(codigo);
 
@@ -219,14 +228,29 @@ public class Vintage implements Serializable{
         return null;
     }
 
+    public Transportadora getTransportdoraByCodigo(String codigo) {
+        for(Transportadora value : this.transportadoras) {
+            if(value.getCodigo().equals(codigo)){
+                return value;
+            }
+        }
+        return null;
+    }
 
     public Conta getContaByEmail(String email) {
         for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
-            Conta conta = entry.getValue().clone();
-            if(conta.getEmail().equals(email)){
-                return conta;
+            if (entry instanceof ContaTransportadora) {
+                ContaTransportadora conta = (ContaTransportadora) entry.getValue().clone();
+                if (conta.getEmail().equals(email)) {
+                    return conta;
+                }
+            } else {
+                    Conta conta2 = entry.getValue().clone();
+                    if (conta2.getEmail().equals(email)) {
+                        return conta2;
+                    }
+                }
             }
-        }
         return null;
     }
 
@@ -311,7 +335,19 @@ public class Vintage implements Serializable{
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.
-    public void carregaEstadoCSV(String fileName) {
+    public void carregaEstadoCSV(String name) {
+        String fileName = name;
+        String path = getPathToDecoy();
+        File directory = new File(path);
+        File[] contents = directory.listFiles();
+        if(contents!=null) {
+            for (File f : contents) {
+                if(Objects.equals(fileName, f.getName())){
+                    fileName = path + fileName;
+                }
+            }
+        }
+
         String[] aux;
         String[] info;
 
@@ -334,9 +370,9 @@ public class Vintage implements Serializable{
                     this.addConta(c);
                 }
                 case "ContaTransportadora" -> {
-                    Conta c = parseContaTransportadora(separatedLines[1]);
+                    ContaTransportadora cp = parseContaTransportadora(separatedLines[1]);
                     //System.out.println(c.toString());
-                    this.addConta(c);
+                    this.addConta(cp);
                 }
                 case "TransportadoraPremium" -> {
                     TransportadoraPremium tp = parseTransportadoraPremium(separatedLines[1]);
@@ -405,7 +441,7 @@ public class Vintage implements Serializable{
         return new Conta(codigoUser,email,password);
     }
 
-    public Conta parseContaTransportadora(String input) {
+    public ContaTransportadora parseContaTransportadora(String input) {
         String[] info = input.split(",");
         String codigoUser = info[0];
         String email = info[1];
@@ -415,16 +451,18 @@ public class Vintage implements Serializable{
 
     public Transportadora parseTransportadora(String input) {
         String[] info = input.split(",");
-        String nome = info[0];
-        double lucro = Double.parseDouble(info[1]);
-        return new Transportadora(nome,lucro);
+        String codigo = info[0];
+        String nome = info[1];
+        double lucro = Double.parseDouble(info[2]);
+        return new Transportadora(codigo,nome,lucro);
     }
 
     public TransportadoraPremium parseTransportadoraPremium(String input) {
         String[] info = input.split(",");
-        String nome = info[0];
-        double lucro = Double.parseDouble(info[1]);
-        return new TransportadoraPremium(nome,lucro);
+        String codigo = info[0];
+        String nome = info[1];
+        double lucro = Double.parseDouble(info[2]);
+        return new TransportadoraPremium(codigo,nome,lucro);
     }
 
     public Sapatilha parseSapatilha(String input) {
@@ -643,8 +681,9 @@ public class Vintage implements Serializable{
         }
     }
 
-    public void salvaEstado() throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Estado.obj"));
+    public void salvaEstado(String fileName) throws IOException {
+        String path = getPathToDecoy();
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path+fileName));
         oos.writeObject(this);
         oos.flush();
         oos.close();
@@ -652,7 +691,18 @@ public class Vintage implements Serializable{
 
 
     //carregar de ficheiro objeto
-    public void carregaEstadoObj(String file) throws IOException{
+    public void carregaEstadoObj(String fileName) throws IOException{
+        String file = fileName;
+        String path = getPathToDecoy();
+        File directory = new File(path);
+        File[] contents = directory.listFiles();
+        if(contents!=null) {
+            for (File f : contents) {
+                if(Objects.equals(file, f.getName())){
+                    file = path + file;
+                }
+            }
+        }
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
         Vintage v = null;
         try {
@@ -690,4 +740,5 @@ public class Vintage implements Serializable{
 
         return null;
     }
+
 }

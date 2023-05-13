@@ -1,4 +1,6 @@
-public class ContaTransportadora extends Conta{
+import java.io.Serializable;
+
+public class ContaTransportadora extends Conta implements Serializable {
 
     public ContaTransportadora() {
         super();
@@ -8,7 +10,11 @@ public class ContaTransportadora extends Conta{
         super(cod,mail,pass);
     }
 
-    public ContaTransportadora(Conta c) {
+    public ContaTransportadora(ContaTransportadora c) {
         super(c);
+    }
+
+    public Conta clone() {
+        return new ContaTransportadora(this);
     }
 }
