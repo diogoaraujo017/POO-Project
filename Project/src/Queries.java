@@ -41,12 +41,52 @@
          return resposta;
      }
 
-     public void listaEncomendas(Vintage vin, String email){
+     public void listaEncomendas(Vintage vin, String email) {
          Conta conta = vin.getContaByEmail(email);
          String code = conta.getCodigo();
          Utilizador user = vin.getUtilizadorByCodigo(code);
-         System.out.println("COMING SOON");
-         return;
+         String nome = user.getNome();
+         List<Artigo> comprado = user.getProdutosComprou();
+         List<Artigo> vendido = user.getProdutosVendidos();
+         List<Encomenda> todasDoSistema = vin.getEncomendas();
+         List<Encomenda> encComprada = new ArrayList<>();
+         List<Encomenda> encVendida = new ArrayList<>();
+         for (Artigo art : comprado) {
+             for (Encomenda enc : todasDoSistema) {
+                 List<Artigo> encomendado = enc.getArtigos();
+                 for (Artigo artDaEnc : encomendado) {
+                     if (art.equals(artDaEnc)) {
+                         encComprada.add(enc);
+                     }
+                 }
+             }
+         }
+         for (Artigo art : vendido) {
+             for (Encomenda enc : todasDoSistema) {
+                 List<Artigo> encomendado = enc.getArtigos();
+                 for (Artigo artDaEnc : encomendado) {
+                     if (art.equals(artDaEnc)) {
+                         encVendida.add(enc);
+                     }
+                 }
+             }
+         }
+         Set<Encomenda> encomendasCompradas = new HashSet<>();
+         Set<Encomenda> encomendasVendidas = new HashSet<>();
+         for (Encomenda encomenda : encComprada) {
+             if (!encomendasCompradas.contains(encomenda)) encomendasCompradas.add(encomenda);
+         }
+         for (Encomenda encomenda : encVendida) {
+             if (!encomendasCompradas.contains(encomenda)) encomendasCompradas.add(encomenda);
+         }
+         System.out.println("Encomendas feitas por "+nome+"como comprador:");
+         for(Encomenda encomenda : encomendasCompradas){
+             System.out.println(encomenda);
+         }
+         System.out.println("Encomendas feitas por "+nome+"como vendedor:");
+         for(Encomenda encomenda : encomendasVendidas){
+             System.out.println(encomenda);
+         }
      }
 
      public void topCompradores(Vintage vin, LocalDate depoisde, LocalDate antesde){
