@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import static java.util.Objects.hash;
 
-public class Vintage implements Serializable,Decoy{
+public class Vintage implements Serializable{
 
     private String currentUserEmail;
     private Map<Integer,Conta> contas;

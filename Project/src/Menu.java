@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -8,7 +7,7 @@ import java.lang.Thread;
 import java.time.temporal.ChronoUnit;
 
 
-public class Menu implements Decoy{
+public class Menu{
 
     private LocalDate data;
     private Conta conta;
@@ -115,6 +114,7 @@ public class Menu implements Decoy{
                     try {
                         vin.salvaEstado("Estado.obj");
                     } catch (IOException e) {
+                        input.close();
                         throw new RuntimeException(e);
                     }
                     clearTerminal();
@@ -336,43 +336,7 @@ public class Menu implements Decoy{
         }
         input.close();
     }
-    public void abreMenuGuardaEstado(Vintage vin){
-        Scanner input = new Scanner(System.in);
-        String path = getPathToDecoy();
-        File directory = new File(path);
-        File[] contents = directory.listFiles();
-        if(contents!=null) {
-            System.out.println("Lista de estados guardados interiormente no programa:\n");
-            for (File f : contents) {
-                if(!f.getName().equals("decoy.txt")) {
-                    System.out.println(f.getName());
-                }
-            }
-        }
 
-
-        System.out.print("\n\nIndique em que nome pretende guardar o ficheiro (name.obj): ");
-        String file_path = input.nextLine();
-        if(file_path.charAt(file_path.length()-1)=='j') {
-            try {
-                vin.salvaEstado(file_path);
-                clearTerminal();
-                System.out.println("\n\nDados guardados com sucesso!");
-                System.out.println("\nVoltando ao Menu Principal!");
-                Thread.sleep(3000);
-                abreMenuInicial(vin);
-            } catch (IOException | InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
-            }
-        }
-        else{
-            System.out.println("O ficheiro tem de ser .obj !");
-            clearTerminal();
-            abreMenuGuardaEstado(vin);
-        }
-        input.close();
-}
 
     ////////////////////// MENU QUERIES ////////////////////////////////////////////////////////////////////////////////
     public void abreMenuQueries(Vintage vin) throws InterruptedException {
@@ -847,7 +811,15 @@ public class Menu implements Decoy{
             case "3" -> {
                 clearTerminal();
                 boolean flagg=true;
-                System.out.println(vin.getTransportdoraByCodigo(getConta().getCodigo()).getArtigos());
+                int contador = 1;
+                for(Artigo art : vin.getTransportdoraByCodigo(getConta().getCodigo()).getArtigos()){
+                    if(!((art.getVendedor()).equals(conta.getCodigo()))){
+                        System.out.print(contador + " -  ");
+                        System.out.println(art);
+                        System.out.println();
+                        contador++;
+                    }
+                }
                 System.out.println("\n\n0-Voltar ao Menu anterior");
                 System.out.print("\n->");
 
@@ -923,7 +895,7 @@ public class Menu implements Decoy{
         input.close();
     }
 
-    /*public void abreMenuRegisterTransportadora(Vintage vin) throws InterruptedException {
+    public void abreMenuRegisterTransportadora(Vintage vin) throws InterruptedException {
         System.out.println("Menu de Registo\n");
         System.out.print("Nome da Transportadora:");
         Scanner input = new Scanner(System.in);
@@ -957,9 +929,8 @@ public class Menu implements Decoy{
                 if (lucro > 1) {
                     precoValido = true;
                 } else {
-                    System.out.print("O lucro tem de ser maior do que 1!");
+                    System.out.println("O lucro tem de ser maior do que 1!");
                     Thread.sleep(3000);
-                    clearTerminal();
                     System.out.print("Lucro:");
                 }
             } catch (NumberFormatException e) {
@@ -970,16 +941,31 @@ public class Menu implements Decoy{
             }
         }
         String code = geraCodigo(8);
-        Transportadora tr = new Transportadora(code, nome, lucro);
+        while (true) {
+            System.out.println("A transportadora é Premium?\n1-Sim\n2-Não");
+            System.out.print("->");
+            String prem = input.nextLine();
+
+            if (prem.equals("1")) {
+                TransportadoraPremium tr = new TransportadoraPremium(code, nome, lucro);
+                vin.addTransportadora(tr);
+                break; // sai do loop while
+            } else if (prem.equals("2")) {
+                Transportadora tr = new Transportadora(code, nome, lucro);
+                vin.addTransportadora(tr);
+                break; // sai do loop while
+            } else {
+                System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
         Conta conta = new ContaTransportadora(code, email, pass);
         vin.addConta(conta);
-        vin.addTransportadora(tr);
         setConta(conta);
         clearTerminal();
         abreMenuIntermedioTransportadora(vin);
         input.close();
     }
-     */
+
     private void abreMenuMudarNome(Vintage vin) throws InterruptedException {
         System.out.println("Para que nome deseja alterar a transportadora?");
         System.out.print("->");
@@ -1970,7 +1956,7 @@ public class Menu implements Decoy{
         switch (entrada) {
             case "1" -> {
                 clearTerminal();
-                abreMenuCreateTrans(vin);
+                abreMenuRegisterTransportadora(vin);
             }
             case "2" -> {
                 clearTerminal();
@@ -1987,79 +1973,79 @@ public class Menu implements Decoy{
         }
         input.close();
     }
-    public void abreMenuCreateTrans(Vintage vin) throws InterruptedException {
-        System.out.println("Menu de criação de transportadoras\n\n");
-        System.out.println("Qual o nome da transportadora a adicionar?");
-        System.out.print("->");
-        Scanner input = new Scanner(System.in);
-        String desc = input.nextLine();
-        System.out.println("Qual a margem de lucro da transportadora a adicionar?");
-        System.out.print("->");
-        double lucro = 0.0;
-        boolean lucroValido = false;
+    // public void abreMenuCreateTrans(Vintage vin) throws InterruptedException {
+    //     System.out.println("Menu de criação de transportadoras\n\n");
+    //     System.out.println("Qual o nome da transportadora a adicionar?");
+    //     System.out.print("->");
+    //     Scanner input = new Scanner(System.in);
+    //     String desc = input.nextLine();
+    //     System.out.println("Qual a margem de lucro da transportadora a adicionar?");
+    //     System.out.print("->");
+    //     double lucro = 0.0;
+    //     boolean lucroValido = false;
 
-        while (!lucroValido){
-            String pre = input.nextLine();
-            try {
-                lucro = Double.parseDouble(pre);
-                if(lucro>1){
-                    lucroValido = true;
-                }
-                else {
-                    System.out.println("O lucro inserido tem de ser maior do que 1!");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
-                System.out.print("->");
-            }
-        }
-        boolean premium = false;
+    //     while (!lucroValido){
+    //         String pre = input.nextLine();
+    //         try {
+    //             lucro = Double.parseDouble(pre);
+    //             if(lucro>1){
+    //                 lucroValido = true;
+    //             }
+    //             else {
+    //                 System.out.println("O lucro inserido tem de ser maior do que 1!");
+    //             }
+    //         } catch (NumberFormatException e) {
+    //             System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
+    //             System.out.print("->");
+    //         }
+    //     }
+    //     boolean premium = false;
 
-        while (true) {
-            System.out.println("A transportadora é Premium?\n1-Sim\n2-Não");
-            System.out.print("->");
-            String prem = input.nextLine();
+    //     while (true) {
+    //         System.out.println("A transportadora é Premium?\n1-Sim\n2-Não");
+    //         System.out.print("->");
+    //         String prem = input.nextLine();
 
-            if (prem.equals("1")) {
-                premium = true;
-                break; // sai do loop while
-            } else if (prem.equals("2")) {
-                break; // sai do loop while
-            } else {
-                System.out.println("Opção inválida. Tente novamente.");
-            }
-        }
-        if(premium){
+    //         if (prem.equals("1")) {
+    //             premium = true;
+    //             break; // sai do loop while
+    //         } else if (prem.equals("2")) {
+    //             break; // sai do loop while
+    //         } else {
+    //             System.out.println("Opção inválida. Tente novamente.");
+    //         }
+    //     }
+    //     if(premium){
 
-            TransportadoraPremium t = new TransportadoraPremium(desc,lucro);
-            vin.addTransportadora(t);
-            System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
-            }
-            clearTerminal();
-            abreMenuVisaoAdmin(vin);
-            input.close();
-        }
-        else{
+    //         TransportadoraPremium t = new TransportadoraPremium(desc,lucro);
+    //         vin.addTransportadora(t);
+    //         System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
+    //         try {
+    //             Thread.sleep(3000);
+    //         } catch (InterruptedException e) {
+    //             input.close();
+    //             throw new RuntimeException(e);
+    //         }
+    //         clearTerminal();
+    //         abreMenuVisaoAdmin(vin);
+    //         input.close();
+    //     }
+    //     else{
 
-            Transportadora t = new Transportadora(desc,lucro);
-            vin.addTransportadora(t);
-            System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
-            }
-            clearTerminal();
-            abreMenuVisaoAdmin(vin);
-            input.close();
-        }
-    }
+    //         Transportadora t = new Transportadora(desc,lucro);
+    //         vin.addTransportadora(t);
+    //         System.out.println("Transportadora " + t.getNome() + " registada com sucesso.");
+    //         try {
+    //             Thread.sleep(3000);
+    //         } catch (InterruptedException e) {
+    //             input.close();
+    //             throw new RuntimeException(e);
+    //         }
+    //         clearTerminal();
+    //         abreMenuVisaoAdmin(vin);
+    //         input.close();
+    //     }
+    // }
     public void abreMenuGerirTrans(Vintage vin) throws InterruptedException {
         System.out.println("Menu de gestão de transportadoras\n\n");
         System.out.println("Qual o nome da transportadora a modificar?");

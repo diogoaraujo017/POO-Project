@@ -79,7 +79,6 @@ public class Transportadora  implements Serializable {
 
     public double precoExpedido(Encomenda encomenda, Vintage vin){
         List <Artigo> lartigos = encomenda.getArtigos();
-        double valor_bruto=0.00;
         double valor_final=0.00;
         double imposto=0.23;
         double base=0.00;
