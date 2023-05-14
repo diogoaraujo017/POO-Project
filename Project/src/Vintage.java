@@ -85,7 +85,6 @@ public class Vintage implements Serializable{
 
     public List<Artigo> getListaArtigos() {
         return this.artigos.values().stream()
-                   .map(Artigo :: clone)
                    .collect(Collectors.toList());
     }
 
@@ -355,6 +354,53 @@ public class Vintage implements Serializable{
         this.getUtilizadorByCodigo(comprador).adicionaFatura(nova);
         return custo;
     }
+
+
+    public void updateVintage (int idade){
+        for (Map.Entry<Integer, Utilizador> entry : this.utilizadores.entrySet()) {
+            for(Artigo art : entry.getValue().getProdutosLoja()){
+                calculaArtigoData(art,idade);
+            }
+        }
+
+        for (Map.Entry<Integer, Artigo> entry : this.artigos.entrySet()) {
+            calculaArtigoData(entry.getValue(),idade);
+        }
+    }
+
+
+    public void calculaArtigoData(Artigo art, int idade){
+        double aux;
+        if(art instanceof SapatilhaPremium){
+            aux = art.getPrecoFinal()+art.getPrecoFinal()*1/30*idade;
+            aux = Math.round(aux * 100.0) / 100.0;
+            art.setPrecoFinal(aux);
+        }
+        else if(art instanceof Sapatilha){
+            aux = art.getPrecoFinal()-art.getPrecoFinal()*0.05*idade;
+            if(aux<=10) aux = 10;
+            aux = Math.round(aux * 100.0) / 100.0;
+            art.setPrecoFinal(aux);
+        }
+        else if(art instanceof MalaPremium){
+            aux = art.getPrecoFinal()+art.getPrecoFinal()*1/30*idade;
+            aux = Math.round(aux * 100.0) / 100.0;
+            art.setPrecoFinal(aux);
+        }
+        else if(art instanceof Mala){
+            aux = art.getPrecoFinal()-art.getPrecoFinal()*0.05*idade;
+            if(aux<=15) aux = 15;
+            aux = Math.round(aux * 100.0) / 100.0;
+            art.setPrecoFinal(aux);
+        }
+        else if(art instanceof Tshirt){
+            aux = art.getPrecoFinal()-art.getPrecoFinal()*0.05*idade;
+            if(aux<=5) aux = 5;
+            aux = Math.round(aux * 100.0) / 100.0;
+            art.setPrecoFinal(aux);
+        }
+    }
+
     ////// Metodos para carregar e guardar estados
 
     // No this vai estar guardado uma vintage.

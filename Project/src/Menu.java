@@ -263,26 +263,11 @@ public class Menu{
         }
         LocalDate mudada=LocalDate.of(anoo,mess,diaa);
         if(mudada.isAfter(getData())) {
+            vin.updateVintage((int)ChronoUnit.YEARS.between(this.getData(), mudada));
             setData(mudada);
-            System.out.println("Data alterada com sucesso");
-            List<Artigo> todos = vin.getListaArtigos();
-            // for(Artigo art : todos){
-            //     if(art instanceof Mala && !(art instanceof Premium)){
-            //         recalculaValorFinalMala((Mala)art,mudada);
-            //     }
-            //     if(art instanceof Sapatilha && !(art instanceof Premium)){
-            //         recalculaValorFinalSapatilhas((Sapatilha) art,mudada);
-            //     }
-            // }            } catch (IOException | InterruptedException e) {
-            try {
-                vin.salvaEstado("Estado.obj");
-                vin.handleEstado("Estado.obj");
-                Thread.sleep(3000);
-            } catch (IOException | InterruptedException e) {
-                input.close();
-                throw new RuntimeException(e);
 
-            }
+            System.out.println("Data alterada com sucesso");
+
             List<Encomenda> todas = vin.getEncomendas();
             for(Encomenda enc : todas) {
                 if (enc.getEstado() == 'f' && ChronoUnit.DAYS.between(enc.getData(), mudada) >= 5) {
@@ -1054,7 +1039,7 @@ public class Menu{
         input.close();
     }
     public void abreMenuIntermedioUser(Vintage vin) throws InterruptedException {
-        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Artigo\n4-Informações sobre conta\n9-Menu Inicial\n0-Sair");
+        System.out.println("Deseja:\n1-Comprar\n2-Vender\n3-Devolver Encomenda\n4-Informações sobre conta\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
@@ -1151,7 +1136,7 @@ public class Menu{
 
         if(flag){ // Se existir pelo menor um produto na encomenda procede para o checkout
             System.out.print("\n\n");
-            Encomenda enc = new Encomenda(encomenda,encomenda.size(),'p',LocalDate.now(),conta.getCodigo());
+            Encomenda enc = new Encomenda(encomenda,encomenda.size(),'p',this.getData(),conta.getCodigo());
             Transportadora t = new Transportadora();
             System.out.println("Total da sua compra = "+ t.precoExpedido(enc,vin) + "€");
             System.out.println("Confirmar a encomenda: Sim | Não");
@@ -2278,6 +2263,7 @@ public class Menu{
             if(enc.getComprador().equals(codigoUser) && enc.getEstado()=='e' && ChronoUnit.DAYS.between(enc.getData(), this.getData()) >= 5){
                 lista_encomendas.add(enc);
                 System.out.println("Encomenda nº: " + contador_encomenda +" {\n");
+                System.out.println("Data da encomenda :" + enc.getData() +"\n\n");
                 for(Artigo art : enc.getArtigos()){
                     System.out.println(contador +"-"+ art+"\n");
                     contador++;
