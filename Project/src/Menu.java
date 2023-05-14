@@ -986,7 +986,7 @@ public class Menu implements Decoy{
         Scanner input = new Scanner(System.in);;
         String novo = input.nextLine();
 
-        vin.getTransportdoraByCodigo(getConta().getCodigo()).setNome(novo);
+        vin.trocaNomeTransportadora(vin.getTransportdoraByCodigo(getConta().getCodigo()),novo);
 
         System.out.println("Nome alterada para " + novo);
         Thread.sleep(3000);
