@@ -393,12 +393,6 @@ public class Vintage implements Serializable{
             aux = Math.round(aux * 100.0) / 100.0;
             art.setPrecoFinal(aux);
         }
-        else if(art instanceof Tshirt){
-            aux = art.getPrecoFinal()-art.getPrecoFinal()*0.05*idade;
-            if(aux<=5) aux = 5;
-            aux = Math.round(aux * 100.0) / 100.0;
-            art.setPrecoFinal(aux);
-        }
     }
 
     ////// Metodos para carregar e guardar estados
