@@ -325,13 +325,13 @@ public class Menu{
 
     ////////////////////// MENU QUERIES ////////////////////////////////////////////////////////////////////////////////
     public void abreMenuQueries(Vintage vin) throws InterruptedException{
-        System.out.println("Bem vindo ao menu das Queries\nQual Querie deseja executar?\n\n\n1-Maior vendedor num intervalo de tempo\n2-Transportadora com maior volume de faturação\n3-Ver encomenda emitidas por um utilizador\n4-Ver o ranking de vendedores num intervalo de tempo\n5-Ver o ranking de compradores num intervalo de tempo\n6-Ver quanto ganhou a Vintage\n\n\n\n0-Voltar para o Menu Inicial");
+        System.out.println("Bem vindo ao menu das Queries\nQual Querie deseja executar?\n\n\n1-Maior vendedor num intervalo de tempo\n2-Transportadora com maior volume de faturação\n3-Ver encomendas emitidas por um utilizador\n4-Ver o ranking de vendedores num intervalo de tempo\n5-Ver o ranking de compradores num intervalo de tempo\n6-Ver quanto ganhou a Vintage\n\n\n\n0-Voltar para o Menu Inicial");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
         switch (entrada) {
             case "1" -> {
-                System.out.println("Qual a data de inicio do intervalo de tempo? Se desejar ver o melhor vendedor desde o inicio da criação da Vintage, digite alltime");
+                System.out.println("Qual a data de inicio do intervalo de tempo? Se desejar ver o maior vendedor desde o inicio da criação da Vintage, digite alltime");
                 System.out.print("Ano:");
                 int anoo = 0;
                 boolean check2 = false;
@@ -498,7 +498,7 @@ public class Menu{
                 Queries querie = new Queries();
                 querie.listaEncomendas(vin,email);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(7000);
                 } catch (InterruptedException e) {
                     input.close();
                     throw new RuntimeException(e);
@@ -1120,6 +1120,7 @@ public class Menu{
         List<Artigo> artvenda = vin.getListaArtigos();
         List<Artigo> artigos_disponiveis = new ArrayList<>();
         List<Artigo> encomenda = new ArrayList<>();
+        List<Integer> lista_nums = new ArrayList<>();
         boolean flag = false;
         int contador = 1;
         for(Artigo art : artvenda){
@@ -1159,7 +1160,8 @@ public class Menu{
             }
             if (num >= 0 && num <= (contador - 2)) {
                 String codigo = artigos_disponiveis.get(num).getCodigo();
-                if (vin.existeArtigo(codigo) && !(verificaArtigoRepetido(encomenda, vin.getArtigo(codigo)))) {
+                if (vin.existeArtigo(codigo) && (verificaArtigoRepetido(lista_nums, num)==false)) {
+                    lista_nums.add(num);
                     flag = true;
                     Artigo art = vin.getArtigo(codigo);
                     encomenda.add(art);
@@ -2257,12 +2259,13 @@ public class Menu{
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         mala.setPrecoFinal(preco_final);
     }
-    public boolean verificaArtigoRepetido (List<Artigo> list, Artigo art){
+    public boolean verificaArtigoRepetido (List<Integer> list, int atual){
         boolean flag = false;
-        for(Artigo aux : list){
-            if(aux.equals(art))
+        for(Integer aux : list){
+            if(aux==atual){
                 flag=true;
                 break;
+            }
         }
         return flag;
     }
@@ -2311,7 +2314,7 @@ public class Menu{
 
         if(contador_encomenda==1){
             System.out.println("Não existem encomendas disponíveis para devolução.");
-            System.out.println("Note que uma encomenda apenas pode ser devolvida se estiver finalizada há mais de 2 dias!\n\n");
+            System.out.println("Note que uma encomenda apenas pode ser devolvida se estiver finalizada há mais de 5 dias!\n\n");
         }
 
         System.out.println("Prima 0 para regressar ao menu anterior\n");
@@ -2349,6 +2352,7 @@ public class Menu{
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("\nErro: " + pre + " não pode ser convertido para um inteiro. Tente novamente.\n\n");
+                    Thread.sleep(3000);
                 }
             }
         }
