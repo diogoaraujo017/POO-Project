@@ -55,9 +55,9 @@
          for (Encomenda encomenda : encComprada) {
              if (!encomendasCompradas.contains(encomenda)) encomendasCompradas.add(encomenda);
          }
-         System.out.println("Encomendas feitas por "+nome+" como comprador:");
+         System.out.println("Encomendas feitas por "+nome+" como comprador:\n\n");
          for(Encomenda encomenda : encomendasCompradas){
-             System.out.println(encomenda);
+             System.out.println(encomenda+"\n");
          }
      }
 
