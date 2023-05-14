@@ -23,4 +23,8 @@ public class TransportadoraPremium extends Transportadora implements Premium, Se
         super(nome, taxa);
     }
 
+    public TransportadoraPremium clone(){
+        return new TransportadoraPremium(this);
+    }
+
 }

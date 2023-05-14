@@ -1056,8 +1056,13 @@ public class Menu{
         String pass = input.nextLine();
         System.out.print("Morada:");
         String morada = input.nextLine();
+        String nif="";
         System.out.print("NIF:");
-        String nif = input.nextLine();
+        while(!validarNIF(nif)){
+            nif = input.nextLine();
+            System.out.println("O NIF que colocou não vai de acordo com as regras (O NIF tem 9 números)\nTente novamente");
+            System.out.print("->");
+        }
         String code= geraCodigo(8);
         Utilizador user = new Utilizador(code,nome,email,morada,nif);
         Conta nova = new Conta(code,email,pass);
@@ -1222,7 +1227,7 @@ public class Menu{
         abreMenuIntermedioUser(vin);
         input.close();
 
-    
+
     }
     public void abreMenuVendas(Vintage vin) throws InterruptedException {
         System.out.println("Menu de Vendas");
@@ -1338,17 +1343,18 @@ public class Menu{
                 }
             }
         }
-        System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
+        System.out.println("Em qual transportadora será feito o envio da TShirt?");
         List<Transportadora> tran = vin.getTransportadoras();
 
         int contador = 1;
 
         for(Transportadora t : tran){
             String nome = t.getNome();
-            System.out.println(contador +"-"+ nome);
-            contador++;
+            if(!(t instanceof TransportadoraPremium)){
+                System.out.println(contador + "-" + nome);
+                contador++;
+            }
         }
-
         int v=1;
         boolean checkk1 = false;
 
@@ -2258,7 +2264,7 @@ public class Menu{
                 }
             } catch (NumberFormatException e) {
                 input.close();
-                throw new RuntimeException(e); 
+                throw new RuntimeException(e);
             }
     }
     clearTerminal();
@@ -2336,4 +2342,17 @@ public class Menu{
         input.close();
 
     }
+    public boolean validarNIF(String nif) {
+        if (nif.length() != 9) {
+            return false;
+        }
+
+        for (char c : nif.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
