@@ -266,17 +266,19 @@ public class Menu implements Decoy{
             setData(mudada);
             System.out.println("Data alterada com sucesso");
             List<Artigo> todos = vin.getListaArtigos();
-            for(Artigo art : todos){
-                if(art instanceof Mala && !(art instanceof Premium)){
-                    recalculaValorFinalMala((Mala)art,mudada);
-                }
-                if(art instanceof Sapatilha && !(art instanceof Premium)){
-                    recalculaValorFinalSapatilhas((Sapatilha) art,mudada);
-                }
-            }
+            // for(Artigo art : todos){
+            //     if(art instanceof Mala && !(art instanceof Premium)){
+            //         recalculaValorFinalMala((Mala)art,mudada);
+            //     }
+            //     if(art instanceof Sapatilha && !(art instanceof Premium)){
+            //         recalculaValorFinalSapatilhas((Sapatilha) art,mudada);
+            //     }
+            // }            } catch (IOException | InterruptedException e) {
             try {
+                vin.salvaEstado("Estado.obj");
+                vin.handleEstado("Estado.obj");
                 Thread.sleep(3000);
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 input.close();
                 throw new RuntimeException(e);
 
@@ -310,7 +312,7 @@ public class Menu implements Decoy{
         Scanner input = new Scanner(System.in);
 
         while(!flag){
-            System.out.print("\n\nIndique o path do ficheiro que pretende carrregar: ");
+            System.out.print("\n\nIndique o path do ficheiro que pretende carregar: ");
             String file_path = input.nextLine();
             Path path2 = Paths.get(file_path);
             if((Files.exists(path2) && !Files.isDirectory(path2))){
@@ -829,7 +831,7 @@ public class Menu implements Decoy{
 
     //////////////////////// MENUS PARA TRANSPORTADORA /////////////////////////////////////////////////////////////////
     public void abreMenuIntermedioTransportadora(Vintage vin) throws InterruptedException {
-        System.out.println("Deseja:\n\n1-Mudar nome\n3-Mudar Lucro\n4-Informacoes Artigos\n5-Informacoes Transportadora\n9-Menu Inicial\n0-Sair");
+        System.out.println("Deseja:\n\n1-Mudar nome\n2-Mudar Lucro\n3-Informacoes Artigos\n4-Informacoes Transportadora\n9-Menu Inicial\n0-Sair");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
@@ -838,11 +840,11 @@ public class Menu implements Decoy{
                 clearTerminal();
                 abreMenuMudarNome(vin);
             }
-            case "3" -> {
+            case "2" -> {
                 clearTerminal();
                 abreMenuMudarLucro(vin);
             }
-            case "4" -> {
+            case "3" -> {
                 clearTerminal();
                 boolean flagg=true;
                 System.out.println(vin.getTransportdoraByCodigo(getConta().getCodigo()).getArtigos());
@@ -867,7 +869,7 @@ public class Menu implements Decoy{
                     }
                 }
             }
-            case "5" -> {
+            case "4" -> {
                 clearTerminal();
                 boolean flagg2=true;
                 Transportadora tr = vin.getTransportdoraByCodigo(getConta().getCodigo());
@@ -1002,7 +1004,12 @@ public class Menu implements Decoy{
             String pre = input.nextLine();
             try {
                 preco = Double.parseDouble(pre);
-                precoValido = true;
+                if(preco>1){
+                    precoValido = true;
+                }
+                else {
+                    System.out.println("O lucro inserido tem de ser maior do que 1!");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
             }
@@ -2080,7 +2087,7 @@ public class Menu implements Decoy{
                 System.out.println("Para que nome deseja alterar a transportadora?");
                 System.out.print("->");
                 String novo = input.nextLine();
-                mudar.setNome(novo);
+                vin.trocaNomeTransportadora(mudar,novo);
                 System.out.println("Nome alterada para " + novo);
                 abreMenuVisaoAdmin(vin);
                 input.close();
@@ -2094,7 +2101,12 @@ public class Menu implements Decoy{
                     String pre = input.nextLine();
                     try {
                         preco = Double.parseDouble(pre);
-                        precoValido = true;
+                        if(preco>1){
+                            precoValido = true;
+                        }
+                        else {
+                            System.out.println("O lucro inserido tem de ser maior do que 1!");
+                        }
                     } catch (NumberFormatException e) {
                         System.out.println("Erro: " + pre + " não pode ser convertido para um double. Tente novamente.");
                     }

@@ -245,6 +245,7 @@ public class Vintage implements Serializable,Decoy{
         return null;
     }
 
+
     public Conta getContaByEmail(String email) {
         for (Map.Entry<Integer, Conta> entry : contas.entrySet()) {
             if (entry instanceof ContaTransportadora) {
@@ -270,6 +271,20 @@ public class Vintage implements Serializable,Decoy{
             }
         }
         return null;
+    }
+
+    public void trocaNomeTransportadora(Transportadora trans, String nome){
+        for (Map.Entry<Integer, Artigo> entry : artigos.entrySet()) {
+            Artigo art = entry.getValue();
+            if(art.getTransportadora().equals(trans.getNome())){
+                art.setTransportadora(nome);
+            }
+        }
+        for(Transportadora t : this.transportadoras){
+            if(t.equals(trans)){
+                t.setNome(nome);
+            }
+        }
     }
 
     public void emiteFatura(LocalDate dataE,Artigo art, Utilizador vendedor, Utilizador comprador){
@@ -692,6 +707,7 @@ public class Vintage implements Serializable,Decoy{
         try {
             v = (Vintage) ois.readObject();
         } catch (ClassNotFoundException e) {
+            ois.close();
             throw new RuntimeException(e);
         }
         ois.close();

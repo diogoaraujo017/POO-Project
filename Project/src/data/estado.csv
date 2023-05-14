@@ -26,8 +26,8 @@ Utilizador=nsd32424,Renato Guedes,renatoG@gmail.com,Rua das Amélias n32,3212233
 Transportadora=nsa32424,CTT,1.05
 Transportadora=nso32424,UPS,1.07
 TransportadoraPremium=nsl32424,USPS,1.09
-Transportadora=nsj32424,DHL,1.03
-Transportadora=naa32424,FedEx,1.10
+Transportadora=nsj32424,FedEx,1.03
+Transportadora=naa32424,DHL,1.10
 Sapatilha=fnsakvs3,l=Sapatilhas Casuais,Adidas,5ym074315,42.11,a,3,CTT,fnsakvs3,17.0,true,Preto,2020/11/11,1
 Sapatilha=sdadassd,l=Sapatilhas Desportivas,Nike,e86o549ty,113.34,n,0,UPS,sdadassd,55.5,false,Verde,2022/1/9,0.1
 SapatilhaPremium=osyxeg0x,l=Sapatilhas Desportivas,NewBalance,ufp5ylqyu,321.3,c,0,USPS,osyxeg0x,22.0,true,Azul,2023/3/1,1
