@@ -166,7 +166,7 @@ public class Utilizador implements Serializable {
     }
 
     public void adicionaArtigoLoja(Artigo art){
-        this.produtosLoja.add(art.clone());
+        this.produtosLoja.add(art);
     }
 
     public void adicionaArtigoVendido(Artigo art){

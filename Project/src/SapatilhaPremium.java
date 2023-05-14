@@ -15,9 +15,6 @@ public class SapatilhaPremium extends Sapatilha implements Premium , Serializabl
         super(sapatilha);
     }
 
-    public Artigo clone() {
-        return new SapatilhaPremium(this);
-    }
 
     public void calculaValorPremium(Sapatilha sp) {
         double preco_base = sp.getPrecoBase();
@@ -42,5 +39,8 @@ public class SapatilhaPremium extends Sapatilha implements Premium , Serializabl
         }
         preco_final = Math.round(preco_final * 100.0) / 100.0;
         sp.setPrecoFinal(preco_final);
+    }
+    public Artigo clone() {
+        return new SapatilhaPremium(this);
     }
 }

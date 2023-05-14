@@ -376,12 +376,6 @@ public class Vintage implements Serializable{
             aux = Math.round(aux * 100.0) / 100.0;
             art.setPrecoFinal(aux);
         }
-        else if(art instanceof Sapatilha){
-            aux = art.getPrecoFinal()-art.getPrecoFinal()*0.05*idade;
-            if(aux<=10) aux = 10;
-            aux = Math.round(aux * 100.0) / 100.0;
-            art.setPrecoFinal(aux);
-        }
         else if(art instanceof MalaPremium){
             aux = art.getPrecoFinal()+art.getPrecoFinal()*1/30*idade;
             aux = Math.round(aux * 100.0) / 100.0;

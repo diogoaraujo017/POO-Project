@@ -1339,7 +1339,6 @@ public class Menu{
             }
         }
         System.out.println("Em qual transportadora será feito o envio das Sapatilhas?");
-        System.out.print("->");
         List<Transportadora> tran = vin.getTransportadoras();
 
         int contador = 1;
@@ -1416,7 +1415,7 @@ public class Menu{
         Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
         vin.addArtigo(t);
         vin.getTransportdoraByName(trans).addArtigo(t);
-        atual.getProdutosLoja().add(t);
+        atual.adicionaArtigoLoja(t);
         clearTerminal();
         abreMenuIntermedioUser(vin);
         input.close();
@@ -1653,7 +1652,7 @@ public class Menu{
             Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             vin.getTransportdoraByName(trans).addArtigo(t);
-            atual.getProdutosLoja().add(t);
+            atual.adicionaArtigoLoja(t);
         }
         else{
             Mala t = new Mala(desc, marca, codigoMala, preco, estado, donos, trans, conta.getCodigo(), comprimento, largura, altura, material, ano);
@@ -1661,7 +1660,7 @@ public class Menu{
             Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
             vin.addArtigo(t);
             vin.getTransportdoraByName(trans).addArtigo(t);
-            atual.getProdutosLoja().add(t);
+            atual.adicionaArtigoLoja(t);
         }
         clearTerminal();
         abreMenuIntermedioUser(vin);
@@ -1898,9 +1897,9 @@ public class Menu{
             clearTerminal();
             abreMenuVendaSapatilhas(vin);
         }
+        double desconto = 0.0;
         if((tamanho>45 || donos>0) && !premium){
             System.out.println("Qual o desconto que quer aplicar nas sapatilhas (ex: se for 25%, a resposta deve ser 0.25) ?");
-            double desconto = 0.0;
             boolean dValido = false;
 
             while (!dValido) {
@@ -1912,6 +1911,7 @@ public class Menu{
                     System.out.println("Erro: " + des + " não pode ser convertido para o formato do desconto Tente novamente.");
                 }
             }
+        }
             System.out.println("Sapatilhas registadas, obrigado pela preferência!");
             try {
                 Thread.sleep(3000);
@@ -1926,7 +1926,7 @@ public class Menu{
                 Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
                 vin.addArtigo(t);
                 vin.getTransportdoraByName(trans).addArtigo(t);
-                atual.getProdutosLoja().add(t);
+                atual.adicionaArtigoLoja(t);
             }
             else {
                 Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, desconto);
@@ -1934,34 +1934,9 @@ public class Menu{
                 Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
                 vin.addArtigo(t);
                 vin.getTransportdoraByName(trans).addArtigo(t);
-                atual.getProdutosLoja().add(t);
+                atual.adicionaArtigoLoja(t);
             }
-            clearTerminal();
-            abreMenuIntermedioUser(vin);
-            input.close();
-        }
-        System.out.println("Sapatilhas registadas, obrigado pela preferência!");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            input.close();
-            throw new RuntimeException(e);
-        }
-        String codigoSapatilhas=geraCodigo(9);
-        if(premium){
-            SapatilhaPremium t = new SapatilhaPremium(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, 1.00);
 
-            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
-            vin.addArtigo(t);
-            atual.getProdutosLoja().add(t);
-        }
-        else {
-            Sapatilha t = new Sapatilha(desc, marca, codigoSapatilhas, preco, estado, donos, trans,conta.getCodigo(), tamanho, atacadores, cor, lanc, 1.00);
-
-            Utilizador atual = vin.getUtilizadorByCodigo(conta.getCodigo());
-            vin.addArtigo(t);
-            atual.getProdutosLoja().add(t);
-        }
         clearTerminal();
         abreMenuIntermedioUser(vin);
         input.close();
