@@ -324,14 +324,14 @@ public class Menu{
 
 
     ////////////////////// MENU QUERIES ////////////////////////////////////////////////////////////////////////////////
-    public void abreMenuQueries(Vintage vin) throws InterruptedException {
+    public void abreMenuQueries(Vintage vin) throws InterruptedException{
         System.out.println("Bem vindo ao menu das Queries\nQual Querie deseja executar?\n\n\n1-Maior vendedor num intervalo de tempo\n2-Transportadora com maior volume de faturação\n3-Ver encomenda emitidas por um utilizador\n4-Ver o ranking de vendedores num intervalo de tempo\n5-Ver o ranking de compradores num intervalo de tempo\n6-Ver quanto ganhou a Vintage\n\n\n\n0-Voltar para o Menu Inicial");
         System.out.print("->");
         Scanner input = new Scanner(System.in);
         String entrada = input.nextLine();
         switch (entrada) {
             case "1" -> {
-                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.println("Qual a data de inicio do intervalo de tempo? Se desejar ver o melhor vendedor desde o inicio da criação da Vintage, digite alltime");
                 System.out.print("Ano:");
                 int anoo = 0;
                 boolean check2 = false;
@@ -339,6 +339,18 @@ public class Menu{
                 while (!check2) {
                     String ano = input.nextLine();
                     try {
+                        if(ano.equals("alltime")){
+                            Queries querie = new Queries();
+                            querie.topVendedor(vin,LocalDate.of(0,1,1),LocalDate.of(9999,12,31));
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e) {
+                                input.close();
+                                throw new RuntimeException(e);
+                            }
+                            clearTerminal();
+                            abreMenuQueries(vin);
+                        }
                         anoo = Integer.parseInt(ano);
                         if(anoo>=1){
                             check2= true;
@@ -495,13 +507,25 @@ public class Menu{
                 abreMenuQueries(vin);
             }
             case "4" -> {
-                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.println("Qual a data de inicio do intervalo de tempo? Se desejar ver o ranking de vendedores desde o início de funcionamento da Vintage escreva alltime");
                 System.out.print("Ano:");
                 int anoo = 0;
                 boolean check2 = false;
 
                 while (!check2) {
                     String ano = input.nextLine();
+                    if(ano.equals("alltime")){
+                        Queries querie = new Queries();
+                        querie.topVendedores(vin,LocalDate.of(0,1,1),LocalDate.of(9999,12,31));
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            input.close();
+                            throw new RuntimeException(e);
+                        }
+                        clearTerminal();
+                        abreMenuQueries(vin);
+                    }
                     try {
                         anoo = Integer.parseInt(ano);
                         if(anoo>=1){
@@ -612,7 +636,7 @@ public class Menu{
                 Queries querie = new Queries();
                 querie.topVendedores(vin,depois,antes);
                 try {
-                    Thread.sleep(7000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     input.close();
                     throw new RuntimeException(e);
@@ -621,7 +645,7 @@ public class Menu{
                 abreMenuQueries(vin);
             }
             case "5" -> {
-                System.out.println("Qual a data de inicio do intervalo de tempo?");
+                System.out.println("Qual a data de inicio do intervalo de tempo? Se desejar ver o ranking de compradores desde o início do funcionamento da vintage escreva alltime");
                 System.out.print("Ano:");
                 int anoo = 0;
                 boolean check2 = false;
@@ -629,6 +653,18 @@ public class Menu{
                 while (!check2) {
                     String ano = input.nextLine();
                     try {
+                        if(ano.equals("alltime")){
+                            Queries querie = new Queries();
+                            querie.topCompradores(vin,LocalDate.of(0,1,1),LocalDate.of(9999,12,31));
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e) {
+                                input.close();
+                                throw new RuntimeException(e);
+                            }
+                            clearTerminal();
+                            abreMenuQueries(vin);
+                        }
                         anoo = Integer.parseInt(ano);
                         if(anoo>=1){
                             check2= true;
@@ -738,7 +774,7 @@ public class Menu{
                 Queries querie = new Queries();
                 querie.topCompradores(vin,depois,antes);
                 try {
-                    Thread.sleep(7000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     input.close();
                     throw new RuntimeException(e);
