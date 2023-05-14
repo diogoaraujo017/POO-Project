@@ -57,7 +57,7 @@
          }
          System.out.println("Encomendas feitas por "+nome+" como comprador:\n\n");
          for(Encomenda encomenda : encomendasCompradas){
-             System.out.println(encomenda+"\n");
+             System.out.println(encomenda+"\n\n\n");
          }
      }
 
